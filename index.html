@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TramiMuniSC — Servicio de acompañamiento para trámites municipales en San Carlos, Costa Rica." />
+
+  <title>TramiMuniSC — Trámites Municipales San Carlos</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+
+  <!-- CSS global -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- CSS exclusivo del index -->
+  <link rel="stylesheet" href="assets/css/home.css" />
+
+  <!-- JS: tema se aplica antes de pintar la página -->
+  <script src="assets/js/main.js"></script>
+</head>
+<body>
+
+  <!-- ── Web Component: Navbar ── -->
+  <nav-bar></nav-bar>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 1 — Hero
+    ══════════════════════════════════════════ -->
+    <section class="section hero" aria-labelledby="hero-titulo">
+      <div class="container hero__grid">
+
+        <!-- Logo animado -->
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__blob">
+            <span class="hero__brand-text">TramiMuni</span>
+          </div>
+        </div>
+
+        <!-- Texto principal -->
+        <div class="hero__content">
+          <span class="section__badge">San Carlos, Costa Rica</span>
+          <h1 id="hero-titulo">
+            Trámites Municipales con servicio personalizado
+          </h1>
+          <p>
+            Facilitamos la gestión de sus trámites ante la
+            Municipalidad de San Carlos sin necesidad de
+            desplazarse a las oficinas municipales.
+          </p>
+          <div class="hero__actions">
+            <a href="pages/contacto.html" class="btn btn-primary">
+              Comenzar ahora
+            </a>
+            <a href="#servicios" class="btn btn-outline">
+              Ver servicios
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 2 — ¿Cómo funcionamos?
+    ══════════════════════════════════════════ -->
+    <section class="section como-funciona" aria-labelledby="como-titulo">
+      <div class="container">
+
+        <header class="section__header">
+          <span class="section__badge">El proceso</span>
+          <h2 id="como-titulo">¿Cómo funcionan nuestros servicios?</h2>
+          <p>
+            Nuestros servicios están orientados a facilitarle al
+            contribuyente de la Municipalidad de San Carlos la
+            realización de sus trámites sin necesidad de desplazarse
+            a las oficinas municipales.
+          </p>
+        </header>
+
+        <!-- Grid de pasos — CSS Grid -->
+        <ol class="pasos__grid" role="list">
+
+          <li class="paso__item">
+            <article class="paso__card" aria-labelledby="paso-1-titulo">
+              <div class="paso__numero" aria-hidden="true">01</div>
+              <div class="paso__icon" aria-hidden="true">📋</div>
+              <h3 id="paso-1-titulo">Recepción de la consulta</h3>
+              <p>El contribuyente nos contacta y se analiza el trámite requerido.</p>
+            </article>
+          </li>
+
+          <li class="paso__item">
+            <article class="paso__card" aria-labelledby="paso-2-titulo">
+              <div class="paso__numero" aria-hidden="true">02</div>
+              <div class="paso__icon" aria-hidden="true">🔍</div>
+              <h3 id="paso-2-titulo">Revisión de requisitos</h3>
+              <p>Se valida la información y documentación necesaria según normativa municipal.</p>
+            </article>
+          </li>
+
+          <li class="paso__item">
+            <article class="paso__card" aria-labelledby="paso-3-titulo">
+              <div class="paso__numero" aria-hidden="true">03</div>
+              <div class="paso__icon" aria-hidden="true">📁</div>
+              <h3 id="paso-3-titulo">Desarrollo del proceso</h3>
+              <p>Presentación de la documentación del trámite solicitado en la Municipalidad de San Carlos.</p>
+            </article>
+          </li>
+
+          <li class="paso__item">
+            <article class="paso__card" aria-labelledby="paso-4-titulo">
+              <div class="paso__numero" aria-hidden="true">04</div>
+              <div class="paso__icon" aria-hidden="true">✅</div>
+              <h3 id="paso-4-titulo">Seguimiento y cierre</h3>
+              <p>Se da seguimiento hasta la finalización del trámite o la correcta presentación ante la Municipalidad.</p>
+            </article>
+          </li>
+
+        </ol>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 3 — ¿Por qué TramiMuni?
+    ══════════════════════════════════════════ -->
+    <section class="section por-que" aria-labelledby="porque-titulo">
+      <div class="container">
+
+        <header class="section__header">
+          <span class="section__badge">¿Por qué nosotros?</span>
+          <h2 id="porque-titulo">¿Por qué TramiMuni?</h2>
+          <p>
+            TramiMuni nace como una iniciativa de acompañamiento
+            ciudadano para facilitar la gestión de trámites municipales,
+            reduciendo errores, traslados innecesarios y tiempos de espera.
+          </p>
+        </header>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 4 — Servicios (Cards)
+    ══════════════════════════════════════════ -->
+    <section class="section servicios" id="servicios" aria-labelledby="servicios-titulo">
+      <div class="container">
+
+        <header class="section__header">
+          <span class="section__badge">Nuestros servicios</span>
+          <h2 id="servicios-titulo">¿En qué podemos ayudarle?</h2>
+        </header>
+
+        <!-- CSS Grid de 4 cards -->
+        <div class="servicios__grid">
+
+          <article class="servicio__card" aria-labelledby="serv-1-titulo">
+            <div class="servicio__img-wrapper">
+              <img
+                src="assets/img/exoneracion.png"
+                alt="Persona firmando documentos de exoneración de bienes inmuebles"
+                width="400"
+                height="240"
+                loading="lazy"
+              />
+            </div>
+            <div class="servicio__body">
+              <h3 id="serv-1-titulo">Exoneración</h3>
+              <p>
+                Gestión de exoneraciones de bienes inmuebles.
+                Se trabaja únicamente con exoneraciones de tipo bien único.
+              </p>
+              <a
+                href="pages/exoneraciones.html"
+                class="btn btn-primary servicio__btn"
+                aria-label="Ver más sobre el servicio de Exoneración"
+              >
+                Ver más ↗
+              </a>
+            </div>
+          </article>
+
+          <article class="servicio__card" aria-labelledby="serv-2-titulo">
+            <div class="servicio__img-wrapper">
+              <img
+                src="assets/img/declaracion.png"
+                alt="Documentos de declaración de bienes inmuebles sobre un escritorio"
+                width="400"
+                height="240"
+                loading="lazy"
+              />
+            </div>
+            <div class="servicio__body">
+              <h3 id="serv-2-titulo">Declaración de Bienes Inmuebles</h3>
+              <p>
+                Acompañamiento en el proceso de declaración
+                de bienes inmuebles ante la municipalidad.
+              </p>
+              <a
+                href="pages/declaraciones.html"
+                class="btn btn-primary servicio__btn"
+                aria-label="Ver más sobre el servicio de Declaración de Bienes Inmuebles"
+              >
+                Ver más ↗
+              </a>
+            </div>
+          </article>
+
+          <article class="servicio__card" aria-labelledby="serv-3-titulo">
+            <div class="servicio__img-wrapper">
+              <img
+                src="assets/img/consultas.png"
+                alt="Persona realizando una consulta municipal en línea"
+                width="400"
+                height="240"
+                loading="lazy"
+              />
+            </div>
+            <div class="servicio__body">
+              <h3 id="serv-3-titulo">Consultas</h3>
+              <p>
+                Resolución de consultas sobre trámites,
+                requisitos y procesos municipales.
+              </p>
+              <a
+                href="pages/consultas.html"
+                class="btn btn-primary servicio__btn"
+                aria-label="Ver más sobre el servicio de Consultas"
+              >
+                Ver más ↗
+              </a>
+            </div>
+          </article>
+
+          <article class="servicio__card" aria-labelledby="serv-4-titulo">
+            <div class="servicio__img-wrapper">
+              <img
+                src="assets/img/otros.png"
+                alt="Carpetas con documentos de trámites municipales varios"
+                width="400"
+                height="240"
+                loading="lazy"
+              />
+            </div>
+            <div class="servicio__body">
+              <h3 id="serv-4-titulo">Otros Trámites</h3>
+              <p>
+                Gestión de otros trámites municipales
+                según la necesidad del contribuyente.
+              </p>
+              <a
+                href="pages/otros.html"
+                class="btn btn-primary servicio__btn"
+                aria-label="Ver más sobre otros trámites municipales"
+              >
+                Ver más ↗
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECCIÓN 5 — CTA Final
+    ══════════════════════════════════════════ -->
+    <section class="section cta" aria-labelledby="cta-titulo">
+      <div class="container">
+        <div class="cta__card">
+          <span class="section__badge">¿Listo para comenzar?</span>
+          <h2 id="cta-titulo">Contáctenos y comencemos a trabajar juntos</h2>
+          <p>
+            Estamos disponibles para atender su consulta y
+            guiarle en cada paso del proceso.
+          </p>
+          <a href="pages/contacto.html" class="btn btn-primary">
+            Ir a contacto
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Web Component: Footer ── -->
+  <site-footer></site-footer>
+
+  <!-- JS: Web Components -->
+  <script src="assets/js/components.js"></script>
+
+</body>
+</html>

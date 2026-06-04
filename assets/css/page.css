@@ -1,0 +1,294 @@
+/* ============================================================
+   page.css — TramiMuniSC
+   Estilos compartidos entre todas las subpáginas:
+   exoneraciones, declaraciones, consultas, otros
+   Mobile-first
+   ============================================================ */
+
+/* ── 1. Hero de subpágina ───────────────────────────────── */
+
+/*
+  Cada subpágina tiene un hero más compacto que el index.
+  No ocupa toda la pantalla, solo lo suficiente para
+  identificar la sección y dar contexto al usuario.
+*/
+.page-hero {
+  background: var(--color-primary-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-lg) 0;
+}
+
+.page-hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* Breadcrumb — indica al usuario dónde está */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--color-primary);
+  transition: color var(--transition);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-primary-dark);
+}
+
+.breadcrumb__separator {
+  color: var(--color-border);
+  user-select: none;
+}
+
+.breadcrumb__current {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.page-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--color-primary-dark);
+}
+
+[data-theme="dark"] .page-hero h1 {
+  color: var(--color-primary-light);
+}
+
+.page-hero p {
+  max-width: 600px;
+  font-size: 1rem;
+}
+
+/* ── 2. Layout principal de subpágina ───────────────────── */
+
+/*
+  Flexbox en columna para móvil.
+  En tablet+ pasa a Grid de 2 columnas:
+  contenido principal + aside de contacto.
+*/
+.page-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding-block: var(--spacing-xl);
+}
+
+/* ── 3. Contenido principal ─────────────────────────────── */
+.page-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* ── 4. Sección de requisitos ───────────────────────────── */
+.requisitos {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+}
+
+.requisitos h2 {
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text);
+}
+
+/* Lista de requisitos con Flexbox */
+.requisitos__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.requisito__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  padding: 0.75rem;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-primary);
+}
+
+.requisito__icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.requisito__texto {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+/* ── 5. Sección de pasos del trámite ────────────────────── */
+.tramite-pasos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.tramite-pasos h2 {
+  font-size: 1.3rem;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Grid de pasos — CSS Grid */
+.tramite-pasos__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm);
+}
+
+.tramite-paso {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: box-shadow var(--transition);
+}
+
+.tramite-paso:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.tramite-paso__num {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  background: var(--color-primary);
+  color: #ffffff;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tramite-paso__info h3 {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.tramite-paso__info p {
+  font-size: 0.9rem;
+}
+
+/* ── 6. Aside — contacto rápido ─────────────────────────── */
+
+/*
+  El aside aparece debajo del contenido en móvil
+  y a la derecha en tablet+.
+  Contiene un CTA de contacto rápido.
+*/
+.page-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.aside-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  position: sticky;
+  top: calc(var(--navbar-height) + var(--spacing-sm));
+}
+
+.aside-card h3 {
+  font-size: 1.1rem;
+  color: var(--color-text);
+}
+
+.aside-card p {
+  font-size: 0.9rem;
+}
+
+.aside-card .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Badge de advertencia */
+.aside-card__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--color-primary-bg);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* ── 7. Sección CTA al fondo de la subpágina ────────────── */
+.page-cta {
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  padding: var(--spacing-lg) 0;
+  text-align: center;
+}
+
+.page-cta h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.page-cta p {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ── 8. Breakpoints ─────────────────────────────────────── */
+
+/* Tablet: 768px */
+@media (min-width: 768px) {
+
+  /* Layout: Grid de 2 columnas — contenido + aside */
+  .page-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    align-items: start;
+  }
+
+  /* Pasos del trámite: 2 columnas */
+  .tramite-pasos__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page-hero__inner {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+/* Desktop: 1024px */
+@media (min-width: 1024px) {
+
+  /* Aside más ancho en desktop */
+  .page-layout {
+    grid-template-columns: 1fr 340px;
+    gap: var(--spacing-xl);
+  }
+}
