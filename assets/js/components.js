@@ -1,7 +1,6 @@
 /* ============================================================
    components.js — TramiMuniSC
    Web Components nativos: <nav-bar> y <site-footer>
-   Estándar W3C — sin librerías externas
    ============================================================ */
 
 /* ── 1. Navbar Component ────────────────────────────────── */
