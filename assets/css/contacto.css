@@ -1,0 +1,265 @@
+/* ============================================================
+   contacto.css — TramiMuniSC
+   Estilos exclusivos de la página de contacto
+   Mobile-first
+   ============================================================ */
+
+/* ── 1. Layout principal ────────────────────────────────── */
+
+/*
+  Columna única en móvil.
+  Grid de 2 columnas en tablet+:
+  formulario (más ancho) + aside de información.
+*/
+.contacto__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+/* ── 2. Formulario ──────────────────────────────────────── */
+.contacto__form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.contacto__form-wrapper h2 {
+  font-size: 1.4rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+/* ── 3. Campos del formulario ───────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field__label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.field__required {
+  color: #c0392b;
+  margin-left: 2px;
+}
+
+.field__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  appearance: none;
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.field__input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+/* Textarea */
+.field__textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Hint debajo del campo */
+.field__hint {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* Estado de error en un campo */
+.input-error {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+/* Mensaje de error debajo del campo */
+.field-error {
+  font-size: 0.82rem;
+  color: #c0392b;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.field-error::before {
+  content: '⚠';
+  font-size: 0.75rem;
+}
+
+/* ── 4. Nota de campos requeridos ───────────────────────── */
+.form-required-note {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+/* ── 5. Feedback de envío ───────────────────────────────── */
+.form-feedback {
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.form-feedback--success {
+  background: #e8f5e9;
+  color: #1b5e20;
+  border: 1px solid #a5d6a7;
+}
+
+.form-feedback--error {
+  background: #fdecea;
+  color: #b71c1c;
+  border: 1px solid #ef9a9a;
+}
+
+[data-theme="dark"] .form-feedback--success {
+  background: #1b2e1c;
+  color: #a5d6a7;
+  border-color: #2e7d32;
+}
+
+[data-theme="dark"] .form-feedback--error {
+  background: #2e1a1a;
+  color: #ef9a9a;
+  border-color: #c62828;
+}
+
+/* ── 6. Botón submit ────────────────────────────────────── */
+.form-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 0.9rem;
+  font-size: 1rem;
+}
+
+/* ── 7. Aside — información de contacto ─────────────────── */
+.contacto__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  position: sticky;
+  top: calc(var(--navbar-height) + var(--spacing-sm));
+}
+
+.aside-info-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.aside-info-card h3 {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Card de nota informativa */
+.aside-info-card--note {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  background: var(--color-primary-bg);
+  border-color: var(--color-primary-light);
+}
+
+.aside-info-card--note p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* ── 8. Lista de información de contacto ────────────────── */
+.contact-info__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.contact-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+}
+
+.contact-info__icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.contact-info__label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.contact-info__value {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  display: block;
+}
+
+a.contact-info__value {
+  color: var(--color-primary);
+  transition: color var(--transition);
+}
+
+a.contact-info__value:hover {
+  color: var(--color-primary-dark);
+}
+
+/* ── 9. Breakpoints ─────────────────────────────────────── */
+
+/* Tablet: 768px */
+@media (min-width: 768px) {
+  .contacto__layout {
+    grid-template-columns: 1fr 300px;
+  }
+
+  .form-submit {
+    width: auto;
+    align-self: flex-start;
+    padding: 0.9rem 2rem;
+  }
+}
+
+/* Desktop: 1024px */
+@media (min-width: 1024px) {
+  .contacto__layout {
+    grid-template-columns: 1fr 340px;
+    gap: var(--spacing-xl);
+  }
+}

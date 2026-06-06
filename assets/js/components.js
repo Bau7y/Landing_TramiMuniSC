@@ -198,7 +198,7 @@ class SiteFooter extends HTMLElement {
                     href="mailto:tramimuni@gmail.com"
                     aria-label="Enviar correo a TramiMuni"
                   >
-                    tramimuni@gmail.com
+                    tramimuni.sc@gmail.com
                   </a>
                 </li>
               </ul>

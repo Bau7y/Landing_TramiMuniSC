@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contáctenos — TramiMuniSC. Envíenos su consulta sobre trámites municipales en San Carlos.">
+
+  <title>Contáctenos</title>
+
+  <link rel="icon" type="image/x-icon" href="../assets/img/imagenLogo.png">
+
+  <!-- CSS global -->
+  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <!-- CSS exclusivo de contacto -->
+  <link rel="stylesheet" href="../assets/css/contacto.css">
+
+  <!-- Tema antes de pintar -->
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+
+  <nav-bar></nav-bar>
+
+  <main id="main-content">
+
+    <!-- ── Hero de página ── -->
+    <section class="page-hero" aria-labelledby="contacto-titulo">
+      <div class="container page-hero__inner">
+        <div>
+          <!-- Breadcrumb -->
+          <nav class="breadcrumb" aria-label="Ruta de navegación">
+            <a href="../index.html">Inicio</a>
+            <span class="breadcrumb__separator" aria-hidden="true">›</span>
+            <span class="breadcrumb__current" aria-current="page">Contacto</span>
+          </nav>
+
+          <h1 id="contacto-titulo">Contáctenos</h1>
+          <p>Envíenos su consulta y le responderemos a la brevedad posible.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contenido principal ── -->
+    <section class="section" aria-labelledby="form-titulo">
+      <div class="container contacto__layout">
+
+        <!-- Formulario -->
+        <div class="contacto__form-wrapper">
+          <h2 id="form-titulo">Envíenos un mensaje</h2>
+          <p>Complete el formulario y se abrirá su cliente de correo con la información lista para enviar.</p>
+
+          <form
+            id="contact-form"
+            class="contact-form"
+            novalidate
+            aria-label="Formulario de contacto"
+          >
+
+            <!-- Nombre -->
+            <div class="field">
+              <label for="nombre" class="field__label">
+                Nombre completo
+                <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                class="field__input"
+                placeholder="Ej: Juan Pérez"
+                autocomplete="name"
+                aria-required="true"
+                aria-describedby="nombre-hint"
+              >
+              <span id="nombre-hint" class="field__hint">
+                Su nombre se guardará automáticamente para futuras visitas.
+              </span>
+            </div>
+
+            <!-- Correo -->
+            <div class="field">
+              <label for="correo" class="field__label">
+                Correo electrónico
+                <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="email"
+                id="correo"
+                name="correo"
+                class="field__input"
+                placeholder="Ej: juan@correo.com"
+                autocomplete="email"
+                aria-required="true"
+              >
+            </div>
+
+            <!-- Asunto -->
+            <div class="field">
+              <label for="asunto" class="field__label">
+                Asunto
+                <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="asunto"
+                name="asunto"
+                class="field__input"
+                placeholder="Ej: Consulta sobre exoneración"
+                aria-required="true"
+              >
+            </div>
+
+            <!-- Tipo de trámite -->
+            <div class="field">
+              <label for="tramite" class="field__label">Tipo de trámite</label>
+              <select
+                id="tramite"
+                name="tramite"
+                class="field__input"
+                aria-label="Seleccione el tipo de trámite de su consulta"
+              >
+                <option value="">Seleccione una opción</option>
+                <option value="exoneracion">Exoneración</option>
+                <option value="declaracion">Declaración de Bienes Inmuebles</option>
+                <option value="consulta">Consulta general</option>
+                <option value="otro">Otro trámite</option>
+              </select>
+            </div>
+
+            <!-- Mensaje -->
+            <div class="field">
+              <label for="mensaje" class="field__label">
+                Mensaje
+                <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="mensaje"
+                name="mensaje"
+                class="field__input field__textarea"
+                placeholder="Describa su consulta o trámite..."
+                rows="5"
+                aria-required="true"
+                aria-describedby="mensaje-hint"
+              ></textarea>
+              <span id="mensaje-hint" class="field__hint">
+                Mínimo 10 caracteres.
+              </span>
+            </div>
+
+            <!-- Nota campos requeridos -->
+            <p class="form-required-note">
+              <span aria-hidden="true">*</span> Campos requeridos
+            </p>
+
+            <!-- Feedback -->
+            <div
+              id="form-feedback"
+              class="form-feedback"
+              role="alert"
+              aria-live="polite"
+              hidden
+            ></div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="btn btn-primary form-submit"
+              aria-label="Enviar mensaje de contacto"
+            >
+              Enviar mensaje ✉
+            </button>
+
+          </form>
+        </div>
+
+        <!-- Aside — información de contacto -->
+        <aside class="contacto__aside" aria-label="Información de contacto adicional">
+
+          <div class="aside-info-card">
+            <h3>Información de contacto</h3>
+
+            <ul class="contact-info__list" role="list">
+              <li class="contact-info__item">
+                <span class="contact-info__icon" aria-hidden="true">✉</span>
+                <div>
+                  <span class="contact-info__label">Correo</span>
+                  <a
+                    href="mailto:tramimun.sc@gmail.com"
+                    class="contact-info__value"
+                    aria-label="Enviar correo a tramimun.sc@gmail.com"
+                  >
+                    tramimun.sc@gmail.com
+                  </a>
+                </div>
+              </li>
+              <li class="contact-info__item">
+                <span class="contact-info__icon" aria-hidden="true">📍</span>
+                <div>
+                  <span class="contact-info__label">Ubicación</span>
+                  <span class="contact-info__value">San Carlos, Alajuela, Costa Rica</span>
+                </div>
+              </li>
+              <li class="contact-info__item">
+                <span class="contact-info__icon" aria-hidden="true">🕐</span>
+                <div>
+                  <span class="contact-info__label">Horario de atención</span>
+                  <span class="contact-info__value">Lunes a viernes, 8:00 a.m - 10:00 p.m</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="aside-info-card aside-info-card--note">
+            <span class="contact-info__icon" aria-hidden="true">ℹ️</span>
+            <p>
+              Al enviar el formulario se abrirá su cliente de correo
+              con la información prellenada. Asegúrese de tener
+              configurado un cliente de correo en su dispositivo.
+            </p>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+  </main>
+
+  <site-footer></site-footer>
+
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/form.js"></script>
+</body>
+</html>
