@@ -123,7 +123,7 @@
   color: var(--color-primary-bg);
   line-height: 1;
   position: absolute;
-  top: var(--spacing-sm);
+  top: -10px;
   right: var(--spacing-sm);
   user-select: none;
 }
@@ -132,15 +132,11 @@
   color: var(--color-border);
 }
 
-.paso__icon {
-  font-size: 2rem;
-  margin-bottom: var(--spacing-xs);
-}
-
 .paso__card h3 {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   color: var(--color-text);
+  margin-top: 30px;
 }
 
 /* ── 3. ¿Por qué TramiMuni? ─────────────────────────────── */

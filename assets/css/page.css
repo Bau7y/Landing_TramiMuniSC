@@ -119,12 +119,6 @@
   border-left: 3px solid var(--color-primary);
 }
 
-.requisito__icon {
-  font-size: 1.1rem;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-
 .requisito__texto {
   font-size: 0.95rem;
   color: var(--color-text);
