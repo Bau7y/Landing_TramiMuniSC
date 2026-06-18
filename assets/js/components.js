@@ -98,7 +98,6 @@ class NavBar extends HTMLElement {
     }, { passive: true })
   }
 
-  /* Hamburger menu toggle */
   _initMobileMenu() {
     const menuBtn    = this.querySelector('#menu-toggle')
     const mobileMenu = this.querySelector('#mobile-menu')
@@ -109,7 +108,6 @@ class NavBar extends HTMLElement {
       menuBtn.setAttribute('aria-expanded', isOpen)
     })
 
-    /* Cerrar menú al hacer click en un link */
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mobileMenu.classList.remove('open')
@@ -128,7 +126,6 @@ class NavBar extends HTMLElement {
     })
   }
 
-  /* Marcar el link activo según la URL actual */
   _initActiveLink() {
     const currentPath = window.location.pathname
 
@@ -146,7 +143,6 @@ class NavBar extends HTMLElement {
   }
 }
 
-/* ── 2. Footer Component ────────────────────────────────── */
 class SiteFooter extends HTMLElement {
 
   connectedCallback() {
@@ -218,6 +214,5 @@ class SiteFooter extends HTMLElement {
   }
 }
 
-/* ── 3. Registro de componentes ─────────────────────────── */
 customElements.define('nav-bar', NavBar)
 customElements.define('site-footer', SiteFooter)

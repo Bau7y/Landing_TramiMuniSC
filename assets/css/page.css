@@ -1,17 +1,3 @@
-/* ============================================================
-   page.css — TramiMuniSC
-   Estilos compartidos entre todas las subpáginas:
-   exoneraciones, declaraciones, consultas, otros
-   Mobile-first
-   ============================================================ */
-
-/* ── 1. Hero de subpágina ───────────────────────────────── */
-
-/*
-  Cada subpágina tiene un hero más compacto que el index.
-  No ocupa toda la pantalla, solo lo suficiente para
-  identificar la sección y dar contexto al usuario.
-*/
 .page-hero {
   background: var(--color-primary-bg);
   border-bottom: 1px solid var(--color-border);
@@ -24,7 +10,6 @@
   gap: var(--spacing-xs);
 }
 
-/* Breadcrumb — indica al usuario dónde está */
 .breadcrumb {
   display: flex;
   align-items: center;
@@ -67,11 +52,9 @@
   font-size: 1rem;
 }
 
-/* ── 2. Layout principal de subpágina ───────────────────── */
-
 /*
   Flexbox en columna para móvil.
-  En tablet+ pasa a Grid de 2 columnas:
+  En tablet pasa a Grid de 2 columnas:
   contenido principal + aside de contacto.
 */
 .page-layout {
@@ -81,14 +64,13 @@
   padding-block: var(--spacing-xl);
 }
 
-/* ── 3. Contenido principal ─────────────────────────────── */
 .page-content {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
 }
 
-/* ── 4. Sección de requisitos ───────────────────────────── */
+
 .requisitos {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
@@ -102,7 +84,7 @@
   color: var(--color-text);
 }
 
-/* Lista de requisitos con Flexbox */
+/* Lista de requisitos */
 .requisitos_lista {
   display: flex;
   flex-direction: column;
@@ -125,7 +107,6 @@
   line-height: 1.5;
 }
 
-/* ── 5. Sección de pasos del trámite ────────────────────── */
 .tramite-pasos {
   display: flex;
   flex-direction: column;
@@ -138,7 +119,6 @@
   margin-bottom: var(--spacing-xs);
 }
 
-/* Grid de pasos — CSS Grid */
 .tramite-pasos__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -184,13 +164,6 @@
   font-size: 0.9rem;
 }
 
-/* ── 6. Aside — contacto rápido ─────────────────────────── */
-
-/*
-  El aside aparece debajo del contenido en móvil
-  y a la derecha en tablet+.
-  Contiene un CTA de contacto rápido.
-*/
 .page-aside {
   display: flex;
   flex-direction: column;
@@ -223,7 +196,7 @@
   justify-content: center;
 }
 
-/* Badge de advertencia */
+
 .aside-card__note {
   display: flex;
   align-items: flex-start;
@@ -236,7 +209,7 @@
   line-height: 1.5;
 }
 
-/* ── 7. Sección CTA al fondo de la subpágina ────────────── */
+
 .page-cta {
   background: var(--color-bg-secondary);
   border-top: 1px solid var(--color-border);
@@ -253,7 +226,6 @@
   margin-bottom: var(--spacing-sm);
 }
 
-/* ── 8. Breakpoints ─────────────────────────────────────── */
 
 /* Tablet: 768px */
 @media (min-width: 768px) {

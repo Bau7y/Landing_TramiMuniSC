@@ -1,16 +1,7 @@
-/* ============================================================
-   form.js — TramiMuniSC
-   Lógica del formulario de contacto
-   - Persistencia del nombre con localStorage
-   - Validación nativa antes del submit
-   - Apertura de cliente de correo con mailto:
-   JS nativo — sin librerías externas
-   ============================================================ */
-
-/* ── 1. Constantes ──────────────────────────────────────── */
+/* Constantes */
 const NOMBRE_KEY = 'tramimuni-contacto-nombre'
 
-/* ── 2. Inicialización ──────────────────────────────────── */
+/* Inicialización */
 document.addEventListener('DOMContentLoaded', () => {
   const form    = document.querySelector('#contact-form')
   const inputNombre  = document.querySelector('#nombre')
@@ -21,27 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!form) return
 
-  /* Recuperar nombre guardado en localStorage */
+  /* nombre guardado en Localstorage */
   restoreNombre(inputNombre)
 
-  /* Guardar nombre en localStorage cada vez que el usuario escribe */
   inputNombre.addEventListener('input', () => {
     saveNombre(inputNombre.value.trim())
   })
 
-  /* Escuchar submit del formulario */
   form.addEventListener('submit', (e) => {
     e.preventDefault()
-
-    /* Limpiar errores previos */
     clearErrors()
-
-    /* Validar campos */
     const valid = validateForm(inputNombre, inputCorreo, inputAsunto, inputMensaje)
 
     if (!valid) return
 
-    /* Construir y abrir mailto */
     openMailto(
       inputNombre.value.trim(),
       inputCorreo.value.trim(),
@@ -49,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
       inputMensaje.value.trim()
     )
 
-    /* Mostrar mensaje de éxito */
     showFeedback(feedback, 'success')
 
     /* Limpiar formulario excepto el nombre (ya está guardado) */
@@ -59,12 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 })
 
-/* ── 3. localStorage — nombre ───────────────────────────── */
-
-/*
-  Guarda el nombre en localStorage para que persista
-  cuando el usuario recargue la página o navegue y vuelva.
-*/
 function saveNombre(nombre) {
   if (nombre) {
     localStorage.setItem(NOMBRE_KEY, nombre)
@@ -73,10 +50,6 @@ function saveNombre(nombre) {
   }
 }
 
-/*
-  Recupera el nombre guardado y lo coloca en el input.
-  Si no hay nada guardado, el campo queda vacío.
-*/
 function restoreNombre(inputNombre) {
   const saved = localStorage.getItem(NOMBRE_KEY)
   if (saved) {
@@ -84,13 +57,7 @@ function restoreNombre(inputNombre) {
   }
 }
 
-/* ── 4. Validación ──────────────────────────────────────── */
 
-/*
-  Valida que todos los campos requeridos estén completos
-  y que el correo tenga un formato válido.
-  Retorna true si todo está bien, false si hay errores.
-*/
 function validateForm(inputNombre, inputCorreo, inputAsunto, inputMensaje) {
   let valid = true
 
@@ -123,21 +90,13 @@ function validateForm(inputNombre, inputCorreo, inputAsunto, inputMensaje) {
   return valid
 }
 
-/*
-  Valida el formato del correo con una expresión regular básica.
-  Verifica que tenga la estructura: algo@algo.algo
-*/
+
 function isValidEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return regex.test(email)
 }
 
-/* ── 5. Manejo de errores en UI ─────────────────────────── */
-
-/*
-  Muestra un mensaje de error debajo del campo inválido
-  y añade la clase de error para el estilo CSS.
-*/
+/* Error en UI */
 function showError(input, message) {
   input.classList.add('input-error')
   input.setAttribute('aria-invalid', 'true')
@@ -150,7 +109,6 @@ function showError(input, message) {
   input.parentElement.appendChild(errorEl)
 }
 
-/* Limpia todos los errores del formulario */
 function clearErrors() {
   document.querySelectorAll('.input-error').forEach(el => {
     el.classList.remove('input-error')
@@ -160,37 +118,21 @@ function clearErrors() {
   document.querySelectorAll('.field-error').forEach(el => el.remove())
 }
 
-/* ── 6. Feedback de éxito ───────────────────────────────── */
-
-/*
-  Muestra un mensaje de confirmación al usuario
-  después de enviar el formulario correctamente.
-*/
 function showFeedback(feedbackEl, type) {
   if (!feedbackEl) return
 
   feedbackEl.textContent = type === 'success'
-    ? '✅ Mensaje enviado. Su cliente de correo debería abrirse en un momento.'
-    : '❌ Ocurrió un error. Intente de nuevo.'
+    ? 'Mensaje enviado. Su cliente de correo debería abrirse en un momento.'
+    : 'Ocurrió un error. Intente de nuevo.'
 
   feedbackEl.className = `form-feedback form-feedback--${type}`
   feedbackEl.removeAttribute('hidden')
 
-  /* Ocultar el mensaje después de 6 segundos */
   setTimeout(() => {
     feedbackEl.setAttribute('hidden', '')
   }, 6000)
 }
 
-/* ── 7. Construcción del mailto ─────────────────────────── */
-
-/*
-  Construye la URL mailto con los datos del formulario
-  y la abre en el cliente de correo del usuario.
-
-  encodeURIComponent() convierte caracteres especiales
-  (tildes, espacios, ñ) para que sean válidos en una URL.
-*/
 function openMailto(nombre, correo, asunto, mensaje) {
   const destinatario = 'tramimuni@gmail.com'
 

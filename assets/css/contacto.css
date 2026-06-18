@@ -1,16 +1,3 @@
-/* ============================================================
-   contacto.css — TramiMuniSC
-   Estilos exclusivos de la página de contacto
-   Mobile-first
-   ============================================================ */
-
-/* ── 1. Layout principal ────────────────────────────────── */
-
-/*
-  Columna única en móvil.
-  Grid de 2 columnas en tablet+:
-  formulario (más ancho) + aside de información.
-*/
 .contacto__layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -18,7 +5,6 @@
   align-items: start;
 }
 
-/* ── 2. Formulario ──────────────────────────────────────── */
 .contacto__form-wrapper {
   display: flex;
   flex-direction: column;
@@ -36,7 +22,6 @@
   margin-top: var(--spacing-xs);
 }
 
-/* ── 3. Campos del formulario ───────────────────────────── */
 .field {
   display: flex;
   flex-direction: column;
@@ -84,19 +69,16 @@
   min-height: 120px;
 }
 
-/* Hint debajo del campo */
 .field__hint {
   font-size: 0.8rem;
   color: var(--color-text-muted);
 }
 
-/* Estado de error en un campo */
 .input-error {
   border-color: #c0392b;
   box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
 }
 
-/* Mensaje de error debajo del campo */
 .field-error {
   font-size: 0.82rem;
   color: #c0392b;
@@ -107,17 +89,15 @@
 }
 
 .field-error::before {
-  content: '⚠';
+  content: '!';
   font-size: 0.75rem;
 }
 
-/* ── 4. Nota de campos requeridos ───────────────────────── */
 .form-required-note {
   font-size: 0.82rem;
   color: var(--color-text-muted);
 }
 
-/* ── 5. Feedback de envío ───────────────────────────────── */
 .form-feedback {
   padding: 0.875rem 1rem;
   border-radius: var(--radius-sm);
@@ -149,7 +129,6 @@
   border-color: #c62828;
 }
 
-/* ── 6. Botón submit ────────────────────────────────────── */
 .form-submit {
   width: 100%;
   justify-content: center;
@@ -157,7 +136,6 @@
   font-size: 1rem;
 }
 
-/* ── 7. Aside — información de contacto ─────────────────── */
 .contacto__aside {
   display: flex;
   flex-direction: column;
@@ -197,7 +175,7 @@
   line-height: 1.6;
 }
 
-/* ── 8. Lista de información de contacto ────────────────── */
+/* Lista de información de contacto */
 .contact-info__list {
   display: flex;
   flex-direction: column;
@@ -240,8 +218,6 @@ a.contact-info__value {
 a.contact-info__value:hover {
   color: var(--color-primary-dark);
 }
-
-/* ── 9. Breakpoints ─────────────────────────────────────── */
 
 /* Tablet: 768px */
 @media (min-width: 768px) {
