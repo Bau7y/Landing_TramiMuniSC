@@ -13,11 +13,7 @@ const ICON_LIGHT    = '☀️'
 
 /* ── 2. Aplicar tema ────────────────────────────────────── */
 
-/*
-  Se aplica el tema ANTES de que el DOM cargue completamente
-  para evitar el "flash" de tema incorrecto al recargar la página.
-  Por eso se ejecuta inmediatamente, no dentro de DOMContentLoaded.
-*/
+/* Se aplica el tema antes de que el DOM cargue por completo para evitar parpadeos */
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme)
 }
