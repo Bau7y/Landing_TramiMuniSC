@@ -174,6 +174,9 @@ const servicios = (await getCollection('servicios')).sort((a, b) => a.data.orden
   const select = form.querySelector<HTMLSelectElement>('#tramite')!;
   if (tramite && [...select.options].some((o) => o.value === tramite)) select.value = tramite;
 
+  // Limpia la barra de direcciones (/contacto?tramite=x → /contacto) sin recargar ni agregar historial
+  if (location.search) history.replaceState(null, '', location.pathname + location.hash);
+
   /* ── Nombre persistido en localStorage ──────────────── */
   try {
     const guardado = localStorage.getItem(NOMBRE_KEY);
