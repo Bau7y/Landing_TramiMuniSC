@@ -69,7 +69,7 @@ export const server = {
         from: CONTACT_FROM,
         to: [CONTACT_TO],
         replyTo: datos.correo,
-        subject: `[Contacto web] ${datos.asunto}`,
+        subject: `TramiMuniSC · ${datos.asunto}`,
         text: texto,
         html,
       });
