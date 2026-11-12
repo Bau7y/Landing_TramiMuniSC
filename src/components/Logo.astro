@@ -1,12 +1,12 @@
 ---
-import { sitio } from '../data/sitio';
+import { site } from '../data/site';
 
 interface Props {
   size?: 'sm' | 'md';
 }
 const { size = 'md' } = Astro.props;
 ---
-<a href="/" class:list={['logo', `logo--${size}`]} aria-label={`${sitio.nombre} - Inicio`}>
+<a href="/" class:list={['logo', `logo_${size}`]} aria-label={`${site.name} - Inicio`}>
   Trami<span>Muni</span>SC
 </a>
 
@@ -29,6 +29,6 @@ const { size = 'md' } = Astro.props;
     color: var(--color_primary_light);
   }
 
-  .logo--md { font-size: 1.35rem; }
-  .logo--sm { font-size: 1.15rem; }
+  .logo_md { font-size: 1.35rem; }
+  .logo_sm { font-size: 1.15rem; }
 </style>

@@ -4,85 +4,85 @@ import { z } from 'astro/zod';
 import { Resend } from 'resend';
 import { RESEND_API_KEY, CONTACT_TO, CONTACT_FROM } from 'astro:env/server';
 
-/** Tiempo mínimo (ms) entre la carga del formulario y el envío. Filtra bots. */
-const TIEMPO_MINIMO_MS = 3000;
+/** Minimum time (ms) between form load and submit. Filters out bots. */
+const MIN_SUBMIT_TIME_MS = 3000;
 
-const esquema_contacto = z.object({
-  nombre: z.string().trim().min(1, 'El nombre es requerido').max(120, 'Máximo 120 caracteres'),
-  correo: z.string().trim().min(1, 'El correo es requerido').pipe(z.email('Ingrese un correo válido')),
-  asunto: z.string().trim().min(1, 'El asunto es requerido').max(150, 'Máximo 150 caracteres'),
-  tramite: z.string().trim().max(60).nullish().transform((v) => v ?? ''),
-  mensaje: z
+const contactSchema = z.object({
+  name: z.string().trim().min(1, 'El nombre es requerido').max(120, 'Máximo 120 caracteres'),
+  email: z.string().trim().min(1, 'El correo es requerido').pipe(z.email('Ingrese un correo válido')),
+  subject: z.string().trim().min(1, 'El asunto es requerido').max(150, 'Máximo 150 caracteres'),
+  service: z.string().trim().max(60).nullish().transform((v) => v ?? ''),
+  message: z
     .string()
     .trim()
     .min(10, 'El mensaje debe tener al menos 10 caracteres')
     .max(5000, 'Máximo 5000 caracteres'),
-  // Anti-spam: campo trampa (debe venir vacío) y marca de tiempo de carga.
-  // Astro entrega los campos vacíos de un FormData como null.
-  sitio_web: z.string().nullish().transform((v) => v ?? ''),
-  cargado_en: z.coerce.number().nullish().transform((v) => v ?? 0),
+  // Anti-spam: honeypot field (must be empty) and form load timestamp.
+  // Astro parses empty FormData fields as null.
+  website: z.string().nullish().transform((v) => v ?? ''),
+  loaded_at: z.coerce.number().nullish().transform((v) => v ?? 0),
 });
 
-let cliente: Resend | null = null;
-const obtenerCliente = () => (cliente ??= new Resend(RESEND_API_KEY));
+let client: Resend | null = null;
+const getClient = () => (client ??= new Resend(RESEND_API_KEY));
 
-const escaparHtml = (texto: string) =>
-  texto.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+const escapeHtml = (text: string) =>
+  text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 export const server = {
-  enviarContacto: defineAction({
+  sendContact: defineAction({
     accept: 'form',
-    input: esquema_contacto,
-    handler: async (datos) => {
-      const es_bot =
-        datos.sitio_web !== '' ||
-        (datos.cargado_en > 0 && Date.now() - datos.cargado_en < TIEMPO_MINIMO_MS);
+    input: contactSchema,
+    handler: async (input) => {
+      const isBot =
+        input.website !== '' ||
+        (input.loaded_at > 0 && Date.now() - input.loaded_at < MIN_SUBMIT_TIME_MS);
 
-      // Al bot se le responde "ok" para no darle señal; no se envía nada.
-      if (es_bot) return { enviado: true };
+      // Reply "ok" to bots so they get no signal; nothing is sent.
+      if (isBot) return { sent: true };
 
-      const servicio = datos.tramite ? await getEntry('servicios', datos.tramite) : undefined;
-      const tramite = servicio?.data.nav ?? 'No especificado';
+      const service = input.service ? await getEntry('services', input.service) : undefined;
+      const serviceLabel = service?.data.nav_label ?? 'No especificado';
 
-      const filas: [string, string][] = [
-        ['Nombre', datos.nombre],
-        ['Correo', datos.correo],
-        ['Trámite', tramite],
-        ['Asunto', datos.asunto],
+      const rows: [string, string][] = [
+        ['Nombre', input.name],
+        ['Correo', input.email],
+        ['Trámite', serviceLabel],
+        ['Asunto', input.subject],
       ];
 
-      const texto = [...filas.map(([k, v]) => `${k}: ${v}`), '', datos.mensaje].join('\n');
+      const text = [...rows.map(([key, value]) => `${key}: ${value}`), '', input.message].join('\n');
 
       const html = `
         <table style="font-family:system-ui,sans-serif;font-size:14px;border-collapse:collapse">
-          ${filas
+          ${rows
             .map(
-              ([k, v]) =>
-                `<tr><td style="padding:4px 12px 4px 0;color:#5b665d"><strong>${k}</strong></td><td style="padding:4px 0">${escaparHtml(v)}</td></tr>`,
+              ([key, value]) =>
+                `<tr><td style="padding:4px 12px 4px 0;color:#5b665d"><strong>${key}</strong></td><td style="padding:4px 0">${escapeHtml(value)}</td></tr>`,
             )
             .join('')}
         </table>
-        <p style="font-family:system-ui,sans-serif;font-size:14px;white-space:pre-wrap;margin-top:16px">${escaparHtml(datos.mensaje)}</p>
+        <p style="font-family:system-ui,sans-serif;font-size:14px;white-space:pre-wrap;margin-top:16px">${escapeHtml(input.message)}</p>
       `;
 
-      const { error } = await obtenerCliente().emails.send({
+      const { error } = await getClient().emails.send({
         from: CONTACT_FROM,
         to: [CONTACT_TO],
-        replyTo: datos.correo,
-        subject: `TramiMuniSC · ${datos.asunto}`,
-        text: texto,
+        replyTo: input.email,
+        subject: `TramiMuniSC · ${input.subject}`,
+        text,
         html,
       });
 
       if (error) {
-        console.error('[enviarContacto] Resend:', error);
+        console.error('[sendContact] Resend:', error);
         throw new ActionError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'No se pudo enviar el mensaje. Intente de nuevo en unos minutos.',
         });
       }
 
-      return { enviado: true };
+      return { sent: true };
     },
   }),
 };

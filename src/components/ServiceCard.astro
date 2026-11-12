@@ -3,17 +3,17 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  servicio: CollectionEntry<'servicios'>;
+  service: CollectionEntry<'services'>;
 }
-const { servicio } = Astro.props;
-const { tarjeta } = servicio.data;
-const titulo_id = `serv-${servicio.id}-titulo`;
+const { service } = Astro.props;
+const { card } = service.data;
+const titleId = `service_${service.id}_title`;
 ---
-<article class="servicio-card" aria-labelledby={titulo_id}>
-  <div class="servicio-card__img">
+<article class="service_card" aria-labelledby={titleId}>
+  <div class="service_card_img">
     <Image
-      src={tarjeta.imagen}
-      alt={tarjeta.alt}
+      src={card.image}
+      alt={card.alt}
       widths={[320, 480, 640]}
       sizes="(min-width: 1024px) 280px, (min-width: 768px) 45vw, 92vw"
       format="webp"
@@ -21,18 +21,18 @@ const titulo_id = `serv-${servicio.id}-titulo`;
       loading="lazy"
     />
   </div>
-  <div class="servicio-card__body">
-    <h3 id={titulo_id}>{tarjeta.titulo}</h3>
-    <p>{tarjeta.resumen}</p>
-    <a href={`/servicios/${servicio.id}`} class="link-arrow servicio-card__link">
+  <div class="service_card_body">
+    <h3 id={titleId}>{card.title}</h3>
+    <p>{card.summary}</p>
+    <a href={`/servicios/${service.id}`} class="link_arrow service_card_link">
       Ver detalles <span aria-hidden="true">→</span>
-      <span class="sr-only">sobre {tarjeta.titulo}</span>
+      <span class="sr_only">sobre {card.title}</span>
     </a>
   </div>
 </article>
 
 <style>
-  .servicio-card {
+  .service_card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -44,30 +44,30 @@ const titulo_id = `serv-${servicio.id}-titulo`;
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
   }
 
-  .servicio-card:hover {
+  .service_card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow_lg);
     border-color: color-mix(in srgb, var(--color_primary) 35%, var(--color_border));
   }
 
-  .servicio-card__img {
+  .service_card_img {
     aspect-ratio: 16 / 10;
     overflow: hidden;
     background: var(--color_primary_bg);
   }
 
-  .servicio-card__img img {
+  .service_card_img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
   }
 
-  .servicio-card:hover .servicio-card__img img {
+  .service_card:hover .service_card_img img {
     transform: scale(1.05);
   }
 
-  .servicio-card__body {
+  .service_card_body {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -75,32 +75,32 @@ const titulo_id = `serv-${servicio.id}-titulo`;
     padding: var(--spacing_md);
   }
 
-  .servicio-card__body h3 {
+  .service_card_body h3 {
     font-size: 1.2rem;
   }
 
-  .servicio-card__body p {
+  .service_card_body p {
     font-size: 0.95rem;
   }
 
-  .servicio-card__link {
+  .service_card_link {
     margin-top: auto;
     padding-top: var(--spacing_xs);
   }
 
-  /* Toda la tarjeta es clicable sin anidar enlaces */
-  .servicio-card__link::after {
+  /* Makes the whole card clickable without nesting links */
+  .service_card_link::after {
     content: '';
     position: absolute;
     inset: 0;
   }
 
-  .servicio-card:has(.servicio-card__link:focus-visible) {
+  .service_card:has(.service_card_link:focus-visible) {
     outline: 2px solid var(--color_primary);
     outline-offset: 3px;
   }
 
-  .servicio-card__link:focus-visible {
+  .service_card_link:focus-visible {
     outline: none;
   }
 </style>

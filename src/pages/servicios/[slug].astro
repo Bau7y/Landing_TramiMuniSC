@@ -5,31 +5,31 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 
 export const getStaticPaths = (async () => {
-  const servicios = await getCollection('servicios');
-  return servicios.map((servicio) => ({
-    params: { slug: servicio.id },
-    props: { servicio },
+  const services = await getCollection('services');
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service },
   }));
 }) satisfies GetStaticPaths;
 
-const { servicio } = Astro.props;
-const { data } = servicio;
-const { Content } = await render(servicio);
+const { service } = Astro.props;
+const { data } = service;
+const { Content } = await render(service);
 ---
-<BaseLayout titulo={data.nav} descripcion={data.meta_descripcion}>
-  <PageHero titulo={data.titulo} subtitulo={data.subtitulo} miga={data.nav} />
+<BaseLayout title={data.nav_label} description={data.meta_description}>
+  <PageHero title={data.title} subtitle={data.subtitle} crumb={data.nav_label} />
 
-  <div class="container page-layout">
-    <div class="page-content">
-      <article class="intro prose" aria-labelledby="intro-titulo">
-        <h2 id="intro-titulo">{data.intro_titulo}</h2>
+  <div class="container page_layout">
+    <div class="page_content">
+      <article class="intro prose" aria-labelledby="intro_title">
+        <h2 id="intro_title">{data.intro_title}</h2>
         <Content />
       </article>
 
-      <section class="lista" aria-labelledby="lista-titulo">
-        <h2 id="lista-titulo">{data.lista.titulo}</h2>
+      <section class="requirements" aria-labelledby="list_title">
+        <h2 id="list_title">{data.list.title}</h2>
         <ul role="list">
-          {data.lista.items.map((item) => (
+          {data.list.items.map((item) => (
             <li>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
               <span>{item}</span>
@@ -38,15 +38,15 @@ const { Content } = await render(servicio);
         </ul>
       </section>
 
-      <section class="pasos" aria-labelledby="pasos-titulo">
-        <h2 id="pasos-titulo">{data.pasos.titulo}</h2>
+      <section class="steps" aria-labelledby="steps_title">
+        <h2 id="steps_title">{data.steps.title}</h2>
         <ol role="list">
-          {data.pasos.items.map((paso, i) => (
-            <li class="paso">
-              <span class="paso__num" aria-hidden="true">{i + 1}</span>
+          {data.steps.items.map((step, i) => (
+            <li class="step">
+              <span class="step_number" aria-hidden="true">{i + 1}</span>
               <div>
-                <h3>{paso.titulo}</h3>
-                <p>{paso.texto}</p>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
               </div>
             </li>
           ))}
@@ -54,47 +54,47 @@ const { Content } = await render(servicio);
       </section>
     </div>
 
-    <aside class="page-aside" aria-label="Contacto rápido">
-      <div class="aside-card">
-        <h2>{data.aside.titulo}</h2>
-        <p>{data.aside.texto}</p>
-        <a href={`/contacto?tramite=${servicio.id}`} class="btn btn-primary">{data.aside.boton}</a>
-        <p class="aside-card__note">
+    <aside class="page_aside" aria-label="Contacto rápido">
+      <div class="aside_card">
+        <h2>{data.aside.title}</h2>
+        <p>{data.aside.text}</p>
+        <a href={`/contacto?service=${service.id}`} class="btn btn_primary">{data.aside.button}</a>
+        <p class="aside_card_note">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16.5v.01" /></svg>
-          <span>{data.aside.nota}</span>
+          <span>{data.aside.note}</span>
         </p>
       </div>
     </aside>
   </div>
 
-  <section class="page-cta" aria-labelledby="cta-titulo">
+  <section class="page_cta" aria-labelledby="cta_title">
     <div class="container">
-      <h2 id="cta-titulo">{data.cta.titulo}</h2>
-      <p>{data.cta.texto}</p>
-      <a href={`/contacto?tramite=${servicio.id}`} class="btn btn-primary">{data.cta.boton}</a>
+      <h2 id="cta_title">{data.cta.title}</h2>
+      <p>{data.cta.text}</p>
+      <a href={`/contacto?service=${service.id}`} class="btn btn_primary">{data.cta.button}</a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .page-layout {
+  .page_layout {
     display: grid;
     gap: var(--spacing_lg);
     padding-block: var(--spacing_xl);
   }
 
-  .page-content {
+  .page_content {
     display: grid;
     gap: var(--spacing_xl);
     min-width: 0;
   }
 
-  .page-content h2 {
+  .page_content h2 {
     font-size: clamp(1.4rem, 2.6vw, 1.85rem);
     margin-bottom: var(--spacing_sm);
   }
 
-  /* Texto markdown */
+  /* Markdown text */
   .prose :global(p) {
     max-width: 68ch;
   }
@@ -103,20 +103,20 @@ const { Content } = await render(servicio);
     margin-top: var(--spacing_sm);
   }
 
-  /* Lista de requisitos */
-  .lista {
+  /* Requirements list */
+  .requirements {
     padding: var(--spacing_md);
     background: var(--color_bg_card);
     border: 1px solid var(--color_border);
     border-radius: var(--radius_lg);
   }
 
-  .lista ul {
+  .requirements ul {
     display: grid;
     gap: 0.6rem;
   }
 
-  .lista li {
+  .requirements li {
     display: flex;
     gap: 0.75rem;
     align-items: flex-start;
@@ -126,29 +126,29 @@ const { Content } = await render(servicio);
     line-height: 1.5;
   }
 
-  .lista svg {
+  .requirements svg {
     flex-shrink: 0;
     margin-top: 0.15rem;
     color: var(--color_primary);
   }
 
-  :global([data-theme="dark"]) .lista svg {
+  :global([data-theme="dark"]) .requirements svg {
     color: var(--color_primary_light);
   }
 
-  /* Pasos: línea de tiempo vertical */
-  .pasos ol {
+  /* Steps: vertical timeline */
+  .steps ol {
     display: grid;
   }
 
-  .paso {
+  .step {
     position: relative;
     display: flex;
     gap: var(--spacing_sm);
     align-items: flex-start;
   }
 
-  .paso:not(:last-child)::before {
+  .step:not(:last-child)::before {
     content: '';
     position: absolute;
     left: 17px;
@@ -158,7 +158,7 @@ const { Content } = await render(servicio);
     background: var(--color_border);
   }
 
-  .paso__num {
+  .step_number {
     flex-shrink: 0;
     display: grid;
     place-items: center;
@@ -173,22 +173,22 @@ const { Content } = await render(servicio);
     position: relative;
   }
 
-  .paso div {
+  .step div {
     padding-bottom: var(--spacing_sm);
   }
 
-  .paso h3 {
+  .step h3 {
     font-size: 1.08rem;
     margin-bottom: 0.15rem;
     margin-top: 0.3rem;
   }
 
-  .paso p {
+  .step p {
     font-size: 0.95rem;
   }
 
   /* Aside */
-  .aside-card {
+  .aside_card {
     display: grid;
     gap: var(--spacing_xs);
     padding: var(--spacing_md);
@@ -200,19 +200,19 @@ const { Content } = await render(servicio);
     top: calc(var(--navbar_height) + var(--spacing_sm));
   }
 
-  .aside-card h2 {
+  .aside_card h2 {
     font-size: 1.2rem;
   }
 
-  .aside-card p {
+  .aside_card p {
     font-size: 0.93rem;
   }
 
-  .aside-card .btn {
+  .aside_card .btn {
     margin-block: var(--spacing_xs);
   }
 
-  .aside-card__note {
+  .aside_card_note {
     display: flex;
     gap: 0.5rem;
     align-items: flex-start;
@@ -223,36 +223,36 @@ const { Content } = await render(servicio);
     line-height: 1.5;
   }
 
-  .aside-card__note svg {
+  .aside_card_note svg {
     flex-shrink: 0;
     margin-top: 0.1rem;
     color: var(--color_primary);
   }
 
-  /* CTA final */
-  .page-cta {
+  /* Closing CTA */
+  .page_cta {
     padding-block: var(--spacing_xl);
     text-align: center;
     background: var(--color_bg_secondary);
     border-top: 1px solid var(--color_border);
   }
 
-  .page-cta .container {
+  .page_cta .container {
     display: grid;
     justify-items: center;
     gap: var(--spacing_xs);
   }
 
-  .page-cta h2 {
+  .page_cta h2 {
     font-size: clamp(1.4rem, 2.6vw, 1.8rem);
   }
 
-  .page-cta .btn {
+  .page_cta .btn {
     margin-top: var(--spacing_xs);
   }
 
   @media (min-width: 900px) {
-    .page-layout {
+    .page_layout {
       grid-template-columns: minmax(0, 1fr) 320px;
       align-items: start;
       gap: var(--spacing_xl);

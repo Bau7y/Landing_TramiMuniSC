@@ -2,44 +2,44 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-const servicios = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/servicios' }),
+const services = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/services' }),
   schema: ({ image }) =>
     z.object({
-      orden: z.number().int(),
-      nav: z.string(),
-      titulo: z.string(),
-      subtitulo: z.string(),
-      meta_descripcion: z.string(),
-      tarjeta: z.object({
-        titulo: z.string(),
-        resumen: z.string(),
-        imagen: image(),
+      order: z.number().int(),
+      nav_label: z.string(),
+      title: z.string(),
+      subtitle: z.string(),
+      meta_description: z.string(),
+      card: z.object({
+        title: z.string(),
+        summary: z.string(),
+        image: image(),
         alt: z.string(),
       }),
-      intro_titulo: z.string(),
-      lista: z.object({
-        titulo: z.string(),
+      intro_title: z.string(),
+      list: z.object({
+        title: z.string(),
         items: z.array(z.string()).min(1),
       }),
-      pasos: z.object({
-        titulo: z.string(),
+      steps: z.object({
+        title: z.string(),
         items: z
-          .array(z.object({ titulo: z.string(), texto: z.string() }))
+          .array(z.object({ title: z.string(), text: z.string() }))
           .min(1),
       }),
       aside: z.object({
-        titulo: z.string(),
-        texto: z.string(),
-        boton: z.string(),
-        nota: z.string(),
+        title: z.string(),
+        text: z.string(),
+        button: z.string(),
+        note: z.string(),
       }),
       cta: z.object({
-        titulo: z.string(),
-        texto: z.string(),
-        boton: z.string(),
+        title: z.string(),
+        text: z.string(),
+        button: z.string(),
       }),
     }),
 });
 
-export const collections = { servicios };
+export const collections = { services };

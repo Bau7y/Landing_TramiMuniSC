@@ -1,26 +1,26 @@
 ---
 interface Props {
-  titulo: string;
-  subtitulo: string;
-  miga: string;
+  title: string;
+  subtitle: string;
+  crumb: string;
 }
-const { titulo, subtitulo, miga } = Astro.props;
+const { title, subtitle, crumb } = Astro.props;
 ---
-<section class="page-hero" aria-labelledby="page-titulo">
-  <div class="container page-hero__inner">
+<section class="page_hero" aria-labelledby="page_title">
+  <div class="container page_hero_inner">
     <nav class="breadcrumb" aria-label="Ruta de navegación">
       <ol role="list">
         <li><a href="/">Inicio</a></li>
-        <li aria-current="page">{miga}</li>
+        <li aria-current="page">{crumb}</li>
       </ol>
     </nav>
-    <h1 id="page-titulo">{titulo}</h1>
-    <p>{subtitulo}</p>
+    <h1 id="page_title">{title}</h1>
+    <p>{subtitle}</p>
   </div>
 </section>
 
 <style>
-  .page-hero {
+  .page_hero {
     position: relative;
     overflow: hidden;
     padding-block: var(--spacing_xl) var(--spacing_lg);
@@ -30,22 +30,22 @@ const { titulo, subtitulo, miga } = Astro.props;
     border-bottom: 1px solid var(--color_border);
   }
 
-  .page-hero__inner {
+  .page_hero_inner {
     display: grid;
     gap: 0.75rem;
   }
 
-  .page-hero h1 {
+  .page_hero h1 {
     font-size: clamp(2rem, 4.5vw, 3rem);
     color: var(--color_primary_dark);
     max-width: 22ch;
   }
 
-  :global([data-theme="dark"]) .page-hero h1 {
+  :global([data-theme="dark"]) .page_hero h1 {
     color: var(--color_primary_light);
   }
 
-  .page-hero p {
+  .page_hero p {
     max-width: 60ch;
   }
 
