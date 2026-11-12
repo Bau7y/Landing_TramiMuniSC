@@ -3,13 +3,19 @@ import { getEntry } from 'astro:content';
 import { z } from 'astro/zod';
 import { Resend } from 'resend';
 import { RESEND_API_KEY, CONTACT_TO, CONTACT_FROM } from 'astro:env/server';
+import { canReceiveEmail } from '../lib/email';
 
 /** Minimum time (ms) between form load and submit. Filters out bots. */
 const MIN_SUBMIT_TIME_MS = 3000;
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'El nombre es requerido').max(120, 'Máximo 120 caracteres'),
-  email: z.string().trim().min(1, 'El correo es requerido').pipe(z.email('Ingrese un correo válido')),
+  email: z
+    .string()
+    .trim()
+    .min(1, 'El correo es requerido')
+    .pipe(z.email('Ingrese un correo válido'))
+    .refine(canReceiveEmail, 'Este correo no parece existir. Revise que esté bien escrito.'),
   subject: z.string().trim().min(1, 'El asunto es requerido').max(150, 'Máximo 150 caracteres'),
   service: z.string().trim().max(60).nullish().transform((v) => v ?? ''),
   message: z

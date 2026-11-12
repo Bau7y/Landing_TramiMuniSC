@@ -34,6 +34,7 @@ src/
 ├── data/
 │   ├── site.ts               → nombre, correo, horario (única fuente)
 │   └── navigation.ts         → enlaces derivados de la colección
+├── lib/email.ts              → verificación DNS (MX) del correo
 ├── layouts/BaseLayout.astro  → <head>, SEO, tema sin parpadeo, skip link
 ├── pages/
 │   ├── index.astro
@@ -56,7 +57,9 @@ Sin tocar código, el servicio aparece en el navbar, el menú móvil, el footer,
 1. **Cliente** (`contacto.astro`): valida igual que el servidor, muestra los errores por campo (`aria-invalid` y `aria-describedby`), indica que se está enviando y persiste el nombre en `localStorage`. `?service=<slug>` preselecciona el tipo de trámite y luego se limpia de la URL.
 2. **Servidor** (`actions/index.ts`): el esquema Zod es la fuente de verdad. Los errores de entrada vuelven al cliente como `error.fields`.
 3. **Anti-spam** sin dependencias: un campo trampa oculto y un tiempo mínimo de 3 s entre la carga y el envío. A un bot detectado se le responde "ok" y no se envía nada.
-4. **Correo**: texto plano y HTML con escape de caracteres. `replyTo` es el correo del usuario, así que basta con "Responder" en la bandeja.
+4. **Verificación del correo** (`lib/email.ts`): consulta DNS del dominio. Rechaza dominios inexistentes, sin servidor de correo o con *null MX* (RFC 7505). Si el DNS falla o tarda más de 4 s, acepta el envío para no bloquear a un usuario real. No confirma que el buzón exista; para eso hace falta un correo de confirmación, que requiere un dominio verificado en Resend.
+5. **Después de enviar**: el formulario se vacía por completo. El nombre sigue en `localStorage` y se restaura en la próxima visita.
+6. **Correo**: texto plano y HTML con escape de caracteres. `replyTo` es el correo del usuario, así que basta con "Responder" en la bandeja.
 
 ### Variables de entorno
 
