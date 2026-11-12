@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IconoEdificio from '../components/IconoEdificio.astro';
+---
+<BaseLayout titulo="Página no encontrada" descripcion="La página que busca no existe.">
+  <section class="no-encontrada" aria-labelledby="titulo-404">
+    <div class="container">
+      <IconoEdificio size={56} stroke={1.5} class="no-encontrada__icono" />
+      <p class="no-encontrada__codigo">Error 404</p>
+      <h1 id="titulo-404">Esta página no existe</h1>
+      <p>Puede que el enlace esté desactualizado o que la dirección tenga un error.</p>
+      <div class="no-encontrada__acciones">
+        <a href="/" class="btn btn-primary">Ir al inicio</a>
+        <a href="/contacto" class="btn btn-outline">Contáctenos</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .no-encontrada {
+    display: grid;
+    place-items: center;
+    min-height: 60dvh;
+    padding-block: var(--spacing_xl);
+    text-align: center;
+  }
+
+  .no-encontrada .container {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing_sm);
+  }
+
+  .no-encontrada :global(.no-encontrada__icono) {
+    color: var(--color_primary);
+  }
+
+  .no-encontrada__codigo {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.8rem !important;
+    color: var(--color_primary) !important;
+  }
+
+  .no-encontrada__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing_xs);
+    margin-top: var(--spacing_xs);
+  }
+</style>

@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  servicio: CollectionEntry<'servicios'>;
+}
+const { servicio } = Astro.props;
+const { tarjeta } = servicio.data;
+const titulo_id = `serv-${servicio.id}-titulo`;
+---
+<article class="servicio-card" aria-labelledby={titulo_id}>
+  <div class="servicio-card__img">
+    <Image
+      src={tarjeta.imagen}
+      alt={tarjeta.alt}
+      widths={[320, 480, 640]}
+      sizes="(min-width: 1024px) 280px, (min-width: 768px) 45vw, 92vw"
+      format="webp"
+      quality={72}
+      loading="lazy"
+    />
+  </div>
+  <div class="servicio-card__body">
+    <h3 id={titulo_id}>{tarjeta.titulo}</h3>
+    <p>{tarjeta.resumen}</p>
+    <a href={`/servicios/${servicio.id}`} class="link-arrow servicio-card__link">
+      Ver detalles <span aria-hidden="true">→</span>
+      <span class="sr-only">sobre {tarjeta.titulo}</span>
+    </a>
+  </div>
+</article>
+
+<style>
+  .servicio-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--color_bg_card);
+    border: 1px solid var(--color_border);
+    border-radius: var(--radius_lg);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+
+  .servicio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow_lg);
+    border-color: color-mix(in srgb, var(--color_primary) 35%, var(--color_border));
+  }
+
+  .servicio-card__img {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--color_primary_bg);
+  }
+
+  .servicio-card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+
+  .servicio-card:hover .servicio-card__img img {
+    transform: scale(1.05);
+  }
+
+  .servicio-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: var(--spacing_md);
+  }
+
+  .servicio-card__body h3 {
+    font-size: 1.2rem;
+  }
+
+  .servicio-card__body p {
+    font-size: 0.95rem;
+  }
+
+  .servicio-card__link {
+    margin-top: auto;
+    padding-top: var(--spacing_xs);
+  }
+
+  /* Toda la tarjeta es clicable sin anidar enlaces */
+  .servicio-card__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .servicio-card:has(.servicio-card__link:focus-visible) {
+    outline: 2px solid var(--color_primary);
+    outline-offset: 3px;
+  }
+
+  .servicio-card__link:focus-visible {
+    outline: none;
+  }
+</style>

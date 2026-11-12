@@ -1,0 +1,367 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import IconoEdificio from '../components/IconoEdificio.astro';
+import { sitio } from '../data/sitio';
+
+const servicios = (await getCollection('servicios')).sort((a, b) => a.data.orden - b.data.orden);
+
+const pasos = [
+  { titulo: 'Recepción de la consulta', texto: 'El contribuyente nos contacta y se analiza el trámite requerido.' },
+  { titulo: 'Revisión de requisitos', texto: 'Se valida la información y documentación necesaria según normativa municipal.' },
+  { titulo: 'Desarrollo del proceso', texto: 'Presentación de la documentación del trámite solicitado en la Municipalidad de San Carlos.' },
+  { titulo: 'Seguimiento y cierre', texto: 'Se da seguimiento hasta la finalización del trámite o la correcta presentación ante la Municipalidad.' },
+];
+
+const beneficios = [
+  { titulo: 'Menos errores', texto: 'Revisamos requisitos y documentos antes de presentarlos.' },
+  { titulo: 'Sin traslados innecesarios', texto: 'Gestionamos la presentación ante la municipalidad por usted.' },
+  { titulo: 'Menos tiempo de espera', texto: 'Damos seguimiento al trámite hasta su cierre.' },
+];
+---
+<BaseLayout
+  titulo={sitio.nombre}
+  descripcion="Acompañamiento en trámites ante la Municipalidad de San Carlos: exoneraciones, declaraciones de bienes inmuebles, consultas y más."
+>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-titulo">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <span class="section__badge">San Carlos, Costa Rica</span>
+        <h1 id="hero-titulo">Trámites municipales con servicio personalizado</h1>
+        <p>
+          Facilitamos la gestión de sus trámites ante la Municipalidad de San Carlos
+          sin necesidad de desplazarse a las oficinas municipales.
+        </p>
+        <div class="hero__actions">
+          <a href="/contacto" class="btn btn-primary">Comenzar ahora</a>
+          <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+        </div>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__blob">
+          <IconoEdificio size={72} stroke={1.4} class="hero__icon" />
+          <span class="hero__brand-text">TramiMuni</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proceso -->
+  <section class="section section--alt" aria-labelledby="como-titulo">
+    <div class="container">
+      <SectionHeader id="como-titulo" badge="El proceso" titulo="¿Cómo funcionan nuestros servicios?">
+        Nuestros servicios están orientados a facilitarle al contribuyente de la Municipalidad
+        de San Carlos la realización de sus trámites sin necesidad de desplazarse a las
+        oficinas municipales.
+      </SectionHeader>
+
+      <ol class="pasos" role="list">
+        {pasos.map((paso, i) => (
+          <li>
+            <article class="paso" aria-labelledby={`paso-${i + 1}-titulo`}>
+              <span class="paso__numero" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3 id={`paso-${i + 1}-titulo`}>{paso.titulo}</h3>
+              <p>{paso.texto}</p>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Por qué -->
+  <section class="section" aria-labelledby="porque-titulo">
+    <div class="container porque">
+      <SectionHeader id="porque-titulo" badge="¿Por qué nosotros?" titulo="¿Por qué TramiMuni?" align="start">
+        TramiMuni nace como una iniciativa de acompañamiento ciudadano para facilitar la gestión
+        de trámites municipales, reduciendo errores, traslados innecesarios y tiempos de espera.
+      </SectionHeader>
+
+      <ul class="beneficios" role="list">
+        {beneficios.map((b) => (
+          <li class="beneficio">
+            <span class="beneficio__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+            </span>
+            <div>
+              <h3>{b.titulo}</h3>
+              <p>{b.texto}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section class="section section--alt" id="servicios" aria-labelledby="servicios-titulo">
+    <div class="container">
+      <SectionHeader id="servicios-titulo" badge="Nuestros servicios" titulo="¿En qué podemos ayudarle?" />
+      <ul class="servicios" role="list">
+        {servicios.map((s) => <li><ServiceCard servicio={s} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" aria-labelledby="cta-titulo">
+    <div class="container">
+      <div class="cta">
+        <span class="section__badge">¿Listo para comenzar?</span>
+        <h2 id="cta-titulo">Contáctenos y comencemos a trabajar juntos</h2>
+        <p>Estamos disponibles para atender su consulta y guiarle en cada paso del proceso.</p>
+        <a href="/contacto" class="btn btn-primary">Ir a contacto</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ─────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: min(760px, calc(100dvh - var(--navbar_height)));
+    background:
+      radial-gradient(40rem 28rem at 78% 45%, color-mix(in srgb, var(--color_primary_light) 18%, transparent), transparent 70%),
+      var(--color_bg);
+  }
+
+  .hero__grid {
+    display: grid;
+    gap: var(--spacing_lg);
+    align-items: center;
+    padding-block: var(--spacing_xl);
+  }
+
+  .hero__content {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing_sm);
+    text-align: center;
+  }
+
+  .hero__content h1 {
+    max-width: 16ch;
+  }
+
+  .hero__content p {
+    max-width: 52ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing_xs);
+    margin-top: var(--spacing_xs);
+  }
+
+  .hero__visual {
+    display: grid;
+    place-items: center;
+    order: -1;
+  }
+
+  .hero__blob {
+    width: clamp(210px, 48vw, 400px);
+    aspect-ratio: 1;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.75rem;
+    color: #fff;
+    background: linear-gradient(140deg, var(--color_primary_light), var(--color_primary) 55%, var(--color_primary_dark));
+    border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+    box-shadow:
+      0 30px 60px -20px color-mix(in srgb, var(--color_primary) 55%, transparent),
+      inset 0 2px 0 rgb(255 255 255 / 0.25);
+    animation: blob-morph 10s ease-in-out infinite;
+  }
+
+  .hero__blob :global(.hero__icon) {
+    width: clamp(48px, 9vw, 76px);
+    height: auto;
+    opacity: 0.9;
+  }
+
+  .hero__brand-text {
+    font-family: var(--font_display);
+    font-size: clamp(1.5rem, 4.5vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.18);
+  }
+
+  @keyframes blob-morph {
+    0%, 100% { border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; }
+    25%      { border-radius: 50% 50% 40% 60% / 60% 40% 55% 45%; }
+    50%      { border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%; }
+    75%      { border-radius: 55% 45% 45% 55% / 40% 60% 45% 55%; }
+  }
+
+  /* ── Pasos ────────────────────────────────────────────── */
+  .pasos {
+    display: grid;
+    gap: var(--spacing_sm);
+  }
+
+  .paso {
+    height: 100%;
+    display: grid;
+    align-content: start;
+    gap: 0.5rem;
+    padding: var(--spacing_md);
+    background: var(--color_bg_card);
+    border: 1px solid var(--color_border);
+    border-top: 3px solid var(--color_primary);
+    border-radius: var(--radius_md);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .paso:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow_md);
+  }
+
+  .paso__numero {
+    font-family: var(--font_display);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--color_primary);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+
+  :global([data-theme="dark"]) .paso__numero {
+    color: var(--color_primary_light);
+  }
+
+  .paso h3 {
+    font-size: 1.12rem;
+  }
+
+  .paso p {
+    font-size: 0.95rem;
+  }
+
+  /* ── Por qué ──────────────────────────────────────────── */
+  .porque {
+    display: grid;
+    gap: var(--spacing_md);
+    align-items: center;
+  }
+
+  .porque :global(.section-header) {
+    margin-bottom: 0;
+  }
+
+  .beneficios {
+    display: grid;
+    gap: var(--spacing_sm);
+  }
+
+  .beneficio {
+    display: flex;
+    gap: var(--spacing_sm);
+    align-items: flex-start;
+    padding: var(--spacing_sm) var(--spacing_md);
+    background: var(--color_bg_secondary);
+    border-radius: var(--radius_md);
+  }
+
+  .beneficio__check {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius_full);
+    background: var(--color_primary);
+    color: #fff;
+  }
+
+  .beneficio h3 {
+    font-size: 1.08rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .beneficio p {
+    font-size: 0.95rem;
+  }
+
+  /* ── Servicios ────────────────────────────────────────── */
+  .servicios {
+    display: grid;
+    gap: var(--spacing_md);
+  }
+
+  /* ── CTA ──────────────────────────────────────────────── */
+  .cta {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing_sm);
+    padding: var(--spacing_xl) var(--spacing_md);
+    text-align: center;
+    border-radius: var(--radius_lg);
+    border: 1px solid color-mix(in srgb, var(--color_primary_light) 50%, transparent);
+    background:
+      radial-gradient(30rem 14rem at 50% 0%, color-mix(in srgb, var(--color_primary_light) 25%, transparent), transparent 70%),
+      var(--color_primary_bg);
+  }
+
+  .cta h2 {
+    max-width: 20ch;
+    color: var(--color_primary_dark);
+  }
+
+  :global([data-theme="dark"]) .cta h2 {
+    color: var(--color_primary_light);
+  }
+
+  .cta p {
+    max-width: 48ch;
+  }
+
+  /* ── Breakpoints ──────────────────────────────────────── */
+  @media (min-width: 768px) {
+    .hero__grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .hero__visual {
+      order: 0;
+    }
+
+    .hero__content {
+      justify-items: start;
+      text-align: left;
+    }
+
+    .hero__actions {
+      justify-content: flex-start;
+    }
+
+    .pasos,
+    .servicios {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pasos,
+    .servicios {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .porque {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing_2xl);
+    }
+  }
+</style>

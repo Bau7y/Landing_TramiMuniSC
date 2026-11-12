@@ -1,0 +1,343 @@
+/* ============================================================
+   global.css — TramiMuniSC
+   Tokens, reset y utilidades compartidas.
+   Los estilos de cada componente viven en su archivo .astro.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Marca */
+  --color_primary:       #2e7d32;
+  --color_primary_light: #66bb6a;
+  --color_primary_dark:  #1b5e20;
+  --color_primary_bg:    #e8f5e9;
+  --color_on_primary:    #ffffff;
+
+  /* Neutros (gris verdoso, una sola familia) */
+  --color_bg:            #fbfcfa;
+  --color_bg_secondary:  #f2f5f1;
+  --color_bg_card:       #ffffff;
+  --color_text:          #18201a;
+  --color_text_muted:    #5b665d;
+  --color_border:        #dfe5de;
+
+  /* Estados */
+  --color_error:         #b3261e;
+  --color_error_bg:      #fdecea;
+  --color_success_bg:    #e8f5e9;
+  --color_success_text:  #1b5e20;
+
+  /* Sombras teñidas */
+  --shadow_sm: 0 1px 2px rgb(24 48 28 / 0.06), 0 1px 3px rgb(24 48 28 / 0.06);
+  --shadow_md: 0 6px 20px -6px rgb(24 48 28 / 0.14);
+  --shadow_lg: 0 18px 40px -12px rgb(24 48 28 / 0.20);
+
+  /* Tipografía */
+  --font_body:    'DM Sans Variable', system-ui, sans-serif;
+  --font_display: 'Playfair Display Variable', Georgia, serif;
+
+  /* Espaciado */
+  --spacing_xs: 0.5rem;
+  --spacing_sm: 1rem;
+  --spacing_md: 1.5rem;
+  --spacing_lg: 2.5rem;
+  --spacing_xl: 4rem;
+  --spacing_2xl: 6rem;
+
+  /* Radios */
+  --radius_sm:   6px;
+  --radius_md:   12px;
+  --radius_lg:   20px;
+  --radius_full: 9999px;
+
+  /* Movimiento */
+  --transition: 0.22s cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  /* Contenedor */
+  --container_max: 1200px;
+  --container_px:  1.25rem;
+
+  /* Navbar */
+  --navbar_height: 68px;
+
+  /* Capas */
+  --z_dropdown: 90;
+  --z_navbar:   100;
+  --z_skip:     200;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color_bg:           #0f1410;
+  --color_bg_secondary: #151c16;
+  --color_bg_card:      #1a221b;
+  --color_text:         #e8f0e9;
+  --color_text_muted:   #9db29f;
+  --color_border:       #2a3b2c;
+  --color_primary_bg:   #1a2e1b;
+
+  --color_error:        #f2867c;
+  --color_error_bg:     #2e1a1a;
+  --color_success_bg:   #1b2e1c;
+  --color_success_text: #a5d6a7;
+
+  --shadow_sm: 0 1px 3px rgb(0 0 0 / 0.35);
+  --shadow_md: 0 6px 20px -6px rgb(0 0 0 / 0.5);
+  --shadow_lg: 0 18px 40px -12px rgb(0 0 0 / 0.6);
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+[id] {
+  scroll-margin-top: calc(var(--navbar_height) + var(--spacing_sm));
+}
+
+body {
+  font-family: var(--font_body);
+  line-height: 1.7;
+  color: var(--color_text);
+  background-color: var(--color_bg);
+  padding-top: var(--navbar_height);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+main {
+  flex: 1;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ── Tipografía ────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font_display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--color_text);
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(2.1rem, 5vw, 3.6rem); letter-spacing: -0.025em; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.5rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); }
+
+p {
+  color: var(--color_text_muted);
+  font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+  text-wrap: pretty;
+}
+
+strong {
+  color: var(--color_text);
+  font-weight: 600;
+}
+
+/* ── Layout ────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--container_max);
+  margin-inline: auto;
+  padding-inline: var(--container_px);
+}
+
+.section {
+  padding-block: var(--spacing_xl) calc(var(--spacing_xl) + 0.5rem);
+}
+
+.section--alt {
+  background: var(--color_bg_secondary);
+}
+
+/* ── Botones ───────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius_full);
+  border: 1.5px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.2;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow_md);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: var(--color_primary);
+  color: var(--color_on_primary);
+}
+
+.btn-primary:hover {
+  background: var(--color_primary_dark);
+}
+
+.btn-outline {
+  color: var(--color_primary);
+  border-color: var(--color_primary);
+}
+
+.btn-outline:hover {
+  background: var(--color_primary_bg);
+}
+
+[data-theme="dark"] .btn-outline {
+  color: var(--color_primary_light);
+  border-color: var(--color_primary_light);
+}
+
+/* Enlace terciario con flecha */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color_primary);
+  transition: gap var(--transition), color var(--transition);
+}
+
+.link-arrow:hover {
+  gap: 0.6rem;
+  color: var(--color_primary_dark);
+}
+
+[data-theme="dark"] .link-arrow { color: var(--color_primary_light); }
+
+/* ── Badge de sección ──────────────────────────────────── */
+.section__badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  background: var(--color_primary_bg);
+  color: var(--color_primary_dark);
+  border-radius: var(--radius_full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+[data-theme="dark"] .section__badge { color: var(--color_primary_light); }
+
+/* ── Accesibilidad ─────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color_primary);
+  outline-offset: 3px;
+  border-radius: var(--radius_sm);
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--spacing_xs);
+  left: var(--spacing_xs);
+  z-index: var(--z_skip);
+  padding: 0.6rem 1rem;
+  background: var(--color_primary);
+  color: var(--color_on_primary);
+  border-radius: var(--radius_sm);
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform var(--transition);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Breakpoints ───────────────────────────────────────── */
+@media (min-width: 768px) {
+  :root { --container_px: 2rem; }
+}
+
+@media (min-width: 1024px) {
+  :root { --container_px: 2.5rem; }
+}

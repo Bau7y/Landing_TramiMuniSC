@@ -1,0 +1,535 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { sitio } from '../data/sitio';
+
+const servicios = (await getCollection('servicios')).sort((a, b) => a.data.orden - b.data.orden);
+---
+<BaseLayout
+  titulo="Contáctenos"
+  descripcion="Contáctenos — TramiMuniSC. Envíenos su consulta sobre trámites municipales en San Carlos."
+>
+  <PageHero
+    titulo="Contáctenos"
+    subtitulo="Envíenos su consulta y le responderemos a la brevedad posible."
+    miga="Contacto"
+  />
+
+  <section class="section" aria-labelledby="form-titulo">
+    <div class="container contacto">
+      <div class="contacto__form">
+        <h2 id="form-titulo">Envíenos un mensaje</h2>
+        <p>Complete el formulario y le responderemos al correo que indique.</p>
+
+        <form id="contact-form" class="form" novalidate aria-labelledby="form-titulo">
+          <div class="form__row">
+            <div class="field">
+              <label for="nombre" class="field__label">
+                Nombre completo <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                class="field__input"
+                placeholder="Ej: María Solís Rojas"
+                autocomplete="name"
+                maxlength="120"
+                required
+                aria-describedby="nombre-hint"
+              />
+              <span id="nombre-hint" class="field__hint">Se guarda en este dispositivo para futuras visitas.</span>
+            </div>
+
+            <div class="field">
+              <label for="correo" class="field__label">
+                Correo electrónico <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="email"
+                id="correo"
+                name="correo"
+                class="field__input"
+                placeholder="Ej: maria@correo.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="asunto" class="field__label">
+                Asunto <span class="field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="asunto"
+                name="asunto"
+                class="field__input"
+                placeholder="Ej: Consulta sobre exoneración"
+                maxlength="150"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="tramite" class="field__label">Tipo de trámite</label>
+              <select id="tramite" name="tramite" class="field__input field__select">
+                <option value="">Seleccione una opción</option>
+                {servicios.map((s) => <option value={s.id}>{s.data.tarjeta.titulo}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="mensaje" class="field__label">
+              Mensaje <span class="field__required" aria-hidden="true">*</span>
+            </label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              class="field__input field__textarea"
+              placeholder="Describa su consulta o trámite…"
+              rows="6"
+              maxlength="5000"
+              required
+              aria-describedby="mensaje-hint"
+            ></textarea>
+            <span id="mensaje-hint" class="field__hint">Mínimo 10 caracteres.</span>
+          </div>
+
+          <!-- Anti-spam: invisible para personas -->
+          <div class="trampa" aria-hidden="true">
+            <label for="sitio_web">No llenar este campo</label>
+            <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off" />
+          </div>
+          <input type="hidden" name="cargado_en" id="cargado_en" />
+
+          <div id="form-feedback" class="form-feedback" role="status" aria-live="polite" hidden></div>
+
+          <div class="form__footer">
+            <button type="submit" class="btn btn-primary form__submit">
+              <span class="form__spinner" aria-hidden="true"></span>
+              <span data-label>Enviar mensaje</span>
+            </button>
+            <p class="form__required-note"><span aria-hidden="true">*</span> Campos requeridos</p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="contacto__aside" aria-label="Información de contacto">
+        <div class="info-card">
+          <h2>Información de contacto</h2>
+          <ul class="info-list" role="list">
+            <li>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3.5 6.5 8.5 6.5 8.5-6.5" /></svg>
+              <div>
+                <span class="info-list__label">Correo</span>
+                <a href={`mailto:${sitio.correo}`} class="info-list__value info-list__link">{sitio.correo}</a>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+              <div>
+                <span class="info-list__label">Ubicación</span>
+                <span class="info-list__value">{sitio.ubicacion}</span>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+              <div>
+                <span class="info-list__label">Horario de atención</span>
+                <span class="info-list__value">{sitio.horario}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { actions, isInputError } from 'astro:actions';
+
+  const NOMBRE_KEY = 'tramimuni-contacto-nombre';
+  const MENSAJE_EXITO = 'Mensaje enviado. Le responderemos al correo indicado.';
+  const MENSAJE_ERROR = 'No se pudo enviar el mensaje. Intente de nuevo en unos minutos.';
+
+  type Campo = 'nombre' | 'correo' | 'asunto' | 'mensaje';
+
+  const form = document.querySelector<HTMLFormElement>('#contact-form')!;
+  const feedback = document.querySelector<HTMLElement>('#form-feedback')!;
+  const submit = form.querySelector<HTMLButtonElement>('.form__submit')!;
+  const submit_label = submit.querySelector<HTMLElement>('[data-label]')!;
+  const input = (id: string) => form.querySelector<HTMLInputElement>(`#${id}`)!;
+
+  /* ── Marca de tiempo anti-spam ──────────────────────── */
+  input('cargado_en').value = String(Date.now());
+
+  /* ── Preselección por ?tramite= ─────────────────────── */
+  const tramite = new URLSearchParams(location.search).get('tramite');
+  const select = form.querySelector<HTMLSelectElement>('#tramite')!;
+  if (tramite && [...select.options].some((o) => o.value === tramite)) select.value = tramite;
+
+  /* ── Nombre persistido en localStorage ──────────────── */
+  try {
+    const guardado = localStorage.getItem(NOMBRE_KEY);
+    if (guardado) input('nombre').value = guardado;
+  } catch {}
+
+  input('nombre').addEventListener('input', (e) => {
+    const valor = (e.target as HTMLInputElement).value.trim();
+    try {
+      valor ? localStorage.setItem(NOMBRE_KEY, valor) : localStorage.removeItem(NOMBRE_KEY);
+    } catch {}
+  });
+
+  /* ── Validación cliente (espejo del esquema del servidor) ─ */
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function validar(): Partial<Record<Campo, string>> {
+    const errores: Partial<Record<Campo, string>> = {};
+    const v = (id: Campo) => input(id).value.trim();
+
+    if (!v('nombre')) errores.nombre = 'El nombre es requerido';
+    if (!v('correo')) errores.correo = 'El correo es requerido';
+    else if (!EMAIL_RE.test(v('correo'))) errores.correo = 'Ingrese un correo válido';
+    if (!v('asunto')) errores.asunto = 'El asunto es requerido';
+    if (!v('mensaje')) errores.mensaje = 'El mensaje es requerido';
+    else if (v('mensaje').length < 10) errores.mensaje = 'El mensaje debe tener al menos 10 caracteres';
+
+    return errores;
+  }
+
+  /** Pinta errores por campo. Devuelve cuántos se pudieron mostrar. */
+  function mostrarErrores(errores: Partial<Record<Campo, string | string[] | undefined>>): number {
+    let primero: HTMLElement | null = null;
+    let total = 0;
+
+    for (const [campo, mensaje] of Object.entries(errores)) {
+      const el = form.querySelector<HTMLElement>(`#${campo}`);
+      const texto = Array.isArray(mensaje) ? mensaje[0] : mensaje;
+      if (!el || !texto) continue;
+
+      const error_id = `${campo}-error`;
+      el.classList.add('input-error');
+      el.setAttribute('aria-invalid', 'true');
+      el.setAttribute('aria-describedby', [el.getAttribute('aria-describedby'), error_id].filter(Boolean).join(' '));
+
+      const span = document.createElement('span');
+      span.id = error_id;
+      span.className = 'field-error';
+      span.textContent = texto;
+      el.parentElement!.appendChild(span);
+
+      primero ??= el;
+      total++;
+    }
+
+    primero?.focus();
+    return total;
+  }
+
+  function limpiarErrores() {
+    form.querySelectorAll('.field-error').forEach((el) => el.remove());
+    form.querySelectorAll<HTMLElement>('.input-error').forEach((el) => {
+      el.classList.remove('input-error');
+      el.removeAttribute('aria-invalid');
+      const ids = (el.getAttribute('aria-describedby') ?? '').split(' ').filter((id) => !id.endsWith('-error'));
+      ids.length ? el.setAttribute('aria-describedby', ids.join(' ')) : el.removeAttribute('aria-describedby');
+    });
+  }
+
+  function mostrarFeedback(tipo: 'success' | 'error', mensaje: string) {
+    feedback.textContent = mensaje;
+    feedback.className = `form-feedback form-feedback--${tipo}`;
+    feedback.hidden = false;
+  }
+
+  function setCargando(cargando: boolean) {
+    submit.disabled = cargando;
+    submit.classList.toggle('is-loading', cargando);
+    submit_label.textContent = cargando ? 'Enviando…' : 'Enviar mensaje';
+  }
+
+  /* ── Envío ──────────────────────────────────────────── */
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    limpiarErrores();
+    feedback.hidden = true;
+
+    const errores = validar();
+    if (Object.keys(errores).length) {
+      mostrarErrores(errores);
+      return;
+    }
+
+    setCargando(true);
+    const { error } = await actions.enviarContacto(new FormData(form));
+    setCargando(false);
+
+    if (!error) {
+      mostrarFeedback('success', MENSAJE_EXITO);
+      (['asunto', 'mensaje'] as const).forEach((id) => (input(id).value = ''));
+      select.value = '';
+      input('cargado_en').value = String(Date.now());
+      return;
+    }
+
+    if (isInputError(error)) {
+      const visibles = mostrarErrores(error.fields as Partial<Record<Campo, string[]>>);
+      if (!visibles) mostrarFeedback('error', MENSAJE_ERROR);
+      return;
+    }
+
+    mostrarFeedback('error', error.message || MENSAJE_ERROR);
+  });
+</script>
+
+<style>
+  .contacto {
+    display: grid;
+    gap: var(--spacing_lg);
+    align-items: start;
+  }
+
+  .contacto__form {
+    display: grid;
+    gap: var(--spacing_xs);
+  }
+
+  .contacto__form > h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  }
+
+  .form {
+    display: grid;
+    gap: var(--spacing_md);
+    margin-top: var(--spacing_sm);
+  }
+
+  .form__row {
+    display: grid;
+    gap: var(--spacing_md);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+
+  .field__label {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .field__required {
+    color: var(--color_error);
+  }
+
+  .field__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.97rem;
+    background: var(--color_bg_card);
+    border: 1.5px solid var(--color_border);
+    border-radius: var(--radius_sm);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    appearance: none;
+  }
+
+  .field__input:hover {
+    border-color: color-mix(in srgb, var(--color_primary) 35%, var(--color_border));
+  }
+
+  .field__input:focus {
+    outline: none;
+    border-color: var(--color_primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color_primary) 18%, transparent);
+  }
+
+  .field__input::placeholder {
+    color: var(--color_text_muted);
+    opacity: 0.7;
+  }
+
+  .field__select {
+    padding-right: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b665d' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    background-size: 18px;
+  }
+
+  .field__textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .field__hint {
+    font-size: 0.8rem;
+    color: var(--color_text_muted);
+  }
+
+  /* Clases agregadas desde JS: requieren :global */
+  .form :global(.input-error) {
+    border-color: var(--color_error);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color_error) 14%, transparent);
+  }
+
+  .form :global(.field-error) {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color_error);
+  }
+
+  .trampa {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-feedback {
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius_sm);
+    font-size: 0.92rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+  }
+
+  .form-feedback--success {
+    background: var(--color_success_bg);
+    color: var(--color_success_text);
+    border-color: color-mix(in srgb, var(--color_primary_light) 60%, transparent);
+  }
+
+  .form-feedback--error {
+    background: var(--color_error_bg);
+    color: var(--color_error);
+    border-color: color-mix(in srgb, var(--color_error) 40%, transparent);
+  }
+
+  .form__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing_sm);
+  }
+
+  .form__submit {
+    min-width: 11rem;
+  }
+
+  .form__spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgb(255 255 255 / 0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: girar 0.7s linear infinite;
+  }
+
+  .form__submit.is-loading .form__spinner {
+    display: inline-block;
+  }
+
+  @keyframes girar {
+    to { transform: rotate(360deg); }
+  }
+
+  .form__required-note {
+    font-size: 0.82rem;
+  }
+
+  /* Aside */
+  .contacto__aside {
+    position: sticky;
+    top: calc(var(--navbar_height) + var(--spacing_sm));
+  }
+
+  .info-card {
+    display: grid;
+    gap: var(--spacing_sm);
+    padding: var(--spacing_md);
+    background: var(--color_bg_card);
+    border: 1px solid var(--color_border);
+    border-radius: var(--radius_lg);
+    box-shadow: var(--shadow_sm);
+  }
+
+  .info-card h2 {
+    font-size: 1.2rem;
+    padding-bottom: var(--spacing_xs);
+    border-bottom: 1px solid var(--color_border);
+  }
+
+  .info-list {
+    display: grid;
+    gap: var(--spacing_sm);
+  }
+
+  .info-list li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .info-list svg {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color_primary);
+  }
+
+  :global([data-theme="dark"]) .info-list svg {
+    color: var(--color_primary_light);
+  }
+
+  .info-list__label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color_text_muted);
+  }
+
+  .info-list__value {
+    display: block;
+    font-size: 0.94rem;
+    overflow-wrap: anywhere;
+  }
+
+  .info-list__link {
+    color: var(--color_primary);
+    font-weight: 500;
+  }
+
+  .info-list__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  :global([data-theme="dark"]) .info-list__link {
+    color: var(--color_primary_light);
+  }
+
+  @media (min-width: 640px) {
+    .form__row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .contacto {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: var(--spacing_xl);
+    }
+  }
+</style>
