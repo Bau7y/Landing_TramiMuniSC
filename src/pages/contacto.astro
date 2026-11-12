@@ -264,6 +264,11 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     submitLabel.textContent = isLoading ? 'Enviando…' : 'Enviar mensaje';
   }
 
+  // Hide a previous success message as soon as the user starts a new one
+  form.addEventListener('input', () => {
+    if (feedback.classList.contains('form_feedback_success')) feedback.hidden = true;
+  });
+
   /* ── Submit ─────────────────────────────────────────── */
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -281,10 +286,11 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     setLoading(false);
 
     if (!error) {
-      showFeedback('success', SUCCESS_MESSAGE);
-      (['subject', 'message'] as const).forEach((id) => (input(id).value = ''));
-      serviceSelect.value = '';
+      // Empty every field for a new message. The saved name stays in
+      // localStorage and is restored on the next visit.
+      form.reset();
       input('loaded_at').value = String(Date.now());
+      showFeedback('success', SUCCESS_MESSAGE);
       return;
     }
 
