@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BuildingIcon from '../components/BuildingIcon.astro';
+---
+<BaseLayout title="Página no encontrada" description="La página que busca no existe.">
+  <section class="not_found" aria-labelledby="not_found_title">
+    <div class="container">
+      <BuildingIcon size={56} stroke={1.5} class="not_found_icon" />
+      <p class="not_found_code">Error 404</p>
+      <h1 id="not_found_title">Esta página no existe</h1>
+      <p>Puede que el enlace esté desactualizado o que la dirección tenga un error.</p>
+      <div class="not_found_actions">
+        <a href="/" class="btn btn_primary">Ir al inicio</a>
+        <a href="/contacto" class="btn btn_outline">Contáctenos</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not_found {
+    display: grid;
+    place-items: center;
+    min-height: 60dvh;
+    padding-block: var(--spacing_xl);
+    text-align: center;
+  }
+
+  .not_found .container {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing_sm);
+  }
+
+  .not_found :global(.not_found_icon) {
+    color: var(--color_primary);
+  }
+
+  .not_found_code {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.8rem !important;
+    color: var(--color_primary) !important;
+  }
+
+  .not_found_actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing_xs);
+    margin-top: var(--spacing_xs);
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  crumb: string;
+}
+const { title, subtitle, crumb } = Astro.props;
+---
+<section class="page_hero" aria-labelledby="page_title">
+  <div class="container page_hero_inner">
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <ol role="list">
+        <li><a href="/">Inicio</a></li>
+        <li aria-current="page">{crumb}</li>
+      </ol>
+    </nav>
+    <h1 id="page_title">{title}</h1>
+    <p>{subtitle}</p>
+  </div>
+</section>
+
+<style>
+  .page_hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--spacing_xl) var(--spacing_lg);
+    background:
+      radial-gradient(60rem 20rem at 85% 0%, color-mix(in srgb, var(--color_primary_light) 22%, transparent), transparent 70%),
+      var(--color_primary_bg);
+    border-bottom: 1px solid var(--color_border);
+  }
+
+  .page_hero_inner {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .page_hero h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    color: var(--color_primary_dark);
+    max-width: 22ch;
+  }
+
+  :global([data-theme="dark"]) .page_hero h1 {
+    color: var(--color_primary_light);
+  }
+
+  .page_hero p {
+    max-width: 60ch;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--color_text_muted);
+  }
+
+  .breadcrumb li + li::before {
+    content: '/';
+    margin-right: 0.4rem;
+    color: var(--color_text_muted);
+    opacity: 0.6;
+  }
+
+  .breadcrumb a {
+    color: var(--color_primary);
+    font-weight: 500;
+    transition: color var(--transition);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color_primary_dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  :global([data-theme="dark"]) .breadcrumb a {
+    color: var(--color_primary_light);
+  }
+
+  .breadcrumb [aria-current] {
+    color: var(--color_text);
+    font-weight: 500;
+  }
+</style>
