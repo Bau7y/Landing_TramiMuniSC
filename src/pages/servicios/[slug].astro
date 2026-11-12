@@ -1,0 +1,261 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+export const getStaticPaths = (async () => {
+  const services = await getCollection('services');
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service },
+  }));
+}) satisfies GetStaticPaths;
+
+const { service } = Astro.props;
+const { data } = service;
+const { Content } = await render(service);
+---
+<BaseLayout title={data.nav_label} description={data.meta_description}>
+  <PageHero title={data.title} subtitle={data.subtitle} crumb={data.nav_label} />
+
+  <div class="container page_layout">
+    <div class="page_content">
+      <article class="intro prose" aria-labelledby="intro_title">
+        <h2 id="intro_title">{data.intro_title}</h2>
+        <Content />
+      </article>
+
+      <section class="requirements" aria-labelledby="list_title">
+        <h2 id="list_title">{data.list.title}</h2>
+        <ul role="list">
+          {data.list.items.map((item) => (
+            <li>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="steps" aria-labelledby="steps_title">
+        <h2 id="steps_title">{data.steps.title}</h2>
+        <ol role="list">
+          {data.steps.items.map((step, i) => (
+            <li class="step">
+              <span class="step_number" aria-hidden="true">{i + 1}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <aside class="page_aside" aria-label="Contacto rápido">
+      <div class="aside_card">
+        <h2>{data.aside.title}</h2>
+        <p>{data.aside.text}</p>
+        <a href={`/contacto?service=${service.id}`} class="btn btn_primary">{data.aside.button}</a>
+        <p class="aside_card_note">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16.5v.01" /></svg>
+          <span>{data.aside.note}</span>
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <section class="page_cta" aria-labelledby="cta_title">
+    <div class="container">
+      <h2 id="cta_title">{data.cta.title}</h2>
+      <p>{data.cta.text}</p>
+      <a href={`/contacto?service=${service.id}`} class="btn btn_primary">{data.cta.button}</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page_layout {
+    display: grid;
+    gap: var(--spacing_lg);
+    padding-block: var(--spacing_xl);
+  }
+
+  .page_content {
+    display: grid;
+    gap: var(--spacing_xl);
+    min-width: 0;
+  }
+
+  .page_content h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+    margin-bottom: var(--spacing_sm);
+  }
+
+  /* Markdown text */
+  .prose :global(p) {
+    max-width: 68ch;
+  }
+
+  .prose :global(p + p) {
+    margin-top: var(--spacing_sm);
+  }
+
+  /* Requirements list */
+  .requirements {
+    padding: var(--spacing_md);
+    background: var(--color_bg_card);
+    border: 1px solid var(--color_border);
+    border-radius: var(--radius_lg);
+  }
+
+  .requirements ul {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .requirements li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.8rem 1rem;
+    background: var(--color_bg_secondary);
+    border-radius: var(--radius_sm);
+    line-height: 1.5;
+  }
+
+  .requirements svg {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color_primary);
+  }
+
+  :global([data-theme="dark"]) .requirements svg {
+    color: var(--color_primary_light);
+  }
+
+  /* Steps: vertical timeline */
+  .steps ol {
+    display: grid;
+  }
+
+  .step {
+    position: relative;
+    display: flex;
+    gap: var(--spacing_sm);
+    align-items: flex-start;
+  }
+
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 40px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--color_border);
+  }
+
+  .step_number {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius_full);
+    background: var(--color_primary);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    position: relative;
+  }
+
+  .step div {
+    padding-bottom: var(--spacing_sm);
+  }
+
+  .step h3 {
+    font-size: 1.08rem;
+    margin-bottom: 0.15rem;
+    margin-top: 0.3rem;
+  }
+
+  .step p {
+    font-size: 0.95rem;
+  }
+
+  /* Aside */
+  .aside_card {
+    display: grid;
+    gap: var(--spacing_xs);
+    padding: var(--spacing_md);
+    background: var(--color_bg_card);
+    border: 1px solid var(--color_border);
+    border-radius: var(--radius_lg);
+    box-shadow: var(--shadow_sm);
+    position: sticky;
+    top: calc(var(--navbar_height) + var(--spacing_sm));
+  }
+
+  .aside_card h2 {
+    font-size: 1.2rem;
+  }
+
+  .aside_card p {
+    font-size: 0.93rem;
+  }
+
+  .aside_card .btn {
+    margin-block: var(--spacing_xs);
+  }
+
+  .aside_card_note {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding: 0.75rem;
+    background: var(--color_primary_bg);
+    border-radius: var(--radius_sm);
+    font-size: 0.84rem !important;
+    line-height: 1.5;
+  }
+
+  .aside_card_note svg {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    color: var(--color_primary);
+  }
+
+  /* Closing CTA */
+  .page_cta {
+    padding-block: var(--spacing_xl);
+    text-align: center;
+    background: var(--color_bg_secondary);
+    border-top: 1px solid var(--color_border);
+  }
+
+  .page_cta .container {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing_xs);
+  }
+
+  .page_cta h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  }
+
+  .page_cta .btn {
+    margin-top: var(--spacing_xs);
+  }
+
+  @media (min-width: 900px) {
+    .page_layout {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: start;
+      gap: var(--spacing_xl);
+    }
+  }
+</style>

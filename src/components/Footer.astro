@@ -1,0 +1,108 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+import { getNavigation } from '../data/navigation';
+
+const { services, contact } = await getNavigation();
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer_grid">
+      <div class="footer_brand">
+        <Logo size="sm" />
+        <p>{site.description}</p>
+      </div>
+
+      <nav class="footer_col" aria-labelledby="footer_services">
+        <h2 id="footer_services">Servicios</h2>
+        <ul role="list">
+          {services.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="footer_col">
+        <h2 id="footer_contact">Contacto</h2>
+        <ul role="list" aria-labelledby="footer_contact">
+          <li><a href={contact.href}>Formulario de contacto</a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer_bottom">
+      <p>© {year} {site.name}. Todos los derechos reservados.</p>
+      <p>{site.location}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color_bg_secondary);
+    border-top: 1px solid var(--color_border);
+    padding: var(--spacing_xl) 0 var(--spacing_md);
+  }
+
+  .footer_grid {
+    display: grid;
+    gap: var(--spacing_lg);
+    margin-bottom: var(--spacing_lg);
+  }
+
+  .footer_brand p {
+    margin-top: var(--spacing_xs);
+    max-width: 34ch;
+    font-size: 0.92rem;
+  }
+
+  .footer_col h2 {
+    font-family: var(--font_body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color_text);
+    margin-bottom: var(--spacing_sm);
+  }
+
+  .footer_col ul {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .footer_col a {
+    font-size: 0.92rem;
+    color: var(--color_text_muted);
+    transition: color var(--transition);
+  }
+
+  .footer_col a:hover {
+    color: var(--color_primary);
+  }
+
+  .footer_bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding-top: var(--spacing_sm);
+    border-top: 1px solid var(--color_border);
+    text-align: center;
+  }
+
+  .footer_bottom p {
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: 768px) {
+    .footer_grid {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+
+    .footer_bottom {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+</style>

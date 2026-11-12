@@ -1,0 +1,35 @@
+---
+interface Props {
+  id: string;
+  badge: string;
+  title: string;
+  align?: 'center' | 'start';
+}
+const { id, badge, title, align = 'center' } = Astro.props;
+---
+<header class:list={['section_header', `section_header_${align}`]}>
+  <span class="section_badge">{badge}</span>
+  <h2 id={id}>{title}</h2>
+  {Astro.slots.has('default') && <p><slot /></p>}
+</header>
+
+<style>
+  .section_header {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: var(--spacing_lg);
+  }
+
+  .section_header_center {
+    text-align: center;
+    justify-items: center;
+  }
+
+  .section_header_start {
+    justify-items: start;
+  }
+
+  .section_header p {
+    max-width: 62ch;
+  }
+</style>
