@@ -3,7 +3,7 @@ import { defineConfig, envField } from 'astro/config';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  site: 'https://tramimunisc.vercel.app',
+  site: 'https://landing-trami-muni-sc.vercel.app',
   adapter: vercel(),
   trailingSlash: 'never',
   env: {
