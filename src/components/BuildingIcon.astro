@@ -1,14 +1,14 @@
 ---
-/** Ícono de edificio municipal (marca). Hereda color con currentColor. */
+/** Municipal building icon (brand mark). Inherits color via currentColor. */
 interface Props {
   size?: number;
   stroke?: number;
   class?: string;
 }
-const { size = 24, stroke = 1.75, class: clase } = Astro.props;
+const { size = 24, stroke = 1.75, class: className } = Astro.props;
 ---
 <svg
-  class={clase}
+  class={className}
   width={size}
   height={size}
   viewBox="0 0 24 24"

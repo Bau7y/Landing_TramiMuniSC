@@ -1,20 +1,20 @@
 /* ============================================================
    global.css — TramiMuniSC
-   Tokens, reset y utilidades compartidas.
-   Los estilos de cada componente viven en su archivo .astro.
+   Design tokens, reset and shared utilities.
+   Component styles live in each .astro file (scoped).
    ============================================================ */
 
 :root {
   color-scheme: light;
 
-  /* Marca */
+  /* Brand */
   --color_primary:       #2e7d32;
   --color_primary_light: #66bb6a;
   --color_primary_dark:  #1b5e20;
   --color_primary_bg:    #e8f5e9;
   --color_on_primary:    #ffffff;
 
-  /* Neutros (gris verdoso, una sola familia) */
+  /* Neutrals (single green-tinted gray family) */
   --color_bg:            #fbfcfa;
   --color_bg_secondary:  #f2f5f1;
   --color_bg_card:       #ffffff;
@@ -22,22 +22,22 @@
   --color_text_muted:    #5b665d;
   --color_border:        #dfe5de;
 
-  /* Estados */
+  /* States */
   --color_error:         #b3261e;
   --color_error_bg:      #fdecea;
   --color_success_bg:    #e8f5e9;
   --color_success_text:  #1b5e20;
 
-  /* Sombras teñidas */
+  /* Tinted shadows */
   --shadow_sm: 0 1px 2px rgb(24 48 28 / 0.06), 0 1px 3px rgb(24 48 28 / 0.06);
   --shadow_md: 0 6px 20px -6px rgb(24 48 28 / 0.14);
   --shadow_lg: 0 18px 40px -12px rgb(24 48 28 / 0.20);
 
-  /* Tipografía */
+  /* Typography */
   --font_body:    'DM Sans Variable', system-ui, sans-serif;
   --font_display: 'Playfair Display Variable', Georgia, serif;
 
-  /* Espaciado */
+  /* Spacing */
   --spacing_xs: 0.5rem;
   --spacing_sm: 1rem;
   --spacing_md: 1.5rem;
@@ -45,23 +45,23 @@
   --spacing_xl: 4rem;
   --spacing_2xl: 6rem;
 
-  /* Radios */
+  /* Radii */
   --radius_sm:   6px;
   --radius_md:   12px;
   --radius_lg:   20px;
   --radius_full: 9999px;
 
-  /* Movimiento */
+  /* Motion */
   --transition: 0.22s cubic-bezier(0.2, 0.7, 0.3, 1);
 
-  /* Contenedor */
+  /* Container */
   --container_max: 1200px;
   --container_px:  1.25rem;
 
   /* Navbar */
   --navbar_height: 68px;
 
-  /* Capas */
+  /* Layers (z-index scale) */
   --z_dropdown: 90;
   --z_navbar:   100;
   --z_skip:     200;
@@ -164,7 +164,7 @@ button {
   background: none;
 }
 
-/* ── Tipografía ────────────────────────────────────────── */
+/* ── Typography ────────────────────────────────────────── */
 h1, h2, h3, h4 {
   font-family: var(--font_display);
   font-weight: 600;
@@ -201,11 +201,11 @@ strong {
   padding-block: var(--spacing_xl) calc(var(--spacing_xl) + 0.5rem);
 }
 
-.section--alt {
+.section_alt {
   background: var(--color_bg_secondary);
 }
 
-/* ── Botones ───────────────────────────────────────────── */
+/* ── Buttons ───────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -241,31 +241,31 @@ strong {
   pointer-events: none;
 }
 
-.btn-primary {
+.btn_primary {
   background: var(--color_primary);
   color: var(--color_on_primary);
 }
 
-.btn-primary:hover {
+.btn_primary:hover {
   background: var(--color_primary_dark);
 }
 
-.btn-outline {
+.btn_outline {
   color: var(--color_primary);
   border-color: var(--color_primary);
 }
 
-.btn-outline:hover {
+.btn_outline:hover {
   background: var(--color_primary_bg);
 }
 
-[data-theme="dark"] .btn-outline {
+[data-theme="dark"] .btn_outline {
   color: var(--color_primary_light);
   border-color: var(--color_primary_light);
 }
 
-/* Enlace terciario con flecha */
-.link-arrow {
+/* Tertiary link with arrow */
+.link_arrow {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -275,15 +275,15 @@ strong {
   transition: gap var(--transition), color var(--transition);
 }
 
-.link-arrow:hover {
+.link_arrow:hover {
   gap: 0.6rem;
   color: var(--color_primary_dark);
 }
 
-[data-theme="dark"] .link-arrow { color: var(--color_primary_light); }
+[data-theme="dark"] .link_arrow { color: var(--color_primary_light); }
 
-/* ── Badge de sección ──────────────────────────────────── */
-.section__badge {
+/* ── Section badge ──────────────────────────────────── */
+.section_badge {
   display: inline-block;
   padding: 0.3rem 0.85rem;
   background: var(--color_primary_bg);
@@ -294,16 +294,16 @@ strong {
   letter-spacing: 0.04em;
 }
 
-[data-theme="dark"] .section__badge { color: var(--color_primary_light); }
+[data-theme="dark"] .section_badge { color: var(--color_primary_light); }
 
-/* ── Accesibilidad ─────────────────────────────────────── */
+/* ── Accessibility ─────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color_primary);
   outline-offset: 3px;
   border-radius: var(--radius_sm);
 }
 
-.skip-link {
+.skip_link {
   position: fixed;
   top: var(--spacing_xs);
   left: var(--spacing_xs);
@@ -317,11 +317,11 @@ strong {
   transition: transform var(--transition);
 }
 
-.skip-link:focus {
+.skip_link:focus {
   transform: translateY(0);
 }
 
-.sr-only {
+.sr_only {
   position: absolute;
   width: 1px;
   height: 1px;

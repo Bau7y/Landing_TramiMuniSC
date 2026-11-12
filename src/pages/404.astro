@@ -1,24 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import IconoEdificio from '../components/IconoEdificio.astro';
+import BuildingIcon from '../components/BuildingIcon.astro';
 ---
-<BaseLayout titulo="Página no encontrada" descripcion="La página que busca no existe.">
-  <section class="no-encontrada" aria-labelledby="titulo-404">
+<BaseLayout title="Página no encontrada" description="La página que busca no existe.">
+  <section class="not_found" aria-labelledby="not_found_title">
     <div class="container">
-      <IconoEdificio size={56} stroke={1.5} class="no-encontrada__icono" />
-      <p class="no-encontrada__codigo">Error 404</p>
-      <h1 id="titulo-404">Esta página no existe</h1>
+      <BuildingIcon size={56} stroke={1.5} class="not_found_icon" />
+      <p class="not_found_code">Error 404</p>
+      <h1 id="not_found_title">Esta página no existe</h1>
       <p>Puede que el enlace esté desactualizado o que la dirección tenga un error.</p>
-      <div class="no-encontrada__acciones">
-        <a href="/" class="btn btn-primary">Ir al inicio</a>
-        <a href="/contacto" class="btn btn-outline">Contáctenos</a>
+      <div class="not_found_actions">
+        <a href="/" class="btn btn_primary">Ir al inicio</a>
+        <a href="/contacto" class="btn btn_outline">Contáctenos</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .no-encontrada {
+  .not_found {
     display: grid;
     place-items: center;
     min-height: 60dvh;
@@ -26,17 +26,17 @@ import IconoEdificio from '../components/IconoEdificio.astro';
     text-align: center;
   }
 
-  .no-encontrada .container {
+  .not_found .container {
     display: grid;
     justify-items: center;
     gap: var(--spacing_sm);
   }
 
-  .no-encontrada :global(.no-encontrada__icono) {
+  .not_found :global(.not_found_icon) {
     color: var(--color_primary);
   }
 
-  .no-encontrada__codigo {
+  .not_found_code {
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -44,7 +44,7 @@ import IconoEdificio from '../components/IconoEdificio.astro';
     color: var(--color_primary) !important;
   }
 
-  .no-encontrada__acciones {
+  .not_found_actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

@@ -7,7 +7,7 @@ Landing page para un servicio de acompañamiento en trámites ante la Municipali
 | Capa | Tecnología | Rol |
 |---|---|---|
 | Framework | Astro 7 | Genera HTML estático; solo la acción de contacto corre en el servidor |
-| Estilos | CSS nativo con variables (`snake_case`) | `global.css` con tokens y estilos con alcance por componente |
+| Estilos | CSS nativo con variables (`snake_case`) | `global.css` con tokens y estilos con alcance por componente; clases en `snake_case` |
 | Interactividad | TypeScript nativo en `<script>` | Tema, menú móvil y formulario. Sin librerías de UI |
 | Contenido | Content Collections (Markdown + Zod) | Un archivo `.md` por servicio |
 | Backend | Astro Actions + Zod | Validación tipada del formulario en el servidor |
@@ -19,8 +19,8 @@ Landing page para un servicio de acompañamiento en trámites ante la Municipali
 
 ```
 src/
-├── actions/index.ts          → enviarContacto (Zod + Resend + anti-spam)
-├── assets/servicios/         → imágenes fuente (Astro las optimiza a WebP)
+├── actions/index.ts          → sendContact (Zod + Resend + anti-spam)
+├── assets/services/          → imágenes fuente (Astro las optimiza a WebP)
 ├── components/
 │   ├── NavBar.astro          → navegación, tema y menú móvil
 │   ├── Footer.astro
@@ -28,12 +28,12 @@ src/
 │   ├── PageHero.astro        → encabezado y ruta de navegación de subpáginas
 │   ├── SectionHeader.astro   → badge + h2 + bajada
 │   ├── ServiceCard.astro
-│   └── IconoEdificio.astro
-├── content/servicios/*.md    → contenido de cada servicio
+│   └── BuildingIcon.astro
+├── content/services/*.md     → contenido de cada servicio (el nombre del archivo es el slug de la URL)
 ├── content.config.ts         → esquema Zod de la colección
 ├── data/
-│   ├── sitio.ts              → nombre, correo, horario (única fuente)
-│   └── navegacion.ts         → enlaces derivados de la colección
+│   ├── site.ts               → nombre, correo, horario (única fuente)
+│   └── navigation.ts         → enlaces derivados de la colección
 ├── layouts/BaseLayout.astro  → <head>, SEO, tema sin parpadeo, skip link
 ├── pages/
 │   ├── index.astro
@@ -46,14 +46,14 @@ public/                       → favicon.svg, og.jpg
 
 ## Cómo agregar un servicio
 
-1. Crear `src/content/servicios/<slug>.md` copiando uno existente.
-2. Poner la imagen en `src/assets/servicios/` y referenciarla en `tarjeta.imagen`.
+1. Crear `src/content/services/<slug>.md` copiando uno existente.
+2. Poner la imagen en `src/assets/services/` y referenciarla en `card.image`.
 
 Sin tocar código, el servicio aparece en el navbar, el menú móvil, el footer, las tarjetas del inicio, el selector del formulario y su página `/servicios/<slug>`. Si falta un campo requerido, el build falla con un error de Zod que indica cuál.
 
 ## Formulario de contacto
 
-1. **Cliente** (`contacto.astro`): valida igual que el servidor, muestra los errores por campo (`aria-invalid` y `aria-describedby`), indica que se está enviando y persiste el nombre en `localStorage`. `?tramite=<slug>` preselecciona el tipo de trámite.
+1. **Cliente** (`contacto.astro`): valida igual que el servidor, muestra los errores por campo (`aria-invalid` y `aria-describedby`), indica que se está enviando y persiste el nombre en `localStorage`. `?service=<slug>` preselecciona el tipo de trámite y luego se limpia de la URL.
 2. **Servidor** (`actions/index.ts`): el esquema Zod es la fuente de verdad. Los errores de entrada vuelven al cliente como `error.fields`.
 3. **Anti-spam** sin dependencias: un campo trampa oculto y un tiempo mínimo de 3 s entre la carga y el envío. A un bot detectado se le responde "ok" y no se envía nada.
 4. **Correo**: texto plano y HTML con escape de caracteres. `replyTo` es el correo del usuario, así que basta con "Responder" en la bandeja.
@@ -78,6 +78,13 @@ yarn dev       # http://localhost:4321
 yarn check     # verificación de tipos (.astro + .ts)
 yarn build     # salida para Vercel en .vercel/output
 ```
+
+## Convenciones de código
+
+- **Idioma:** el código (variables, funciones, props, claves de contenido, clases e IDs) está en inglés. El texto visible y las rutas públicas (`/servicios`, `/contacto`) están en español.
+- **CSS:** clases, IDs y variables en `snake_case` con un solo guion bajo (`service_card_body`, `--color_primary`).
+- **TypeScript:** convenciones del lenguaje: `camelCase` para variables y funciones, `PascalCase` para tipos y componentes, `UPPER_SNAKE_CASE` para constantes.
+- **Atributos `data-*` y `aria-*`:** en `kebab-case`, como define el estándar HTML (`data-theme-toggle` se lee en JS como `dataset.themeToggle`).
 
 ## Decisiones de diseño y accesibilidad
 
