@@ -1,0 +1,57 @@
+---
+import '@fontsource-variable/dm-sans';
+import '@fontsource-variable/playfair-display';
+import '../styles/global.css';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+import { sitio } from '../data/sitio';
+
+interface Props {
+  titulo: string;
+  descripcion?: string;
+}
+
+const { titulo, descripcion = sitio.descripcion } = Astro.props;
+const titulo_completo = titulo === sitio.nombre ? titulo : `${titulo} | ${sitio.nombre}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og_image = new URL('/og.jpg', Astro.site);
+---
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo_completo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#2e7d32" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CR" />
+    <meta property="og:site_name" content={sitio.nombre} />
+    <meta property="og:title" content={titulo_completo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og_image} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Tema antes del primer pintado (evita parpadeo) -->
+    <script is:inline>
+      (() => {
+        let tema = null;
+        try { tema = localStorage.getItem('tramimuni-theme'); } catch {}
+        if (!tema) tema = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = tema;
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+    <NavBar />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
