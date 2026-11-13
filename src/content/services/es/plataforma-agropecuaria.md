@@ -39,11 +39,11 @@ aside:
   note: Si el terreno deja de tener uso agropecuario, la ley obliga a informarlo de inmediato a la municipalidad.
 faq:
   - q: "¿Qué terrenos pueden acogerse a la Ley 9071?"
-    a: "Los terrenos dedicados a la producción primaria agrícola o pecuaria."
+    a: "Los dedicados a producción primaria agrícola o pecuaria."
   - q: "¿Se valoran las instalaciones de la finca?"
-    a: "No. Para estos terrenos no se toma en cuenta la infraestructura agropecuaria y agroindustrial del inmueble."
+    a: "No. La infraestructura agropecuaria y agroindustrial no se toma en cuenta."
   - q: "¿Qué pasa si dejo de usar el terreno para producción?"
-    a: "Debe informarlo de inmediato a la municipalidad. Si no se mantiene el uso agropecuario, la ley prevé sanciones."
+    a: "Debe informarlo de inmediato; si no, la ley prevé sanciones."
 cta:
   title: ¿Tiene dudas sobre la Ley 9071?
   text: Escríbanos y revisamos su caso sin costo.

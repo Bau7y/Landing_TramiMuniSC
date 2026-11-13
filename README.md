@@ -30,7 +30,7 @@ src/
 │   ├── ArrowButton.astro     → botón píldora con flecha en círculo
 │   ├── FormDownload.astro    → tarjeta de descarga de un formulario PDF
 │   ├── MobileFormTip.astro   → nota para llenar los PDF en el celular (solo pantallas táctiles)
-│   ├── Faq.astro             → acordeón <details> + su FAQPage JSON-LD
+│   ├── Faq.astro             → tarjetas que giran (pregunta/respuesta) + su FAQPage JSON-LD
 │   ├── JsonLd.astro          → imprime datos estructurados
 │   ├── LangSuggest.astro     → ofrece el otro idioma (nunca redirige)
 │   ├── Fonts.astro           → fuentes propias (subconjunto latin) con preload

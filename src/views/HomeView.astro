@@ -182,8 +182,8 @@ const fileDocs = t('home.file_docs');
 
   <!-- FAQ -->
   <section class="section">
-    <div class="container faq_wrap">
-      <Faq id="faq_title" title={t('home.faq_title')} items={homeFaq[lang]} />
+    <div class="container">
+      <Faq id="faq_title" title={t('home.faq_title')} hint={t('faq.hint')} items={homeFaq[lang]} />
     </div>
   </section>
 
@@ -600,11 +600,6 @@ const fileDocs = t('home.file_docs');
   .benefits svg {
     flex-shrink: 0;
     color: var(--color_accent);
-  }
-
-  /* ── FAQ ──────────────────────────────────────────────── */
-  .faq_wrap {
-    max-width: 920px;
   }
 
   /* ── CTA ──────────────────────────────────────────────── */

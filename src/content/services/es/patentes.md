@@ -39,11 +39,11 @@ aside:
   note: Las actividades con venta de licor requieren además una licencia de licores (Ley 9047).
 faq:
   - q: "¿Necesito uso de suelo para sacar la patente?"
-    a: "Sí. Se requiere un certificado de uso de suelo conforme para el local donde estará la actividad."
+    a: "Sí, un uso de suelo conforme para el local."
   - q: "¿Puedo trasladar mi patente a otro local o traspasarla?"
-    a: "Sí. Se gestiona un traslado o un traspaso; para ambos hay que estar al día con los tributos municipales."
+    a: "Sí, mediante traslado o traspaso, con los tributos al día."
   - q: "¿Qué pasa si voy a vender licor?"
-    a: "Además de la patente, se necesita una licencia de licores según la Ley N.° 9047."
+    a: "Además de la patente, una licencia de licores (Ley 9047)."
 cta:
   title: ¿Necesita trasladar o traspasar su patente?
   text: También le ayudamos con traslados, traspasos y eliminaciones.

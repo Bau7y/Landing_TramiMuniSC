@@ -39,11 +39,11 @@ aside:
   note: Businesses selling alcohol also need a liquor license (Ley 9047).
 faq:
   - q: "Do I need a land use certificate to get the license?"
-    a: "Yes. A compliant land use certificate is required for the premises where the business will operate."
+    a: "Yes, a compliant land use certificate for the premises."
   - q: "Can I move my license to other premises or transfer it?"
-    a: "Yes, through a relocation or transfer. Both require municipal taxes to be up to date."
+    a: "Yes, through a relocation or transfer, with taxes up to date."
   - q: "What if I plan to sell alcohol?"
-    a: "Besides the business license, you need a liquor license under Ley N.° 9047."
+    a: "Besides the license, a liquor license (Ley 9047)."
 cta:
   title: Need to move or transfer your license?
   text: We also help with relocations, transfers and cancellations.

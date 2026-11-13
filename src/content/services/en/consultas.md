@@ -37,11 +37,11 @@ aside:
   note: Inquiries are for guidance. For complex procedures we recommend full support.
 faq:
   - q: "Is there a charge for inquiries?"
-    a: "No. Initial guidance is free and with no obligation."
+    a: "No. Initial guidance is free."
   - q: "What information should I send?"
-    a: "Your name, a contact email, the property (finca) number if you have it and a short description of your situation."
+    a: "Your name, email, property number if you have it and a short description."
   - q: "When will you reply?"
-    a: "We reply as soon as possible during office hours, to the email address you give us."
+    a: "As soon as possible during office hours."
 cta:
   title: Any doubts?
   text: We are here to guide you free of charge and with no obligation.

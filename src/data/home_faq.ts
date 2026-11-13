@@ -11,53 +11,53 @@ export const homeFaq: Record<Lang, FaqItem[]> = {
   es: [
     {
       q: '¿Cada cuánto tengo que declarar mi propiedad?',
-      a: 'Al menos cada cinco años. El artículo 16 de la Ley N.° 7509 obliga a toda persona propietaria a declarar el valor de sus bienes inmuebles ante la municipalidad donde se ubican.',
+      a: 'Al menos cada cinco años, ante la municipalidad donde está la propiedad (Ley 7509, art. 16).',
     },
     {
       q: '¿Qué pasa si no declaro a tiempo?',
-      a: 'Según el artículo 17 de la Ley N.° 7509, la municipalidad puede imponer una multa igual a la diferencia de impuesto dejada de pagar y valorar la propiedad de oficio.',
+      a: 'La municipalidad puede cobrar una multa igual al impuesto dejado de pagar y valorar la propiedad de oficio (Ley 7509, art. 17).',
     },
     {
       q: '¿Cuándo conviene solicitar la exoneración por bien único?',
-      a: 'Al inicio del año. El impuesto es anual, del 1 de enero al 31 de diciembre, y la exoneración debe renovarse cada año; solicitarla en enero permite que cubra el periodo completo desde el primer pago.',
+      a: 'En enero. El impuesto es anual (enero a diciembre) y la exoneración se renueva cada año: pedirla al inicio cubre el periodo completo.',
     },
     {
       q: '¿Qué propiedades pueden exonerarse por bien único?',
-      a: 'La de una persona física que posea un único bien inmueble a nivel nacional, inscrito o no en el Registro. El beneficio cubre hasta 45 salarios base; si la propiedad vale más, se paga el impuesto sobre el exceso (artículo 4, inciso e, de la Ley N.° 7509).',
+      a: 'La única propiedad de una persona física en todo el país. Cubre hasta 45 salarios base; sobre el exceso se paga impuesto (Ley 7509, art. 4 e).',
     },
     {
       q: '¿Puedo pedir la exoneración si tengo tributos pendientes?',
-      a: 'No. Estar al día con los tributos municipales es un requisito indispensable, según los artículos 18 y 18 bis del Código de Normas y Procedimientos Tributarios (Ley N.° 4755).',
+      a: 'No. Estar al día con los tributos municipales es requisito indispensable (Ley 4755, arts. 18 y 18 bis).',
     },
     {
       q: '¿Cuánto es el impuesto sobre bienes inmuebles?',
-      a: 'El 0,25 % anual sobre el valor registrado de la propiedad: terreno más construcciones e instalaciones fijas y permanentes.',
+      a: 'El 0,25 % anual sobre el valor registrado: terreno más construcciones fijas y permanentes.',
     },
   ],
   en: [
     {
       q: 'How often do I have to declare my property?',
-      a: 'At least every five years. Article 16 of Ley N.° 7509 requires every owner to declare the value of their property to the municipality where it is located.',
+      a: 'At least every five years, to the municipality where the property is located (Ley 7509, art. 16).',
     },
     {
       q: 'What happens if I don’t declare on time?',
-      a: 'Under article 17 of Ley N.° 7509, the municipality may impose a fine equal to the unpaid tax difference and value the property on its own.',
+      a: 'The municipality may charge a fine equal to the unpaid tax and value the property on its own (Ley 7509, art. 17).',
     },
     {
       q: 'When is the best time to request the single-property exemption?',
-      a: 'At the start of the year. The tax is annual, from January 1 to December 31, and the exemption must be renewed every year; requesting it in January lets it cover the whole period from the first payment.',
+      a: 'In January. The tax is annual (January to December) and the exemption is renewed every year: requesting it early covers the whole period.',
     },
     {
       q: 'Which properties qualify for the single-property exemption?',
-      a: 'One owned by an individual who has only one property nationwide, registered or not. The benefit covers up to 45 base salaries; if the property is worth more, tax is paid on the excess (article 4, subsection e, of Ley N.° 7509).',
+      a: 'An individual’s only property nationwide. It covers up to 45 base salaries; tax is paid on the excess (Ley 7509, art. 4 e).',
     },
     {
       q: 'Can I request the exemption if I owe municipal taxes?',
-      a: 'No. Being up to date with municipal taxes is a mandatory requirement under articles 18 and 18 bis of the Tax Code (Ley N.° 4755).',
+      a: 'No. Being up to date with municipal taxes is mandatory (Ley 4755, arts. 18 and 18 bis).',
     },
     {
       q: 'How much is the property tax?',
-      a: '0.25% per year of the property’s registered value: land plus fixed, permanent buildings and installations.',
+      a: '0.25% per year of the registered value: land plus fixed, permanent buildings.',
     },
   ],
 };
