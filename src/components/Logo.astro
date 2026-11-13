@@ -1,34 +1,59 @@
 ---
+import BuildingIcon from './BuildingIcon.astro';
 import { site } from '../data/site';
+import { routes, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
+  lang: Lang;
   size?: 'sm' | 'md';
 }
-const { size = 'md' } = Astro.props;
+const { lang, size = 'md' } = Astro.props;
+const t = useTranslations(lang);
 ---
-<a href="/" class:list={['logo', `logo_${size}`]} aria-label={`${site.name} - Inicio`}>
-  Trami<span>Muni</span>SC
+<a href={routes.home[lang]} class:list={['logo', `logo_${size}`]} aria-label={`${site.name} - ${t('nav.home')}`}>
+  <span class="logo_tile" aria-hidden="true">
+    <BuildingIcon size={18} stroke={2} />
+  </span>
+  <span class="logo_word">Trami<span>Muni</span>SC</span>
 </a>
 
 <style>
   .logo {
     display: inline-flex;
-    align-items: baseline;
-    font-family: var(--font_display);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--color_text);
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 44px;
     flex-shrink: 0;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color_text);
   }
 
-  .logo span {
-    color: var(--color_primary);
+  /* Same mark as the favicon: white building on the brand tile */
+  .logo_tile {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    color: #fff;
+    background: linear-gradient(140deg, var(--color_brand_light), var(--color_brand) 60%, var(--color_brand_dark));
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25);
+    transition: transform var(--duration_base) var(--ease_spring);
   }
 
-  :global([data-theme="dark"]) .logo span {
-    color: var(--color_primary_light);
+  .logo:hover .logo_tile {
+    transform: rotate(-6deg) scale(1.06);
   }
 
-  .logo_md { font-size: 1.35rem; }
-  .logo_sm { font-size: 1.15rem; }
+  .logo_word {
+    font-size: 1.15rem;
+  }
+
+  .logo_word span {
+    color: var(--color_accent);
+  }
+
+  .logo_sm .logo_tile { width: 28px; height: 28px; border-radius: 9px; }
+  .logo_sm .logo_word { font-size: 1.05rem; }
 </style>

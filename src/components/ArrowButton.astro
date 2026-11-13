@@ -1,0 +1,17 @@
+---
+/** Pill button with the arrow nested in its own circle (button-in-button). */
+import ArrowIcon from './ArrowIcon.astro';
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'ghost';
+  class?: string;
+  download?: boolean;
+  [key: string]: unknown;
+}
+const { href, variant = 'primary', class: className, download, ...rest } = Astro.props;
+---
+<a href={href} class:list={['btn', `btn_${variant}`, 'btn_with_knob', className]} download={download} {...rest}>
+  <span><slot /></span>
+  <span class="btn_knob" aria-hidden="true"><ArrowIcon direction={download ? 'down' : 'up_right'} /></span>
+</a>

@@ -6,6 +6,11 @@ export default defineConfig({
   site: 'https://tramimunisc.vercel.app',
   adapter: vercel(),
   trailingSlash: 'never',
+  i18n: {
+    locales: ['es', 'en'],
+    defaultLocale: 'es',
+    routing: { prefixDefaultLocale: false },
+  },
   env: {
     schema: {
       RESEND_API_KEY: envField.string({ context: 'server', access: 'secret' }),

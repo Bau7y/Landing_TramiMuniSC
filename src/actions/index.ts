@@ -4,25 +4,34 @@ import { z } from 'astro/zod';
 import { Resend } from 'resend';
 import { RESEND_API_KEY, CONTACT_TO, CONTACT_FROM } from 'astro:env/server';
 import { canReceiveEmail } from '../lib/email';
+import { MAX_ATTACHMENT_BYTES, ATTACHMENT_TYPES } from '../lib/attachment';
 
 /** Minimum time (ms) between form load and submit. Filters out bots. */
 const MIN_SUBMIT_TIME_MS = 3000;
 
+/*
+ * Error messages are codes (see `error.*` in src/i18n/ui.ts); the client
+ * shows them in the visitor's language.
+ */
 const contactSchema = z.object({
-  name: z.string().trim().min(1, 'El nombre es requerido').max(120, 'Máximo 120 caracteres'),
+  lang: z.enum(['es', 'en']).nullish().transform((v) => v ?? 'es'),
+  name: z.string().trim().min(1, 'name_required').max(120, 'name_max'),
   email: z
     .string()
     .trim()
-    .min(1, 'El correo es requerido')
-    .pipe(z.email('Ingrese un correo válido'))
-    .refine(canReceiveEmail, 'Este correo no parece existir. Revise que esté bien escrito.'),
-  subject: z.string().trim().min(1, 'El asunto es requerido').max(150, 'Máximo 150 caracteres'),
+    .min(1, 'email_required')
+    .pipe(z.email('email_invalid'))
+    .refine(canReceiveEmail, 'email_unreachable'),
+  subject: z.string().trim().min(1, 'subject_required').max(150, 'subject_max'),
   service: z.string().trim().max(60).nullish().transform((v) => v ?? ''),
-  message: z
-    .string()
-    .trim()
-    .min(10, 'El mensaje debe tener al menos 10 caracteres')
-    .max(5000, 'Máximo 5000 caracteres'),
+  message: z.string().trim().min(10, 'message_min').max(5000, 'message_max'),
+  // An empty file input arrives as a File of size 0.
+  attachment: z
+    .instanceof(File)
+    .nullish()
+    .transform((file) => (file && file.size > 0 ? file : null))
+    .refine((file) => !file || (ATTACHMENT_TYPES as readonly string[]).includes(file.type), 'attachment_type')
+    .refine((file) => !file || file.size <= MAX_ATTACHMENT_BYTES, 'attachment_size'),
   // Anti-spam: honeypot field (must be empty) and form load timestamp.
   // Astro parses empty FormData fields as null.
   website: z.string().nullish().transform((v) => v ?? ''),
@@ -34,6 +43,9 @@ const getClient = () => (client ??= new Resend(RESEND_API_KEY));
 
 const escapeHtml = (text: string) =>
   text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+
+/** Keeps the original name readable but safe for an email attachment. */
+const safeFilename = (name: string) => name.replace(/[^\w.\- áéíóúñÁÉÍÓÚÑ]/g, '_').slice(0, 120) || 'adjunto';
 
 export const server = {
   sendContact: defineAction({
@@ -47,7 +59,8 @@ export const server = {
       // Reply "ok" to bots so they get no signal; nothing is sent.
       if (isBot) return { sent: true };
 
-      const service = input.service ? await getEntry('services', input.service) : undefined;
+      // The email to the office is always in Spanish.
+      const service = input.service ? await getEntry('services', `es/${input.service}`) : undefined;
       const serviceLabel = service?.data.nav_label ?? 'No especificado';
 
       const rows: [string, string][] = [
@@ -55,6 +68,8 @@ export const server = {
         ['Correo', input.email],
         ['Trámite', serviceLabel],
         ['Asunto', input.subject],
+        ['Idioma', input.lang === 'en' ? 'Inglés' : 'Español'],
+        ['Adjunto', input.attachment ? input.attachment.name : 'Ninguno'],
       ];
 
       const text = [...rows.map(([key, value]) => `${key}: ${value}`), '', input.message].join('\n');
@@ -64,12 +79,21 @@ export const server = {
           ${rows
             .map(
               ([key, value]) =>
-                `<tr><td style="padding:4px 12px 4px 0;color:#5b665d"><strong>${key}</strong></td><td style="padding:4px 0">${escapeHtml(value)}</td></tr>`,
+                `<tr><td style="padding:4px 12px 4px 0;color:#56625a"><strong>${key}</strong></td><td style="padding:4px 0">${escapeHtml(value)}</td></tr>`,
             )
             .join('')}
         </table>
         <p style="font-family:system-ui,sans-serif;font-size:14px;white-space:pre-wrap;margin-top:16px">${escapeHtml(input.message)}</p>
       `;
+
+      const attachments = input.attachment
+        ? [
+            {
+              filename: safeFilename(input.attachment.name),
+              content: Buffer.from(await input.attachment.arrayBuffer()),
+            },
+          ]
+        : undefined;
 
       const { error } = await getClient().emails.send({
         from: CONTACT_FROM,
@@ -78,14 +102,12 @@ export const server = {
         subject: `TramiMuniSC · ${input.subject}`,
         text,
         html,
+        attachments,
       });
 
       if (error) {
         console.error('[sendContact] Resend:', error);
-        throw new ActionError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: 'No se pudo enviar el mensaje. Intente de nuevo en unos minutos.',
-        });
+        throw new ActionError({ code: 'INTERNAL_SERVER_ERROR', message: 'contact.error' });
       }
 
       return { sent: true };

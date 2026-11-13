@@ -1,0 +1,262 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+import FormDownload from '../components/FormDownload.astro';
+import MobileFormTip from '../components/MobileFormTip.astro';
+import { getServiceHref, type Service } from '../data/services';
+import { routes, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+const { data, key } = service;
+const lang: Lang = service.lang;
+const t = useTranslations(lang);
+const { Content } = await render(service);
+
+const contactHref = `${routes.contact[lang]}?service=${key}`;
+const alternates = {
+  es: (await getServiceHref(key, 'es')) ?? routes.home.es,
+  en: (await getServiceHref(key, 'en')) ?? routes.home.en,
+};
+---
+<BaseLayout lang={lang} title={data.nav_label} description={data.meta_description} alternates={alternates}>
+  <PageHero lang={lang} title={data.title} subtitle={data.subtitle} crumb={data.nav_label} eyebrow={data.law} />
+
+  <div class="container page_layout">
+    <div class="page_content">
+      <article class="prose" aria-labelledby="intro_title" data-reveal>
+        <h2 id="intro_title">{data.intro_title}</h2>
+        <Content />
+      </article>
+
+      <section class="requirements" aria-labelledby="list_title" data-reveal>
+        <h2 id="list_title">{data.list.title}</h2>
+        <ul role="list">
+          {data.list.items.map((item, i) => (
+            <li data-reveal style={`--i:${i}`}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="steps" aria-labelledby="steps_title">
+        <h2 id="steps_title" data-reveal>{data.steps.title}</h2>
+        <ol role="list">
+          {data.steps.items.map((step, i) => (
+            <li class="step" data-reveal style={`--i:${i}`}>
+              <span class="mono step_number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <aside class="page_aside" aria-label={data.aside.title}>
+      <div class="bezel" data-reveal>
+        <div class="bezel_core aside_card">
+          <h2>{data.aside.title}</h2>
+          <p>{data.aside.text}</p>
+          <ArrowButton href={contactHref}>{data.aside.button}</ArrowButton>
+          <p class="aside_note">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16.5v.01" /></svg>
+            <span>{data.aside.note}</span>
+          </p>
+        </div>
+      </div>
+
+      {data.form && (
+        <div class="aside_form" data-reveal style="--i:1">
+          <h2 class="mono">{t('service.forms_title')}</h2>
+          <p>{t('service.forms_text')}</p>
+          <FormDownload form={data.form} lang={lang} />
+          <MobileFormTip lang={lang} />
+          <p class="aside_form_note">{t('forms.sign_note')}</p>
+        </div>
+      )}
+    </aside>
+  </div>
+
+  <section class="section" aria-labelledby="cta_title">
+    <div class="container">
+      <div class="cta" data-reveal>
+        <div>
+          <h2 id="cta_title">{data.cta.title}</h2>
+          <p>{data.cta.text}</p>
+        </div>
+        <ArrowButton href={contactHref}>{data.cta.button}</ArrowButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page_layout {
+    display: grid;
+    gap: 3rem;
+    padding-bottom: var(--spacing_section);
+  }
+
+  .page_content {
+    display: grid;
+    gap: 3.5rem;
+    min-width: 0;
+  }
+
+  .page_content h2 {
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(p) {
+    max-width: 65ch;
+  }
+
+  .prose :global(p + p) {
+    margin-top: 1rem;
+  }
+
+  .requirements ul {
+    display: grid;
+    border-top: 1px solid var(--color_border);
+  }
+
+  .requirements li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color_border);
+    line-height: 1.5;
+  }
+
+  .requirements svg {
+    flex-shrink: 0;
+    color: var(--color_accent);
+  }
+
+  .steps ol {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .step {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1.4rem;
+    border-radius: var(--radius_lg);
+    background: var(--color_surface);
+    border: 1px solid var(--color_border);
+  }
+
+  .step_number {
+    color: var(--color_accent);
+  }
+
+  .step p {
+    font-size: 0.95rem;
+  }
+
+  .page_aside {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+  }
+
+  .aside_card {
+    display: grid;
+    gap: 0.85rem;
+    padding: 1.75rem;
+  }
+
+  .aside_card h2 {
+    font-size: 1.3rem;
+  }
+
+  .aside_card p {
+    font-size: 0.95rem;
+  }
+
+  .aside_card :global(.btn) {
+    width: fit-content;
+  }
+
+  .aside_note {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding: 0.85rem;
+    border-radius: var(--radius_md);
+    background: var(--color_tint);
+    font-size: 0.85rem !important;
+    line-height: 1.5;
+  }
+
+  .aside_note svg {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color_accent);
+  }
+
+  .aside_form {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .aside_form h2 {
+    color: var(--color_subtle);
+    font-weight: 500;
+  }
+
+  .aside_form p {
+    font-size: 0.9rem;
+  }
+
+  .aside_form_note {
+    font-size: 0.8rem !important;
+    color: var(--color_subtle);
+  }
+
+  .cta {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 5vw, 3.5rem);
+    border-radius: var(--radius_xl);
+    background: var(--color_tint);
+  }
+
+  .cta div {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  @media (min-width: 768px) {
+    .steps ol {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cta {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page_layout {
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 5rem;
+    }
+
+    .page_aside {
+      position: sticky;
+      top: calc(var(--navbar_offset) + 1rem);
+    }
+  }
+</style>
