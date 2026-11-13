@@ -10,7 +10,7 @@ import { THEME_INIT } from './src/lib/theme_init.mjs';
 const themeInitHash = `sha256-${createHash('sha256').update(THEME_INIT).digest('base64')}`;
 
 export default defineConfig({
-  site: 'https://tramimunisc.vercel.app',
+  site: 'https://www.tramimunisc.com',
   adapter: vercel(),
   // hreflang pairs live in each page <head> (slugs differ by language)
   integrations: [sitemap({ filter: (page) => !page.endsWith('/404') && !page.endsWith('/404/') })],
