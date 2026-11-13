@@ -1,0 +1,664 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FormDownload from '../components/FormDownload.astro';
+import MobileFormTip from '../components/MobileFormTip.astro';
+import { site } from '../data/site';
+import { FORMS_SOURCE_URL } from '../data/forms';
+import { getServices } from '../data/services';
+import { routes, ui, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const services = await getServices(lang);
+
+// Strings the client script needs (errors come back from the server as codes)
+const clientStrings = Object.fromEntries(
+  Object.entries(ui[lang]).filter(([key]) => key.startsWith('error.') || key.startsWith('contact.')),
+);
+---
+<BaseLayout lang={lang} title={t('contact.title')} description={t('contact.meta')} alternates={{ es: routes.contact.es, en: routes.contact.en }}>
+  <PageHero lang={lang} title={t('contact.title')} subtitle={t('contact.subtitle')} crumb={t('contact.title')} />
+
+  <section class="section" aria-labelledby="form_title">
+    <div class="container contact">
+      <div class="contact_form_col">
+        <section class="forms_box" aria-labelledby="forms_title" data-reveal>
+          <h2 id="forms_title">{t('contact.forms_title')}</h2>
+          <p>{t('contact.forms_text')}</p>
+          <div class="forms_list">
+            <FormDownload form="exoneracion" lang={lang} index={1} />
+            <FormDownload form="declaracion" lang={lang} index={2} />
+          </div>
+          <MobileFormTip lang={lang} />
+          <p class="forms_note">
+            {t('forms.sign_note')}
+            <a href={FORMS_SOURCE_URL} target="_blank" rel="noopener">{t('forms.source')}: munisc.go.cr</a>
+          </p>
+        </section>
+
+        <div class="form_head" data-reveal>
+          <h2 id="form_title">{t('contact.form_title')}</h2>
+          <p>{t('contact.form_text')}</p>
+        </div>
+
+        <form id="contact_form" class="form" novalidate aria-labelledby="form_title" data-reveal>
+          <input type="hidden" name="lang" value={lang} />
+
+          <div class="form_row">
+            <div class="field">
+              <label for="name" class="field_label">{t('contact.name')} <span class="field_required" aria-hidden="true">*</span></label>
+              <input type="text" id="name" name="name" class="field_input" placeholder={t('contact.name_placeholder')} autocomplete="name" maxlength="120" required aria-describedby="name_hint" />
+              <span id="name_hint" class="field_hint">{t('contact.name_hint')}</span>
+            </div>
+
+            <div class="field">
+              <label for="email" class="field_label">{t('contact.email')} <span class="field_required" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" class="field_input" placeholder={t('contact.email_placeholder')} autocomplete="email" required />
+            </div>
+          </div>
+
+          <div class="form_row">
+            <div class="field">
+              <label for="subject" class="field_label">{t('contact.subject')} <span class="field_required" aria-hidden="true">*</span></label>
+              <input type="text" id="subject" name="subject" class="field_input" placeholder={t('contact.subject_placeholder')} maxlength="150" required />
+            </div>
+
+            <div class="field">
+              <label for="service" class="field_label">{t('contact.service')}</label>
+              <select id="service" name="service" class="field_input field_select">
+                <option value="">{t('contact.service_placeholder')}</option>
+                {services.map((s) => <option value={s.key}>{s.data.card.title}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="message" class="field_label">{t('contact.message')} <span class="field_required" aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" class="field_input field_textarea" placeholder={t('contact.message_placeholder')} rows="6" maxlength="5000" required aria-describedby="message_hint"></textarea>
+            <span id="message_hint" class="field_hint">{t('contact.message_hint')}</span>
+          </div>
+
+          <div class="field">
+            <span class="field_label" id="attachment_label">{t('contact.attachment')}</span>
+            <div class="file_drop" data-file-drop>
+              <input type="file" id="attachment" name="attachment" class="file_input" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" aria-labelledby="attachment_label" aria-describedby="attachment_hint" />
+              <label for="attachment" class="btn btn_ghost file_button">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.4 11.6-8.8 8.8a5.5 5.5 0 0 1-7.8-7.8l8.5-8.5a3.7 3.7 0 0 1 5.2 5.2l-8.5 8.5a1.8 1.8 0 0 1-2.6-2.6l7.9-7.9" /></svg>
+                {t('contact.attachment_cta')}
+              </label>
+              <span class="file_name" data-file-name>{t('contact.attachment_empty')}</span>
+              <button type="button" class="file_remove" data-file-remove hidden aria-label={t('contact.attachment_remove')}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+              </button>
+            </div>
+            <span id="attachment_hint" class="field_hint">{t('contact.attachment_hint')}</span>
+          </div>
+
+          <!-- Anti-spam: invisible to humans -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">{t('contact.honeypot')}</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          <input type="hidden" name="loaded_at" id="loaded_at" />
+
+          <div id="form_feedback" class="form_feedback" role="status" aria-live="polite" hidden></div>
+
+          <div class="form_footer">
+            <button type="submit" class="btn btn_primary form_submit">
+              <span class="form_spinner" aria-hidden="true"></span>
+              <span data-label>{t('contact.submit')}</span>
+            </button>
+            <p class="form_required_note"><span aria-hidden="true">*</span> {t('contact.required')}</p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="contact_aside" aria-label={t('contact.info_label')}>
+        <div class="bezel" data-reveal style="--i:1">
+          <div class="bezel_core info_card">
+            <h2>{t('contact.info_title')}</h2>
+            <ul class="info_list" role="list">
+              <li>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3.5 6.5 8.5 6.5 8.5-6.5" /></svg>
+                <div>
+                  <span class="mono info_list_label">{t('contact.email_label')}</span>
+                  <a href={`mailto:${site.email}`} class="info_list_value info_list_link">{site.email}</a>
+                </div>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+                <div>
+                  <span class="mono info_list_label">{t('contact.location_label')}</span>
+                  <span class="info_list_value">{site.location}</span>
+                </div>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                <div>
+                  <span class="mono info_list_label">{t('contact.hours_label')}</span>
+                  <span class="info_list_value">{t('site.hours')}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <script type="application/json" id="contact_strings" set:html={JSON.stringify(clientStrings)} />
+</BaseLayout>
+
+<script>
+  import { actions, isInputError } from 'astro:actions';
+  import { MAX_ATTACHMENT_BYTES, ATTACHMENT_TYPES } from '../lib/attachment';
+
+  const strings: Record<string, string> = JSON.parse(document.querySelector('#contact_strings')!.textContent ?? '{}');
+  const text = (key: string) => strings[key] ?? strings[`error.${key}`] ?? key;
+
+  const NAME_STORAGE_KEY = 'tramimuni_contact_name';
+
+  type Field = 'name' | 'email' | 'subject' | 'message' | 'attachment';
+  type FieldErrors = Partial<Record<Field, string | string[] | undefined>>;
+
+  const form = document.querySelector<HTMLFormElement>('#contact_form')!;
+  const feedback = document.querySelector<HTMLElement>('#form_feedback')!;
+  const submitButton = form.querySelector<HTMLButtonElement>('.form_submit')!;
+  const submitLabel = submitButton.querySelector<HTMLElement>('[data-label]')!;
+  const serviceSelect = form.querySelector<HTMLSelectElement>('#service')!;
+  const fileInput = form.querySelector<HTMLInputElement>('#attachment')!;
+  const fileName = form.querySelector<HTMLElement>('[data-file-name]')!;
+  const fileRemove = form.querySelector<HTMLButtonElement>('[data-file-remove]')!;
+  const input = (id: string) => form.querySelector<HTMLInputElement>(`#${id}`)!;
+
+  /* ── Anti-spam timestamp ────────────────────────────── */
+  input('loaded_at').value = String(Date.now());
+
+  /* ── Preselect service from ?service= ───────────────── */
+  const serviceParam = new URLSearchParams(location.search).get('service');
+  if (serviceParam && [...serviceSelect.options].some((o) => o.value === serviceParam)) {
+    serviceSelect.value = serviceParam;
+  }
+
+  // Clean the address bar (/contacto?service=x → /contacto) without reloading or adding history
+  if (location.search) history.replaceState(null, '', location.pathname + location.hash);
+
+  /* ── Name persisted in localStorage ─────────────────── */
+  try {
+    const savedName = localStorage.getItem(NAME_STORAGE_KEY);
+    if (savedName) input('name').value = savedName;
+  } catch {}
+
+  input('name').addEventListener('input', (e) => {
+    const value = (e.target as HTMLInputElement).value.trim();
+    try {
+      value ? localStorage.setItem(NAME_STORAGE_KEY, value) : localStorage.removeItem(NAME_STORAGE_KEY);
+    } catch {}
+  });
+
+  /* ── Attachment ─────────────────────────────────────── */
+  const formatSize = (bytes: number) =>
+    bytes < 1024 * 1024 ? `${Math.round(bytes / 1024)} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+
+  const syncFile = () => {
+    const file = fileInput.files?.[0];
+    fileName.textContent = file ? `${file.name} · ${formatSize(file.size)}` : text('contact.attachment_empty');
+    fileName.classList.toggle('has_file', Boolean(file));
+    fileRemove.hidden = !file;
+  };
+
+  fileInput.addEventListener('change', syncFile);
+  fileRemove.addEventListener('click', () => {
+    fileInput.value = '';
+    syncFile();
+    fileInput.focus();
+  });
+
+  /* ── Client validation (mirrors the server schema) ──── */
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function validate(): FieldErrors {
+    const errors: FieldErrors = {};
+    const value = (id: Field) => input(id).value.trim();
+    const file = fileInput.files?.[0];
+
+    if (!value('name')) errors.name = 'name_required';
+    if (!value('email')) errors.email = 'email_required';
+    else if (!EMAIL_REGEX.test(value('email'))) errors.email = 'email_invalid';
+    if (!value('subject')) errors.subject = 'subject_required';
+    if (!value('message')) errors.message = 'message_required';
+    else if (value('message').length < 10) errors.message = 'message_min';
+    if (file && !(ATTACHMENT_TYPES as readonly string[]).includes(file.type)) errors.attachment = 'attachment_type';
+    else if (file && file.size > MAX_ATTACHMENT_BYTES) errors.attachment = 'attachment_size';
+
+    return errors;
+  }
+
+  /** Renders field errors (codes → localized text). Returns how many could be displayed. */
+  function showErrors(errors: FieldErrors): number {
+    let firstInvalid: HTMLElement | null = null;
+    let count = 0;
+
+    for (const [field, message] of Object.entries(errors)) {
+      const element = form.querySelector<HTMLElement>(`#${field}`);
+      const code = Array.isArray(message) ? message[0] : message;
+      if (!element || !code) continue;
+
+      const errorId = `${field}_error`;
+      const target = field === 'attachment' ? element.closest<HTMLElement>('[data-file-drop]')! : element;
+      target.classList.add('input_error');
+      element.setAttribute('aria-invalid', 'true');
+      element.setAttribute('aria-describedby', [element.getAttribute('aria-describedby'), errorId].filter(Boolean).join(' '));
+
+      const errorText = document.createElement('span');
+      errorText.id = errorId;
+      errorText.className = 'field_error';
+      errorText.textContent = text(code);
+      target.parentElement!.appendChild(errorText);
+
+      firstInvalid ??= element;
+      count++;
+    }
+
+    firstInvalid?.focus();
+    return count;
+  }
+
+  function clearErrors() {
+    form.querySelectorAll('.field_error').forEach((el) => el.remove());
+    form.querySelectorAll<HTMLElement>('.input_error').forEach((el) => el.classList.remove('input_error'));
+    form.querySelectorAll<HTMLElement>('[aria-invalid]').forEach((el) => {
+      el.removeAttribute('aria-invalid');
+      const ids = (el.getAttribute('aria-describedby') ?? '').split(' ').filter((id) => id && !id.endsWith('_error'));
+      ids.length ? el.setAttribute('aria-describedby', ids.join(' ')) : el.removeAttribute('aria-describedby');
+    });
+  }
+
+  function showFeedback(type: 'success' | 'error', message: string) {
+    feedback.textContent = message;
+    feedback.className = `form_feedback form_feedback_${type}`;
+    feedback.hidden = false;
+  }
+
+  function setLoading(isLoading: boolean) {
+    submitButton.disabled = isLoading;
+    submitButton.classList.toggle('is_loading', isLoading);
+    submitLabel.textContent = text(isLoading ? 'contact.sending' : 'contact.submit');
+  }
+
+  // Hide a previous success message as soon as the user starts a new one
+  form.addEventListener('input', () => {
+    if (feedback.classList.contains('form_feedback_success')) feedback.hidden = true;
+  });
+
+  /* ── Submit ─────────────────────────────────────────── */
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearErrors();
+    feedback.hidden = true;
+
+    const errors = validate();
+    if (Object.keys(errors).length) {
+      showErrors(errors);
+      return;
+    }
+
+    setLoading(true);
+    const { error } = await actions.sendContact(new FormData(form));
+    setLoading(false);
+
+    if (!error) {
+      // Empty every field for a new message. The saved name stays in
+      // localStorage and is restored on the next visit.
+      form.reset();
+      syncFile();
+      input('loaded_at').value = String(Date.now());
+      showFeedback('success', text('contact.success'));
+      return;
+    }
+
+    if (isInputError(error)) {
+      const shown = showErrors(error.fields as FieldErrors);
+      if (!shown) showFeedback('error', text('contact.error'));
+      return;
+    }
+
+    showFeedback('error', text(error.message) || text('contact.error'));
+  });
+</script>
+
+<style>
+  .contact {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact_form_col {
+    display: grid;
+    gap: 1.5rem;
+    min-width: 0;
+  }
+
+  .contact_form_col h2 {
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  }
+
+  .form_head {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+  }
+
+  /* Forms to download */
+  .forms_box {
+    display: grid;
+    gap: 0.75rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border-radius: var(--radius_lg);
+    background: var(--color_tint);
+  }
+
+  .forms_list {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+  }
+
+  .forms_note {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    font-size: 0.82rem !important;
+    color: var(--color_subtle);
+  }
+
+  .forms_note a {
+    color: var(--color_accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Form */
+  .form {
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  .form_row {
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+
+  .field_label {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .field_required {
+    color: var(--color_error);
+  }
+
+  .field_input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background: var(--color_surface);
+    border: 1px solid var(--color_border_strong);
+    border-radius: var(--radius_md);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    appearance: none;
+  }
+
+  .field_input:hover {
+    border-color: color-mix(in srgb, var(--color_accent) 45%, var(--color_border_strong));
+  }
+
+  .field_input:focus {
+    outline: none;
+    border-color: var(--color_accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color_accent) 18%, transparent);
+  }
+
+  .field_input::placeholder {
+    color: var(--color_subtle);
+  }
+
+  .field_select {
+    padding-right: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237b867e' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    background-size: 18px;
+  }
+
+  .field_textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+
+  .field_hint {
+    font-size: 0.8rem;
+    color: var(--color_subtle);
+  }
+
+  /* Attachment */
+  .file_drop {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem;
+    border: 1px dashed var(--color_border_strong);
+    border-radius: var(--radius_md);
+    background: var(--color_surface);
+    transition: border-color var(--transition);
+  }
+
+  .file_drop:focus-within {
+    border-color: var(--color_accent);
+  }
+
+  .file_input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .file_input:focus-visible + .file_button {
+    outline: 2px solid var(--color_accent);
+    outline-offset: 3px;
+  }
+
+  .file_button {
+    min-height: 44px;
+    gap: 0.5rem;
+    padding-inline: 1.1rem;
+    cursor: pointer;
+  }
+
+  .file_name {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.88rem;
+    color: var(--color_subtle);
+    overflow-wrap: anywhere;
+  }
+
+  .file_name:global(.has_file) {
+    color: var(--color_text);
+    font-weight: 500;
+  }
+
+  .file_remove {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius_full);
+    color: var(--color_muted);
+  }
+
+  .file_remove:hover {
+    background: var(--color_row_hover);
+    color: var(--color_error);
+  }
+
+  .file_remove[hidden] {
+    display: none;
+  }
+
+  /* Classes added from JS: require :global */
+  .form :global(.input_error) {
+    border-color: var(--color_error);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color_error) 14%, transparent);
+  }
+
+  .form :global(.field_error) {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color_error);
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form_feedback {
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius_md);
+    font-size: 0.92rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+  }
+
+  .form_feedback_success {
+    background: var(--color_tint);
+    color: var(--color_accent);
+    border-color: color-mix(in srgb, var(--color_accent) 30%, transparent);
+  }
+
+  .form_feedback_error {
+    background: var(--color_error_bg);
+    color: var(--color_error);
+    border-color: color-mix(in srgb, var(--color_error) 40%, transparent);
+  }
+
+  .form_footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .form_submit {
+    min-width: 12rem;
+  }
+
+  .form_spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid color-mix(in srgb, var(--color_on_accent) 40%, transparent);
+    border-top-color: var(--color_on_accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  .form_submit:global(.is_loading) .form_spinner {
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .form_required_note {
+    font-size: 0.82rem;
+  }
+
+  /* Aside */
+  .contact_aside {
+    position: sticky;
+    top: calc(var(--navbar_offset) + 1rem);
+  }
+
+  .info_card {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.75rem;
+  }
+
+  .info_card h2 {
+    font-size: 1.2rem;
+  }
+
+  .info_list {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .info_list li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+
+  .info_list svg {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color_accent);
+  }
+
+  .info_list_label {
+    display: block;
+    color: var(--color_subtle);
+    font-size: 0.7rem;
+  }
+
+  .info_list_value {
+    display: block;
+    font-size: 0.95rem;
+    overflow-wrap: anywhere;
+  }
+
+  .info_list_link {
+    color: var(--color_accent);
+    font-weight: 500;
+  }
+
+  .info_list_link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (min-width: 640px) {
+    .form_row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 5rem;
+    }
+  }
+</style>

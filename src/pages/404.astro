@@ -1,54 +1,65 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BuildingIcon from '../components/BuildingIcon.astro';
+import Mascot from '../components/Mascot.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+import { routes, useTranslations } from '../i18n/ui';
+
+// Single 404 for both languages: Spanish first, English below.
+const t = useTranslations('es');
+const tEn = useTranslations('en');
 ---
-<BaseLayout title="Página no encontrada" description="La página que busca no existe.">
+<BaseLayout lang="es" title="404" description={t('not_found.text')} alternates={{ es: routes.home.es, en: routes.home.en }}>
   <section class="not_found" aria-labelledby="not_found_title">
-    <div class="container">
-      <BuildingIcon size={56} stroke={1.5} class="not_found_icon" />
-      <p class="not_found_code">Error 404</p>
-      <h1 id="not_found_title">Esta página no existe</h1>
-      <p>Puede que el enlace esté desactualizado o que la dirección tenga un error.</p>
-      <div class="not_found_actions">
-        <a href="/" class="btn btn_primary">Ir al inicio</a>
-        <a href="/contacto" class="btn btn_outline">Contáctenos</a>
+    <div class="container not_found_grid">
+      <div class="not_found_text">
+        <span class="eyebrow">Error 404</span>
+        <h1 id="not_found_title">{t('not_found.title')}</h1>
+        <p>{t('not_found.text')}</p>
+        <p lang="en" class="not_found_en">{tEn('not_found.title')}. {tEn('not_found.text')}</p>
+        <div class="not_found_actions">
+          <ArrowButton href={routes.home.es}>{t('not_found.home')}</ArrowButton>
+          <ArrowButton href={routes.home.en} variant="ghost" lang="en">{tEn('not_found.home')}</ArrowButton>
+        </div>
       </div>
+      <div class="bezel"><div class="bezel_core not_found_mascot"><Mascot /></div></div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .not_found {
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+
+  .not_found_grid {
     display: grid;
-    place-items: center;
-    min-height: 60dvh;
-    padding-block: var(--spacing_xl);
-    text-align: center;
+    gap: 3rem;
+    align-items: center;
   }
 
-  .not_found .container {
+  .not_found_text {
     display: grid;
-    justify-items: center;
-    gap: var(--spacing_sm);
+    gap: 1.25rem;
   }
 
-  .not_found :global(.not_found_icon) {
-    color: var(--color_primary);
-  }
-
-  .not_found_code {
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-size: 0.8rem !important;
-    color: var(--color_primary) !important;
+  .not_found_en {
+    font-size: 0.92rem;
+    color: var(--color_subtle);
   }
 
   .not_found_actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing_xs);
-    margin-top: var(--spacing_xs);
+    gap: 0.75rem;
+  }
+
+  .not_found_mascot {
+    aspect-ratio: 5 / 4;
+  }
+
+  @media (min-width: 900px) {
+    .not_found_grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 </style>
