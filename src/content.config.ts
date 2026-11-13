@@ -18,6 +18,8 @@ const services = defineCollection({
     form: z.enum(['exoneracion', 'declaracion']).optional(),
     nav_label: z.string(),
     title: z.string(),
+    /** <title> for search results; falls back to nav_label. Include the place. */
+    seo_title: z.string().optional(),
     subtitle: z.string(),
     meta_description: z.string(),
     card: z.object({
@@ -39,6 +41,7 @@ const services = defineCollection({
       button: z.string(),
       note: z.string(),
     }),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     cta: z.object({
       title: z.string(),
       text: z.string(),

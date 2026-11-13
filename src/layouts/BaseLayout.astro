@@ -1,15 +1,16 @@
 ---
-import '@fontsource-variable/geist';
-import '@fontsource-variable/geist-mono';
-import '@fontsource-variable/playfair-display';
 import '../styles/global.css';
+import Fonts from '../components/Fonts.astro';
 import NavBar from '../components/NavBar.astro';
 import Footer from '../components/Footer.astro';
+import LangSuggest from '../components/LangSuggest.astro';
 import { site } from '../data/site';
+import { THEME_INIT } from '../lib/theme_init.mjs';
 import { languages, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
+  /** Page title; " | TramiMuniSC" is appended unless it already names the site. */
   title: string;
   description?: string;
   /** Same page in each language, for the switcher and hreflang. */
@@ -19,7 +20,7 @@ interface Props {
 const { lang, title, description, alternates } = Astro.props;
 const t = useTranslations(lang);
 const metaDescription = description ?? t('site.description');
-const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
+const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL('/og.jpg', Astro.site);
 const otherLang: Lang = lang === 'es' ? 'en' : 'es';
@@ -29,6 +30,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Fonts />
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonicalUrl} />
@@ -41,6 +43,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={t('meta.locale')} />
+    <meta property="og:locale:alternate" content={useTranslations(otherLang)('meta.locale')} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={metaDescription} />
@@ -49,16 +52,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Theme before first paint, and the `js` class that enables scroll reveals -->
-    <script is:inline>
-      (() => {
-        const root = document.documentElement;
-        root.classList.add('js');
-        let theme = null;
-        try { theme = localStorage.getItem('tramimuni_theme'); } catch {}
-        if (!theme) theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        root.dataset.theme = theme;
-      })();
-    </script>
+    <script is:inline set:html={THEME_INIT}></script>
   </head>
   <body>
     <a href="#main_content" class="skip_link">{t('nav.skip')}</a>
@@ -67,6 +61,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
       <slot />
     </main>
     <Footer lang={lang} />
+    <LangSuggest lang={lang} altHref={alternates[otherLang]} />
 
     <script>
       // Scroll reveal: fade/slide/blur in once, when 15% of the element is visible.

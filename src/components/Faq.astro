@@ -1,0 +1,106 @@
+---
+/** Native <details> accordion plus its FAQPage markup, from a single list. */
+import JsonLd from './JsonLd.astro';
+import { faqSchema, type FaqItem } from '../lib/structured_data';
+
+interface Props {
+  id: string;
+  title: string;
+  items: FaqItem[];
+}
+const { id, title, items } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="faq" aria-labelledby={id}>
+    <h2 id={id} data-reveal>{title}</h2>
+    <div class="faq_list">
+      {items.map((item, i) => (
+        <details class="faq_item" data-reveal data-i={i}>
+          <summary>
+            <span>{item.q}</span>
+            <span class="faq_icon" aria-hidden="true"></span>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+    <JsonLd data={faqSchema(items)} />
+  </section>
+)}
+
+<style>
+  .faq h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .faq_list {
+    border-top: 1px solid var(--color_border);
+  }
+
+  .faq_item {
+    border-bottom: 1px solid var(--color_border);
+  }
+
+  .faq_item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 56px;
+    padding-block: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq_item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq_item summary:hover {
+    color: var(--color_accent);
+  }
+
+  /* Plus that turns into a minus */
+  .faq_icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius_full);
+    background: var(--color_tint);
+  }
+
+  .faq_icon::before,
+  .faq_icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 1.5px;
+    margin: -0.75px 0 0 -6px;
+    border-radius: 2px;
+    background: var(--color_accent);
+    transition: transform var(--duration_base) var(--ease_spring);
+  }
+
+  .faq_icon::after {
+    transform: rotate(90deg);
+  }
+
+  .faq_item[open] .faq_icon::after {
+    transform: rotate(0deg);
+  }
+
+  .faq_item p {
+    max-width: 65ch;
+    padding-bottom: 1.25rem;
+    animation: faq_open var(--duration_base) var(--ease_out);
+  }
+
+  @keyframes faq_open {
+    from { opacity: 0; transform: translateY(-4px); }
+  }
+</style>

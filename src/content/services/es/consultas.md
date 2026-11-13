@@ -3,6 +3,7 @@ order: 6
 url_slug: consultas
 group: orientacion
 nav_label: Consultas
+seo_title: "Consultas sobre trámites municipales en San Carlos"
 title: Consultas municipales
 subtitle: Resolución de consultas sobre trámites, requisitos y procesos ante la Municipalidad de San Carlos.
 meta_description: Consultas municipales — TramiMuniSC. Resolución de consultas sobre trámites y procesos municipales en San Carlos.
@@ -34,6 +35,13 @@ aside:
   text: Escríbanos y le respondemos a la brevedad.
   button: Enviar consulta
   note: El servicio de consultas es orientativo. Para trámites complejos recomendamos el acompañamiento completo.
+faq:
+  - q: "¿La consulta tiene costo?"
+    a: "No. La orientación inicial es sin costo y sin compromiso."
+  - q: "¿Qué información debo enviar?"
+    a: "Su nombre, un correo de contacto, el número de finca si lo tiene y una descripción breve de su situación."
+  - q: "¿Cuándo me responden?"
+    a: "Respondemos lo antes posible dentro del horario de atención, al correo que nos indique."
 cta:
   title: ¿Tiene alguna duda?
   text: Estamos para orientarle sin costo y sin compromiso.

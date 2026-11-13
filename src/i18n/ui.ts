@@ -9,6 +9,7 @@ export const DEFAULT_LANG: Lang = 'es';
 export const ui = {
   es: {
     'meta.locale': 'es_CR',
+    'meta.home_title': 'TramiMuniSC | Trámites municipales en San Carlos, Costa Rica',
     'meta.home_description':
       'Acompañamiento en trámites ante la Municipalidad de San Carlos: exoneraciones, declaraciones, plataforma agropecuaria, uso de suelo, patentes y consultas.',
     'site.description': 'Servicio de acompañamiento para trámites municipales en San Carlos, Costa Rica.',
@@ -25,6 +26,9 @@ export const ui = {
     'nav.lang_switch': 'View this page in English',
     'nav.skip': 'Saltar al contenido',
     'nav.breadcrumb': 'Ruta de navegación',
+    'lang.suggest': '¿Prefiere ver este sitio en español?',
+    'lang.accept': 'Ver en español',
+    'lang.dismiss': 'Cerrar',
 
     'home.badge': 'San Carlos, Costa Rica',
     'home.title': 'Trámites municipales con servicio personalizado',
@@ -65,6 +69,8 @@ export const ui = {
     'home.file_pending': 'En curso',
     'home.cta_title': 'Cuéntenos qué trámite necesita',
     'home.cta_text': 'Le respondemos al correo que nos indique.',
+    'home.faq_title': 'Preguntas frecuentes',
+    'service.faq_title': 'Preguntas frecuentes',
 
     'service.contact': 'Contáctenos',
     'service.forms_title': 'Formulario oficial',
@@ -116,6 +122,10 @@ export const ui = {
     'contact.hours_label': 'Horario de atención',
     'contact.success': 'Mensaje enviado. Le responderemos al correo indicado.',
     'contact.error': 'No se pudo enviar el mensaje. Intente de nuevo en unos minutos.',
+    'contact.errors_summary': 'Revise los campos marcados ({n} con errores).',
+    'contact.offensive': 'Revise el contenido del mensaje: contiene palabras que no podemos aceptar.',
+    'contact.rate_limited': 'Recibimos varios mensajes seguidos desde su conexión. Intente de nuevo en una hora.',
+    'contact.captcha_failed': 'No pudimos verificar el envío. Recargue la página e intente de nuevo.',
 
     // Validation codes returned by the server action (and used by the client)
     'error.name_required': 'El nombre es requerido',
@@ -143,6 +153,7 @@ export const ui = {
   },
   en: {
     'meta.locale': 'en_US',
+    'meta.home_title': 'TramiMuniSC | Municipal procedures in San Carlos, Costa Rica',
     'meta.home_description':
       'Help with procedures before the Municipality of San Carlos, Costa Rica: property tax exemptions and declarations, agricultural land, land use, business licenses and inquiries.',
     'site.description': 'Assistance with municipal procedures in San Carlos, Costa Rica.',
@@ -159,6 +170,9 @@ export const ui = {
     'nav.lang_switch': 'Ver esta página en español',
     'nav.skip': 'Skip to content',
     'nav.breadcrumb': 'Breadcrumb',
+    'lang.suggest': 'Would you like to view this site in English?',
+    'lang.accept': 'View in English',
+    'lang.dismiss': 'Close',
 
     'home.badge': 'San Carlos, Costa Rica',
     'home.title': 'Municipal procedures with personal service',
@@ -199,6 +213,8 @@ export const ui = {
     'home.file_pending': 'In progress',
     'home.cta_title': 'Tell us which procedure you need',
     'home.cta_text': 'We will reply to the email address you give us.',
+    'home.faq_title': 'Frequently asked questions',
+    'service.faq_title': 'Frequently asked questions',
 
     'service.contact': 'Contact us',
     'service.forms_title': 'Official form',
@@ -250,6 +266,10 @@ export const ui = {
     'contact.hours_label': 'Office hours',
     'contact.success': 'Message sent. We will reply to the email address you provided.',
     'contact.error': 'The message could not be sent. Please try again in a few minutes.',
+    'contact.errors_summary': 'Please check the highlighted fields ({n} with errors).',
+    'contact.offensive': 'Please review your message: it contains words we cannot accept.',
+    'contact.rate_limited': 'We received several messages in a row from your connection. Please try again in an hour.',
+    'contact.captcha_failed': 'We could not verify the submission. Reload the page and try again.',
 
     'error.name_required': 'Name is required',
     'error.name_max': 'Up to 120 characters',

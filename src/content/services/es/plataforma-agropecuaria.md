@@ -5,6 +5,7 @@ group: agro
 law: Ley 9071
 form: declaracion
 nav_label: Agropecuario
+seo_title: "Plataforma agropecuaria (Ley 9071) en San Carlos"
 title: Plataforma agropecuaria
 subtitle: Valoración especial para terrenos dedicados a la producción agrícola y pecuaria (Ley 9071).
 meta_description: Plataforma agropecuaria, Ley 9071 — TramiMuniSC. Acompañamiento para la valoración especial de terrenos de uso agropecuario en San Carlos.
@@ -36,6 +37,13 @@ aside:
   text: Revisamos si aplica y le ayudamos a declararla.
   button: Contáctenos
   note: Si el terreno deja de tener uso agropecuario, la ley obliga a informarlo de inmediato a la municipalidad.
+faq:
+  - q: "¿Qué terrenos pueden acogerse a la Ley 9071?"
+    a: "Los terrenos dedicados a la producción primaria agrícola o pecuaria."
+  - q: "¿Se valoran las instalaciones de la finca?"
+    a: "No. Para estos terrenos no se toma en cuenta la infraestructura agropecuaria y agroindustrial del inmueble."
+  - q: "¿Qué pasa si dejo de usar el terreno para producción?"
+    a: "Debe informarlo de inmediato a la municipalidad. Si no se mantiene el uso agropecuario, la ley prevé sanciones."
 cta:
   title: ¿Tiene dudas sobre la Ley 9071?
   text: Escríbanos y revisamos su caso sin costo.

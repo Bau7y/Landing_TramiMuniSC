@@ -1,0 +1,23 @@
+name: Accesibilidad
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  axe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: npx playwright install --with-deps chromium-headless-shell
+      - run: yarn build
+        env:
+          # Placeholders: the build only needs them to exist
+          RESEND_API_KEY: ci
+          CONTACT_TO: ci@example.com
+      - run: yarn test:a11y
