@@ -29,6 +29,7 @@ src/
 │   ├── Mascot.astro          → la "mancha" TramiMuni
 │   ├── ArrowButton.astro     → botón píldora con flecha en círculo
 │   ├── FormDownload.astro    → tarjeta de descarga de un formulario PDF
+│   ├── MobileFormTip.astro   → nota para llenar los PDF en el celular (solo pantallas táctiles)
 │   ├── PageHero.astro
 │   ├── ArrowIcon.astro
 │   └── BuildingIcon.astro
@@ -63,7 +64,7 @@ Sin tocar código, el servicio aparece en el navbar, el menú móvil, el footer,
 
 ## Formularios PDF
 
-Los formularios oficiales de la municipalidad (`F-SBI-001-2024` y `F-SBI-002-2024`) se publican en `public/formularios/` con campos rellenables (AcroForm) colocados sobre el diseño original. La firma se deja en blanco: va a mano o con firma digital. Si la municipalidad publica una versión nueva, hay que volver a generar los campos y actualizar `src/data/forms.ts`.
+Los formularios oficiales de la municipalidad (`F-SBI-001-2024` y `F-SBI-002-2024`) se publican en `public/formularios/` con campos rellenables (AcroForm) colocados sobre el diseño original. La firma se deja en blanco: va a mano o con firma digital. Los campos son widgets simples con fuentes en `/DR` y `NeedAppearances`, para que también se puedan llenar en la app Archivos (iPhone), Google Drive o Acrobat; los visores integrados del navegador en el celular no permiten escribir, por eso la nota de `MobileFormTip`. Si la municipalidad publica una versión nueva, hay que volver a generar los campos y actualizar `src/data/forms.ts`.
 
 ## Formulario de contacto
 
