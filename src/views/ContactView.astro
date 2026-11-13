@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import FormDownload from '../components/FormDownload.astro';
+import MobileFormTip from '../components/MobileFormTip.astro';
 import { site } from '../data/site';
 import { FORMS_SOURCE_URL } from '../data/forms';
 import { getServices } from '../data/services';
@@ -32,6 +33,7 @@ const clientStrings = Object.fromEntries(
             <FormDownload form="exoneracion" lang={lang} index={1} />
             <FormDownload form="declaracion" lang={lang} index={2} />
           </div>
+          <MobileFormTip lang={lang} />
           <p class="forms_note">
             {t('forms.sign_note')}
             <a href={FORMS_SOURCE_URL} target="_blank" rel="noopener">{t('forms.source')}: munisc.go.cr</a>

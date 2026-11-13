@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ArrowButton from '../components/ArrowButton.astro';
 import FormDownload from '../components/FormDownload.astro';
+import MobileFormTip from '../components/MobileFormTip.astro';
 import { getServiceHref, type Service } from '../data/services';
 import { routes, useTranslations, type Lang } from '../i18n/ui';
 
@@ -76,6 +77,7 @@ const alternates = {
           <h2 class="mono">{t('service.forms_title')}</h2>
           <p>{t('service.forms_text')}</p>
           <FormDownload form={data.form} lang={lang} />
+          <MobileFormTip lang={lang} />
           <p class="aside_form_note">{t('forms.sign_note')}</p>
         </div>
       )}
