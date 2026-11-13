@@ -69,7 +69,7 @@ export const ui = {
     'home.file_pending': 'En curso',
     'home.cta_title': 'Cuéntenos qué trámite necesita',
     'home.cta_text': 'Le respondemos al correo que nos indique.',
-    'home.faq_title': 'Preguntas frecuentes',
+    'home.faq_title': 'Preguntas frecuentes sobre bienes inmuebles',
     'service.faq_title': 'Preguntas frecuentes',
 
     'service.contact': 'Contáctenos',
@@ -213,7 +213,7 @@ export const ui = {
     'home.file_pending': 'In progress',
     'home.cta_title': 'Tell us which procedure you need',
     'home.cta_text': 'We will reply to the email address you give us.',
-    'home.faq_title': 'Frequently asked questions',
+    'home.faq_title': 'Property tax: frequently asked questions',
     'service.faq_title': 'Frequently asked questions',
 
     'service.contact': 'Contact us',
