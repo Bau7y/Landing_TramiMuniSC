@@ -2,6 +2,8 @@
 
 Landing page para un servicio de acompañamiento en trámites ante la Municipalidad de San Carlos, Costa Rica. Nació como Laboratorio #1 de ISW-521 (Programación en Ambiente Web I, UTN) en HTML, CSS y JS nativos. La versión 2 migra a **Astro** para reutilizar componentes, escalar contenido y enviar el formulario de contacto desde el servidor.
 
+Producción: **https://www.tramimunisc.com** (`tramimunisc.com` y `landing-trami-muni-sc.vercel.app` redirigen ahí).
+
 ## Stack
 
 | Capa | Tecnología | Rol |
@@ -13,8 +15,10 @@ Landing page para un servicio de acompañamiento en trámites ante la Municipali
 | Animaciones | CSS + `IntersectionObserver` | Aparición al hacer scroll (`data-reveal`), curvas propias; se desactivan con *reducir movimiento* |
 | Contenido | Content Collections (Markdown + Zod) | Un archivo `.md` por servicio |
 | Backend | Astro Actions + Zod | Validación tipada del formulario en el servidor |
-| Correo | Resend | Envío transaccional (gratis hasta 3 000 correos al mes y 100 al día) |
-| Deploy | Vercel (`@astrojs/vercel`) | Páginas estáticas en CDN y la acción como función serverless |
+| Correo | Resend | Envío transaccional desde `contacto@tramimunisc.com` (gratis hasta 3 000 correos al mes y 100 al día) |
+| Anti-spam | Módulo propio + Cloudflare Turnstile + Upstash (opcional) | Capas independientes en `src/lib/spam/` |
+| Pruebas | axe + Playwright | Accesibilidad WCAG 2.2 AA en cada push (GitHub Actions) |
+| Deploy | Vercel (`@astrojs/vercel`) | Páginas estáticas en CDN y la acción como función serverless. Dominio y DNS también en Vercel |
 | Fuentes | `@fontsource-variable` (Geist, Geist Mono y Playfair Display para la mascota) | Se sirven desde el propio sitio: no dependen de Google Fonts ni bloquean el render |
 
 ## Estructura
@@ -43,7 +47,7 @@ src/
 │   ├── site.ts               → nombre, correo, ubicación
 │   ├── services.ts           → servicios por idioma con su URL
 │   ├── forms.ts              → formularios oficiales descargables
-│   └── home_faq.ts           → preguntas frecuentes generales del inicio
+│   └── home_faq.ts           → preguntas frecuentes legales del inicio (Ley 7509, Ley 4755)
 ├── i18n/ui.ts                → textos de interfaz es/en y rutas por idioma
 ├── lib/
 │   ├── email.ts              → verificación DNS (MX) del correo
@@ -106,7 +110,7 @@ Copiar `.env.example` a `.env`. En Vercel se configuran en *Project Settings →
 | `RESEND_API_KEY` | Clave de API de Resend |
 | `CONTACT_TO` | Bandeja que recibe los mensajes |
 | `CONTACT_FROM` | Remitente. Por defecto `contacto@tramimunisc.com` (dominio verificado en Resend con registros DKIM/SPF/DMARC en el DNS de Vercel) |
-| `PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY` | Opcionales. Activan Cloudflare Turnstile |
+| `PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY` | Opcionales. Activan Cloudflare Turnstile. Solo en *Production*: los dominios de vista previa no están en el widget, y sin claves esa capa se apaga sola |
 | `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | Opcionales. Límite de envíos compartido entre instancias |
 
 Las variables se declaran con `astro:env`: son tipadas, las secretas solo existen en el servidor y el build falla si falta alguna obligatoria. Las opcionales encienden su capa solo cuando existen.
@@ -137,6 +141,7 @@ yarn test:a11y # axe sobre el build (requiere `npx playwright install chromium-h
 - **Idiomas**: el botón ES/EN enlaza a la misma página en el otro idioma; cada página declara `hreflang` para buscadores.
 - **Animaciones**: elementos con `data-reveal` aparecen al entrar en pantalla (opacidad, desplazamiento y desenfoque, escalonados con `--i`). Solo se ocultan si hay JavaScript (`html.js`), y con *reducir movimiento* se muestran sin animación.
 - **Accesibilidad**: enlace "Saltar al contenido", `aria-current` en la navegación, foco visible, `prefers-reduced-motion`, jerarquía de encabezados sin saltos y contraste AA en todos los colores de texto. El menú móvil se cierra con Escape y deja el resto de la página `inert` mientras está abierto. El formulario anuncia cuántos campos tienen error. `yarn test:a11y` lo verifica en cada push.
+- **Preguntas frecuentes**: tarjetas que giran (pregunta al frente, respuesta breve atrás) a todo el ancho, justo antes del bloque de contacto del inicio y de cada servicio. Giran con el mouse, con el foco del teclado y con un toque en el celular; con *reducir movimiento* la respuesta aparece sin giro. Las del inicio están en `src/data/home_faq.ts`; las de cada servicio, en su frontmatter (`faq`). Las respuestas citan la norma y deben revisarse si cambia la ley.
 - **SEO**: `canonical`, `hreflang`, Open Graph, `seo_title` por servicio, `sitemap-index.xml`, `robots.txt` y JSON-LD (`ProfessionalService`, `Service`, `BreadcrumbList`, `FAQPage`). Google ya no muestra el desplegable de FAQ (desde mayo de 2026), pero sigue leyendo el marcado; las respuestas visibles son lo que aporta.
 - **Idioma sugerido**: si el navegador prefiere el otro idioma se ofrece un aviso descartable; nunca se redirige, para no confundir a buscadores ni a quien eligió un idioma.
 
@@ -148,3 +153,11 @@ yarn test:a11y # axe sobre el build (requiere `npx playwright install chromium-h
 - **CSP** (`security.csp` de Astro): cada página lleva una política con hashes de sus scripts y estilos; nada inyectado puede ejecutarse. Por eso no se usan atributos `style` en línea: el escalonado de animaciones usa `data-i`.
 - **Encabezados** (`vercel.json`): HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, sin iframes de terceros (`frame-ancestors 'none'`) y caché de un año para `/_astro/` (archivos con hash).
 - **Páginas estáticas**: solo el formulario corre en el servidor. SSR no aportaría nada en una landing y agregaría latencia y costo.
+
+## Dominio, correo y buscadores
+
+- **Dominio**: `tramimunisc.com`, comprado y administrado en Vercel (DNS incluido). `site` en `astro.config.mjs` apunta a `https://www.tramimunisc.com`, así que `canonical`, sitemap, `robots.txt` y JSON-LD usan ese dominio.
+- **Resend**: dominio verificado con registros DKIM (`resend._domainkey`), SPF (`send`), retorno (`rsend`) y DMARC (`_dmarc`) en el DNS de Vercel. Cualquier dirección `@tramimunisc.com` puede enviar a cualquier destinatario; `contacto@` solo envía, no tiene buzón.
+- **Search Console**: propiedad de dominio verificada con un registro TXT en la raíz. El sitemap a enviar es `https://www.tramimunisc.com/sitemap-index.xml`.
+- **Vistas previas**: Vercel les agrega `X-Robots-Tag: noindex`, así que no compiten con producción en Google.
+
