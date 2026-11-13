@@ -147,7 +147,7 @@ export const server = {
         to: [CONTACT_TO],
         replyTo: input.email,
         // [Revisar] lets a Gmail filter route doubtful messages to their own label
-        subject: `${needsReview ? '[Revisar] ' : ''}TramiMuniSC · ${input.subject}`,
+        subject: `${needsReview ? '[Revisar] ' : ''}[Usuario] · ${input.subject}`,
         text,
         html,
         attachments,
