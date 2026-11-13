@@ -42,4 +42,4 @@ cta:
 
 Every property owner must declare the value of their property to the municipality **at least every five years**, under Costa Rica’s Ley N.° 7509 (Property Tax Law).
 
-That value is the basis for the annual tax unless the municipality objects to it. Filing correctly avoids surcharges, fines and an official reassessment.
+That value is the basis for the annual tax unless the municipality objects to it. Filing on time and correctly avoids surcharges from administrative appraisals.
