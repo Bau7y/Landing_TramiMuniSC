@@ -4,6 +4,7 @@ url_slug: land-use
 group: permisos
 law: Plan Regulador
 nav_label: Land use
+seo_title: "Land use certificate in San Carlos, Costa Rica"
 title: Land use certificate
 subtitle: We help you request the certificate that states which activities the zoning plan allows on your property.
 meta_description: Land use certificate — TramiMuniSC. Help requesting a land use certificate from the Municipality of San Carlos, Costa Rica.
@@ -35,6 +36,13 @@ aside:
   text: Land use is usually the first step. We help you get it.
   button: Contact us
   note: The municipality sets the final requirements; we confirm them before filing.
+faq:
+  - q: "When do I need a land use certificate?"
+    a: "Before a building permit or a business license."
+  - q: "What do “conforme” and “no conforme” mean?"
+    a: "Conforme: the activity is allowed in that zone. No conforme: it is not."
+  - q: "Does the certificate allow me to build or open my business?"
+    a: "No. It is a prior requirement for the building permit or license."
 cta:
   title: Not sure if your activity is allowed?
   text: Write to us and we will review it with you.

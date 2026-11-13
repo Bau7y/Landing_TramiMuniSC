@@ -19,7 +19,7 @@
   --color_row_hover:     #f1f5ef;
   --color_text:          #17201a;
   --color_muted:         #56625a;
-  --color_subtle:        #7b867e;
+  --color_subtle:        #626d65;
   --color_border:        #dde3da;
   --color_border_strong: #c4cec1;
 
@@ -87,7 +87,7 @@
   --color_row_hover:     #1a231c;
   --color_text:          #e7efe8;
   --color_muted:         #a3b3a6;
-  --color_subtle:        #7e8d81;
+  --color_subtle:        #8d9b90;
   --color_border:        #26332a;
   --color_border_strong: #35463a;
 
@@ -342,6 +342,21 @@ strong {
 }
 
 /* ── Scroll reveal ─────────────────────────────────────── */
+/* Stagger index as data-i (inline style attributes are blocked by the CSP) */
+[data-i="0"] { --i: 0; }
+[data-i="1"] { --i: 1; }
+[data-i="2"] { --i: 2; }
+[data-i="3"] { --i: 3; }
+[data-i="4"] { --i: 4; }
+[data-i="5"] { --i: 5; }
+[data-i="6"] { --i: 6; }
+[data-i="7"] { --i: 7; }
+[data-i="8"] { --i: 8; }
+[data-i="9"] { --i: 9; }
+[data-i="10"] { --i: 10; }
+[data-i="11"] { --i: 11; }
+[data-i="12"] { --i: 12; }
+
 /* Only hidden when JS is running (html.js), so content never disappears without it. */
 .js [data-reveal] {
   opacity: 0;

@@ -2,12 +2,27 @@ import { defineAction, ActionError } from 'astro:actions';
 import { getEntry } from 'astro:content';
 import { z } from 'astro/zod';
 import { Resend } from 'resend';
-import { RESEND_API_KEY, CONTACT_TO, CONTACT_FROM } from 'astro:env/server';
+import {
+  RESEND_API_KEY,
+  CONTACT_TO,
+  CONTACT_FROM,
+  TURNSTILE_SECRET_KEY,
+  UPSTASH_REDIS_REST_URL,
+  UPSTASH_REDIS_REST_TOKEN,
+} from 'astro:env/server';
 import { canReceiveEmail } from '../lib/email';
 import { MAX_ATTACHMENT_BYTES, ATTACHMENT_TYPES } from '../lib/attachment';
+import { analyzeMessage, isRateLimited, verifyTurnstile } from '../lib/spam';
 
 /** Minimum time (ms) between form load and submit. Filters out bots. */
 const MIN_SUBMIT_TIME_MS = 3000;
+
+/** Accepted messages per IP and hour. */
+const RATE_LIMIT = { limit: 5, windowSeconds: 3600 };
+const redis =
+  UPSTASH_REDIS_REST_URL && UPSTASH_REDIS_REST_TOKEN
+    ? { url: UPSTASH_REDIS_REST_URL, token: UPSTASH_REDIS_REST_TOKEN }
+    : undefined;
 
 /*
  * Error messages are codes (see `error.*` in src/i18n/ui.ts); the client
@@ -36,6 +51,7 @@ const contactSchema = z.object({
   // Astro parses empty FormData fields as null.
   website: z.string().nullish().transform((v) => v ?? ''),
   loaded_at: z.coerce.number().nullish().transform((v) => v ?? 0),
+  'cf-turnstile-response': z.string().nullish().transform((v) => v ?? ''),
 });
 
 let client: Resend | null = null;
@@ -51,13 +67,43 @@ export const server = {
   sendContact: defineAction({
     accept: 'form',
     input: contactSchema,
-    handler: async (input) => {
+    handler: async (input, context) => {
       const isBot =
         input.website !== '' ||
         (input.loaded_at > 0 && Date.now() - input.loaded_at < MIN_SUBMIT_TIME_MS);
 
       // Reply "ok" to bots so they get no signal; nothing is sent.
       if (isBot) return { sent: true };
+
+      const ip = context.clientAddress;
+
+      if (await isRateLimited(ip, { ...RATE_LIMIT, redis })) {
+        throw new ActionError({ code: 'TOO_MANY_REQUESTS', message: 'contact.rate_limited' });
+      }
+
+      if (TURNSTILE_SECRET_KEY && !(await verifyTurnstile(input['cf-turnstile-response'], TURNSTILE_SECRET_KEY, ip))) {
+        throw new ActionError({ code: 'FORBIDDEN', message: 'contact.captcha_failed' });
+      }
+
+      const analysis = analyzeMessage({
+        name: input.name,
+        email: input.email,
+        subject: input.subject,
+        message: input.message,
+        hasService: input.service !== '',
+      });
+
+      if (analysis.verdict === 'offensive') {
+        throw new ActionError({ code: 'BAD_REQUEST', message: 'contact.offensive' });
+      }
+
+      if (analysis.verdict === 'spam') {
+        // Logged so the lists can be tuned; the sender sees a normal "sent".
+        console.warn('[sendContact] spam descartado:', analysis.reasons.join(', '));
+        return { sent: true };
+      }
+
+      const needsReview = analysis.verdict === 'review';
 
       // The email to the office is always in Spanish.
       const service = input.service ? await getEntry('services', `es/${input.service}`) : undefined;
@@ -71,6 +117,7 @@ export const server = {
         ['Idioma', input.lang === 'en' ? 'Inglés' : 'Español'],
         ['Adjunto', input.attachment ? input.attachment.name : 'Ninguno'],
       ];
+      if (needsReview) rows.push(['Revisar', analysis.reasons.join(', ')]);
 
       const text = [...rows.map(([key, value]) => `${key}: ${value}`), '', input.message].join('\n');
 
@@ -99,7 +146,8 @@ export const server = {
         from: CONTACT_FROM,
         to: [CONTACT_TO],
         replyTo: input.email,
-        subject: `TramiMuniSC · ${input.subject}`,
+        // [Revisar] lets a Gmail filter route doubtful messages to their own label
+        subject: `${needsReview ? '[Revisar] ' : ''}TramiMuniSC · ${input.subject}`,
         text,
         html,
         attachments,

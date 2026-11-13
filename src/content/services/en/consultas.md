@@ -3,6 +3,7 @@ order: 6
 url_slug: inquiries
 group: orientacion
 nav_label: Inquiries
+seo_title: "Municipal inquiries in San Carlos, Costa Rica"
 title: Municipal inquiries
 subtitle: Answers about procedures, requirements and processes before the Municipality of San Carlos.
 meta_description: Municipal inquiries — TramiMuniSC. Answers about municipal procedures and processes in San Carlos, Costa Rica.
@@ -34,6 +35,13 @@ aside:
   text: Write to us and we will reply shortly.
   button: Send a question
   note: Inquiries are for guidance. For complex procedures we recommend full support.
+faq:
+  - q: "Is there a charge for inquiries?"
+    a: "No. Initial guidance is free."
+  - q: "What information should I send?"
+    a: "Your name, email, property number if you have it and a short description."
+  - q: "When will you reply?"
+    a: "As soon as possible during office hours."
 cta:
   title: Any doubts?
   text: We are here to guide you free of charge and with no obligation.

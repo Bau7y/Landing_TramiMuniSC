@@ -4,6 +4,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ArrowButton from '../components/ArrowButton.astro';
 import FormDownload from '../components/FormDownload.astro';
+import Faq from '../components/Faq.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { breadcrumbSchema, serviceSchema } from '../lib/structured_data';
 import MobileFormTip from '../components/MobileFormTip.astro';
 import { getServiceHref, type Service } from '../data/services';
 import { routes, useTranslations, type Lang } from '../i18n/ui';
@@ -23,7 +26,17 @@ const alternates = {
   en: (await getServiceHref(key, 'en')) ?? routes.home.en,
 };
 ---
-<BaseLayout lang={lang} title={data.nav_label} description={data.meta_description} alternates={alternates}>
+<BaseLayout lang={lang} title={data.seo_title ?? data.nav_label} description={data.meta_description} alternates={alternates}>
+  <JsonLd
+    data={[
+      serviceSchema(Astro.site!, lang, data.title, data.meta_description, service.href),
+      breadcrumbSchema(Astro.site!, [
+        { name: t('nav.home'), path: routes.home[lang] },
+        { name: data.nav_label, path: service.href },
+      ]),
+    ]}
+  />
+
   <PageHero lang={lang} title={data.title} subtitle={data.subtitle} crumb={data.nav_label} eyebrow={data.law} />
 
   <div class="container page_layout">
@@ -37,7 +50,7 @@ const alternates = {
         <h2 id="list_title">{data.list.title}</h2>
         <ul role="list">
           {data.list.items.map((item, i) => (
-            <li data-reveal style={`--i:${i}`}>
+            <li data-reveal data-i={i}>
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
               <span>{item}</span>
             </li>
@@ -49,7 +62,7 @@ const alternates = {
         <h2 id="steps_title" data-reveal>{data.steps.title}</h2>
         <ol role="list">
           {data.steps.items.map((step, i) => (
-            <li class="step" data-reveal style={`--i:${i}`}>
+            <li class="step" data-reveal data-i={i}>
               <span class="mono step_number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <h3>{step.title}</h3>
               <p>{step.text}</p>
@@ -73,7 +86,7 @@ const alternates = {
       </div>
 
       {data.form && (
-        <div class="aside_form" data-reveal style="--i:1">
+        <div class="aside_form" data-reveal data-i="1">
           <h2 class="mono">{t('service.forms_title')}</h2>
           <p>{t('service.forms_text')}</p>
           <FormDownload form={data.form} lang={lang} />
@@ -83,6 +96,15 @@ const alternates = {
       )}
     </aside>
   </div>
+
+  <!-- FAQ: full width, right before the contact call to action -->
+  {data.faq.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <Faq id="faq_title" title={t('service.faq_title')} hint={t('faq.hint')} items={data.faq} />
+      </div>
+    </section>
+  )}
 
   <section class="section" aria-labelledby="cta_title">
     <div class="container">

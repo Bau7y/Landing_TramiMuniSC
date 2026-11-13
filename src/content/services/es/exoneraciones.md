@@ -5,6 +5,7 @@ group: inmuebles
 law: Ley 7509
 form: exoneracion
 nav_label: Exoneraciones
+seo_title: "Exoneración de bienes inmuebles en San Carlos"
 title: Exoneración de bienes inmuebles
 subtitle: Gestión de la exoneración de bien único ante la Municipalidad de San Carlos.
 meta_description: Exoneración de bienes inmuebles — TramiMuniSC. Gestión de la exoneración de bien único ante la Municipalidad de San Carlos.
@@ -36,6 +37,13 @@ aside:
   text: Contáctenos y analizamos su caso sin compromiso.
   button: Contáctenos
   note: La exoneración de bien único se renueva cada año.
+faq:
+  - q: "¿Cada cuánto debo renovar la exoneración?"
+    a: "Cada año: no es permanente y se solicita para cada periodo."
+  - q: "¿Puedo pedirla si tengo más de una propiedad?"
+    a: "No. Aplica solo a quien tiene una única propiedad en todo el país."
+  - q: "¿Tengo que estar al día con la declaración?"
+    a: "Sí. Es requisito estar al día con la declaración y con los tributos municipales."
 cta:
   title: ¿Tiene dudas sobre su caso?
   text: Escríbanos y le orientamos sin costo.

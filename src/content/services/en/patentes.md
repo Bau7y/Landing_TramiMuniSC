@@ -4,6 +4,7 @@ url_slug: business-license
 group: permisos
 law: Ley 7773
 nav_label: Business license
+seo_title: "Business license (patente) in San Carlos, Costa Rica"
 title: Municipal business license (patente)
 subtitle: We handle the license you need to run a business in the canton of San Carlos.
 meta_description: Business licenses — TramiMuniSC. Municipal business license (patente) filings in San Carlos, Costa Rica.
@@ -36,6 +37,13 @@ aside:
   text: We review what you need and handle the license.
   button: Contact us
   note: Businesses selling alcohol also need a liquor license (Ley 9047).
+faq:
+  - q: "Do I need a land use certificate to get the license?"
+    a: "Yes, a compliant land use certificate for the premises."
+  - q: "Can I move my license to other premises or transfer it?"
+    a: "Yes, through a relocation or transfer, with taxes up to date."
+  - q: "What if I plan to sell alcohol?"
+    a: "Besides the license, a liquor license (Ley 9047)."
 cta:
   title: Need to move or transfer your license?
   text: We also help with relocations, transfers and cancellations.

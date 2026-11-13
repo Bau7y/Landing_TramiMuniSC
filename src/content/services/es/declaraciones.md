@@ -5,6 +5,7 @@ group: inmuebles
 law: Ley 7509
 form: declaracion
 nav_label: Declaraciones
+seo_title: "Declaración de bienes inmuebles en San Carlos"
 title: Declaración de bienes inmuebles
 subtitle: Acompañamiento en la declaración del valor de su propiedad ante la Municipalidad de San Carlos.
 meta_description: Declaración de bienes inmuebles — TramiMuniSC. Acompañamiento en declaraciones ante la Municipalidad de San Carlos.
@@ -34,6 +35,13 @@ aside:
   text: Le ayudamos a completar el proceso correctamente.
   button: Contáctenos
   note: Una declaración incorrecta puede generar multas y recargos.
+faq:
+  - q: "¿Cada cuánto debo declarar mi propiedad?"
+    a: "Al menos cada cinco años (Ley 7509)."
+  - q: "¿Qué pasa si no declaro a tiempo?"
+    a: "La municipalidad puede hacer un avalúo administrativo y cobrar recargos."
+  - q: "Mi propiedad está en derechos, ¿cómo declaro?"
+    a: "Se presenta un formulario por cada derecho."
 cta:
   title: ¿Necesita presentar su declaración?
   text: Le acompañamos en cada paso del proceso.
