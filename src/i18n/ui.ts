@@ -1,0 +1,293 @@
+/**
+ * Interface strings in both languages. Service content lives in
+ * src/content/services/{es,en}; everything else is translated here.
+ */
+export const languages = { es: 'Español', en: 'English' } as const;
+export type Lang = keyof typeof languages;
+export const DEFAULT_LANG: Lang = 'es';
+
+export const ui = {
+  es: {
+    'meta.locale': 'es_CR',
+    'meta.home_description':
+      'Acompañamiento en trámites ante la Municipalidad de San Carlos: exoneraciones, declaraciones, plataforma agropecuaria, uso de suelo, patentes y consultas.',
+    'site.description': 'Servicio de acompañamiento para trámites municipales en San Carlos, Costa Rica.',
+    'site.hours': 'Lunes a viernes, 8:00 a. m. - 10:00 p. m.',
+
+    'nav.home': 'Inicio',
+    'nav.contact': 'Contáctenos',
+    'nav.main_label': 'Navegación principal',
+    'nav.mobile_label': 'Menú móvil',
+    'nav.open_menu': 'Abrir menú de navegación',
+    'nav.close_menu': 'Cerrar menú de navegación',
+    'nav.theme_dark': 'Activar modo oscuro',
+    'nav.theme_light': 'Activar modo claro',
+    'nav.lang_switch': 'View this page in English',
+    'nav.skip': 'Saltar al contenido',
+    'nav.breadcrumb': 'Ruta de navegación',
+
+    'home.badge': 'San Carlos, Costa Rica',
+    'home.title': 'Trámites municipales con servicio personalizado',
+    'home.lead': 'Gestionamos sus trámites ante la Municipalidad de San Carlos sin que tenga que ir a las oficinas.',
+    'home.cta': 'Contáctenos',
+    'home.see_services': 'Ver servicios',
+    'home.legal_title': 'Marco legal que aplicamos',
+    'home.legal_7509': 'Impuesto sobre bienes inmuebles',
+    'home.legal_9071': 'Terrenos de uso agropecuario',
+    'home.services_title': '¿En qué podemos ayudarle?',
+    'home.services_lead': 'Seis trámites, ordenados por lo que necesita resolver.',
+    'home.group.inmuebles': 'Bienes inmuebles',
+    'home.group.permisos': 'Permisos y licencias',
+    'home.process_title': 'Usted no hace fila. Nosotros sí.',
+    'home.process_lead': 'Así acompañamos cada trámite, de la primera consulta a la resolución.',
+    'home.steps': [
+      { title: 'Recibimos su consulta', text: 'Nos cuenta su caso y definimos qué trámite aplica.' },
+      { title: 'Revisamos requisitos', text: 'Validamos cada documento según la normativa municipal.' },
+      { title: 'Presentamos el trámite', text: 'Lo gestionamos ante la Municipalidad de San Carlos.' },
+      { title: 'Damos seguimiento', text: 'Le informamos hasta tener la resolución final.' },
+    ],
+    'home.why_title': 'Menos errores, menos vueltas, menos espera',
+    'home.why_lead':
+      'TramiMuni nace como acompañamiento ciudadano para que su trámite llegue completo a la municipalidad desde la primera vez.',
+    'home.benefits': [
+      { title: 'Revisión previa:', text: 'cada documento se valida antes de presentarlo.' },
+      { title: 'Sin traslados:', text: 'presentamos el trámite por usted.' },
+      { title: 'Seguimiento:', text: 'le avisamos de cada avance hasta el cierre.' },
+    ],
+    'home.file_title': 'Exoneración · bien único',
+    'home.file_docs': [
+      { name: 'Formulario de solicitud', done: true },
+      { name: 'Cédula confrontada con el TSE', done: true },
+      { name: 'Tributos municipales al día', done: true },
+      { name: 'Presentación ante la municipalidad', done: false },
+    ],
+    'home.file_done': 'Revisado',
+    'home.file_pending': 'En curso',
+    'home.cta_title': 'Cuéntenos qué trámite necesita',
+    'home.cta_text': 'Le respondemos al correo que nos indique.',
+
+    'service.contact': 'Contáctenos',
+    'service.forms_title': 'Formulario oficial',
+    'service.forms_text': 'Descárguelo, llénelo en su computadora o celular y adjúntelo al escribirnos.',
+
+    'forms.download': 'Descargar PDF',
+    'forms.pages': (n: number) => (n === 1 ? '1 página' : `${n} páginas`),
+    'forms.fillable': 'Rellenable',
+    'forms.exoneracion': 'Solicitud de exoneración de bienes inmuebles',
+    'forms.declaracion': 'Declaración de bienes inmuebles',
+    'forms.source': 'Fuente oficial',
+    'forms.sign_note': 'La firma va a mano o con firma digital antes de presentarlo.',
+
+    'contact.title': 'Contáctenos',
+    'contact.subtitle': 'Envíenos su consulta y le responderemos a la brevedad posible.',
+    'contact.meta': 'Contáctenos — TramiMuniSC. Envíenos su consulta sobre trámites municipales en San Carlos.',
+    'contact.forms_title': 'Antes de escribirnos',
+    'contact.forms_text':
+      'Si su trámite usa uno de estos formularios, descárguelo, llénelo y adjúntelo al mensaje. Así avanzamos más rápido.',
+    'contact.form_title': 'Envíenos un mensaje',
+    'contact.form_text': 'Complete el formulario y le responderemos al correo que indique.',
+    'contact.name': 'Nombre completo',
+    'contact.name_placeholder': 'Ej: María Solís Rojas',
+    'contact.name_hint': 'Se guarda en este dispositivo para futuras visitas.',
+    'contact.email': 'Correo electrónico',
+    'contact.email_placeholder': 'Ej: maria@correo.com',
+    'contact.subject': 'Asunto',
+    'contact.subject_placeholder': 'Ej: Consulta sobre exoneración',
+    'contact.service': 'Tipo de trámite',
+    'contact.service_placeholder': 'Seleccione una opción',
+    'contact.message': 'Mensaje',
+    'contact.message_placeholder': 'Describa su consulta o trámite…',
+    'contact.message_hint': 'Mínimo 10 caracteres.',
+    'contact.attachment': 'Formulario lleno (opcional)',
+    'contact.attachment_cta': 'Elegir archivo',
+    'contact.attachment_empty': 'Ningún archivo seleccionado',
+    'contact.attachment_hint': 'PDF, JPG o PNG. Máximo 4 MB. También sirve una foto del formulario impreso.',
+    'contact.attachment_remove': 'Quitar archivo',
+    'contact.submit': 'Enviar mensaje',
+    'contact.sending': 'Enviando…',
+    'contact.required': 'Campos requeridos',
+    'contact.honeypot': 'No llenar este campo',
+    'contact.info_title': 'Información de contacto',
+    'contact.info_label': 'Información de contacto',
+    'contact.email_label': 'Correo',
+    'contact.location_label': 'Ubicación',
+    'contact.hours_label': 'Horario de atención',
+    'contact.success': 'Mensaje enviado. Le responderemos al correo indicado.',
+    'contact.error': 'No se pudo enviar el mensaje. Intente de nuevo en unos minutos.',
+
+    // Validation codes returned by the server action (and used by the client)
+    'error.name_required': 'El nombre es requerido',
+    'error.name_max': 'Máximo 120 caracteres',
+    'error.email_required': 'El correo es requerido',
+    'error.email_invalid': 'Ingrese un correo válido',
+    'error.email_unreachable': 'Este correo no parece existir. Revise que esté bien escrito.',
+    'error.subject_required': 'El asunto es requerido',
+    'error.subject_max': 'Máximo 150 caracteres',
+    'error.message_required': 'El mensaje es requerido',
+    'error.message_min': 'El mensaje debe tener al menos 10 caracteres',
+    'error.message_max': 'Máximo 5000 caracteres',
+    'error.attachment_type': 'Solo se aceptan archivos PDF, JPG o PNG',
+    'error.attachment_size': 'El archivo supera los 4 MB',
+
+    'footer.services': 'Servicios',
+    'footer.contact': 'Contacto',
+    'footer.contact_form': 'Formulario de contacto',
+    'footer.forms': 'Formularios',
+    'footer.rights': 'Todos los derechos reservados.',
+
+    'not_found.title': 'Esta página no existe',
+    'not_found.text': 'Puede que el enlace esté desactualizado o que la dirección tenga un error.',
+    'not_found.home': 'Ir al inicio',
+  },
+  en: {
+    'meta.locale': 'en_US',
+    'meta.home_description':
+      'Help with procedures before the Municipality of San Carlos, Costa Rica: property tax exemptions and declarations, agricultural land, land use, business licenses and inquiries.',
+    'site.description': 'Assistance with municipal procedures in San Carlos, Costa Rica.',
+    'site.hours': 'Monday to Friday, 8:00 a.m. - 10:00 p.m.',
+
+    'nav.home': 'Home',
+    'nav.contact': 'Contact us',
+    'nav.main_label': 'Main navigation',
+    'nav.mobile_label': 'Mobile menu',
+    'nav.open_menu': 'Open navigation menu',
+    'nav.close_menu': 'Close navigation menu',
+    'nav.theme_dark': 'Switch to dark mode',
+    'nav.theme_light': 'Switch to light mode',
+    'nav.lang_switch': 'Ver esta página en español',
+    'nav.skip': 'Skip to content',
+    'nav.breadcrumb': 'Breadcrumb',
+
+    'home.badge': 'San Carlos, Costa Rica',
+    'home.title': 'Municipal procedures with personal service',
+    'home.lead': 'We handle your procedures before the Municipality of San Carlos so you don’t have to visit its offices.',
+    'home.cta': 'Contact us',
+    'home.see_services': 'See services',
+    'home.legal_title': 'Legal framework we apply',
+    'home.legal_7509': 'Property tax',
+    'home.legal_9071': 'Agricultural land',
+    'home.services_title': 'How can we help you?',
+    'home.services_lead': 'Six procedures, grouped by what you need to solve.',
+    'home.group.inmuebles': 'Real estate',
+    'home.group.permisos': 'Permits and licenses',
+    'home.process_title': 'You skip the line. We stand in it.',
+    'home.process_lead': 'This is how we handle every procedure, from your first question to the final resolution.',
+    'home.steps': [
+      { title: 'We receive your request', text: 'You tell us your case and we define which procedure applies.' },
+      { title: 'We review requirements', text: 'We check every document against municipal regulations.' },
+      { title: 'We file the procedure', text: 'We submit it to the Municipality of San Carlos.' },
+      { title: 'We follow up', text: 'We keep you informed until the final resolution.' },
+    ],
+    'home.why_title': 'Fewer mistakes, fewer trips, less waiting',
+    'home.why_lead':
+      'TramiMuni started as a citizen support service so your procedure reaches the municipality complete the first time.',
+    'home.benefits': [
+      { title: 'Prior review:', text: 'every document is checked before filing.' },
+      { title: 'No trips:', text: 'we file the procedure for you.' },
+      { title: 'Follow-up:', text: 'we update you on every step until it is closed.' },
+    ],
+    'home.file_title': 'Exemption · single property',
+    'home.file_docs': [
+      { name: 'Application form', done: true },
+      { name: 'ID verified with the TSE', done: true },
+      { name: 'Municipal taxes up to date', done: true },
+      { name: 'Filing with the municipality', done: false },
+    ],
+    'home.file_done': 'Reviewed',
+    'home.file_pending': 'In progress',
+    'home.cta_title': 'Tell us which procedure you need',
+    'home.cta_text': 'We will reply to the email address you give us.',
+
+    'service.contact': 'Contact us',
+    'service.forms_title': 'Official form',
+    'service.forms_text': 'Download it, fill it in on your computer or phone and attach it when you write to us.',
+
+    'forms.download': 'Download PDF',
+    'forms.pages': (n: number) => (n === 1 ? '1 page' : `${n} pages`),
+    'forms.fillable': 'Fillable',
+    'forms.exoneracion': 'Property tax exemption application (Spanish)',
+    'forms.declaracion': 'Property declaration (Spanish)',
+    'forms.source': 'Official source',
+    'forms.sign_note': 'Sign it by hand or with a digital signature before filing.',
+
+    'contact.title': 'Contact us',
+    'contact.subtitle': 'Send us your question and we will reply as soon as possible.',
+    'contact.meta': 'Contact — TramiMuniSC. Send us your question about municipal procedures in San Carlos.',
+    'contact.forms_title': 'Before you write',
+    'contact.forms_text':
+      'If your procedure uses one of these forms, download it, fill it in and attach it to your message. It helps us move faster.',
+    'contact.form_title': 'Send us a message',
+    'contact.form_text': 'Fill in the form and we will reply to the email address you provide.',
+    'contact.name': 'Full name',
+    'contact.name_placeholder': 'e.g. María Solís Rojas',
+    'contact.name_hint': 'Saved on this device for future visits.',
+    'contact.email': 'Email',
+    'contact.email_placeholder': 'e.g. maria@email.com',
+    'contact.subject': 'Subject',
+    'contact.subject_placeholder': 'e.g. Question about an exemption',
+    'contact.service': 'Procedure',
+    'contact.service_placeholder': 'Select an option',
+    'contact.message': 'Message',
+    'contact.message_placeholder': 'Describe your question or procedure…',
+    'contact.message_hint': 'At least 10 characters.',
+    'contact.attachment': 'Completed form (optional)',
+    'contact.attachment_cta': 'Choose file',
+    'contact.attachment_empty': 'No file selected',
+    'contact.attachment_hint': 'PDF, JPG or PNG. Up to 4 MB. A photo of the printed form also works.',
+    'contact.attachment_remove': 'Remove file',
+    'contact.submit': 'Send message',
+    'contact.sending': 'Sending…',
+    'contact.required': 'Required fields',
+    'contact.honeypot': 'Leave this field empty',
+    'contact.info_title': 'Contact information',
+    'contact.info_label': 'Contact information',
+    'contact.email_label': 'Email',
+    'contact.location_label': 'Location',
+    'contact.hours_label': 'Office hours',
+    'contact.success': 'Message sent. We will reply to the email address you provided.',
+    'contact.error': 'The message could not be sent. Please try again in a few minutes.',
+
+    'error.name_required': 'Name is required',
+    'error.name_max': 'Up to 120 characters',
+    'error.email_required': 'Email is required',
+    'error.email_invalid': 'Enter a valid email address',
+    'error.email_unreachable': 'This email address does not seem to exist. Please check it.',
+    'error.subject_required': 'Subject is required',
+    'error.subject_max': 'Up to 150 characters',
+    'error.message_required': 'Message is required',
+    'error.message_min': 'The message must be at least 10 characters long',
+    'error.message_max': 'Up to 5000 characters',
+    'error.attachment_type': 'Only PDF, JPG or PNG files are accepted',
+    'error.attachment_size': 'The file is larger than 4 MB',
+
+    'footer.services': 'Services',
+    'footer.contact': 'Contact',
+    'footer.contact_form': 'Contact form',
+    'footer.forms': 'Forms',
+    'footer.rights': 'All rights reserved.',
+
+    'not_found.title': 'This page does not exist',
+    'not_found.text': 'The link may be outdated or the address may contain a typo.',
+    'not_found.home': 'Go to home',
+  },
+} as const;
+
+export type UiKey = keyof (typeof ui)['es'];
+
+export function getLang(url: URL): Lang {
+  const [, first] = url.pathname.split('/');
+  return first in languages ? (first as Lang) : DEFAULT_LANG;
+}
+
+export function useTranslations<L extends Lang>(lang: L) {
+  return function t<K extends UiKey>(key: K): (typeof ui)[L][K] {
+    return ui[lang][key] as (typeof ui)[L][K];
+  };
+}
+
+/** Localized static routes. Service routes are built in src/data/services.ts. */
+export const routes = {
+  home: { es: '/', en: '/en' },
+  contact: { es: '/contacto', en: '/en/contact' },
+  servicesBase: { es: '/servicios', en: '/en/services' },
+} as const satisfies Record<string, Record<Lang, string>>;

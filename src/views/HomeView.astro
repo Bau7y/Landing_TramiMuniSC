@@ -1,0 +1,657 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Mascot from '../components/Mascot.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+import ArrowIcon from '../components/ArrowIcon.astro';
+import { site } from '../data/site';
+import { getServices, type Service } from '../data/services';
+import { routes, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const services = await getServices(lang);
+const byGroup = (group: Service['data']['group']) => services.filter((s) => s.data.group === group);
+const serviceGroups = [
+  { title: t('home.group.inmuebles'), items: byGroup('inmuebles') },
+  { title: t('home.group.permisos'), items: byGroup('permisos') },
+];
+const agro = byGroup('agro')[0];
+const inquiries = byGroup('orientacion')[0];
+const steps = t('home.steps');
+const benefits = t('home.benefits');
+const fileDocs = t('home.file_docs');
+---
+<BaseLayout lang={lang} title={site.name} description={t('meta.home_description')} alternates={{ es: routes.home.es, en: routes.home.en }}>
+  <!-- Hero: asymmetric split, mascot in a double bezel with the legal card -->
+  <section class="hero" aria-labelledby="hero_title">
+    <div class="container hero_grid">
+      <div class="hero_text">
+        <span class="eyebrow" data-reveal>{t('home.badge')}</span>
+        <h1 id="hero_title" data-reveal style="--i:1">{t('home.title')}</h1>
+        <p data-reveal style="--i:2">{t('home.lead')}</p>
+        <div class="hero_actions" data-reveal style="--i:3">
+          <ArrowButton href={routes.contact[lang]}>{t('home.cta')}</ArrowButton>
+          <a href="#services" class="link_arrow">
+            {t('home.see_services')}
+            <ArrowIcon direction="down" />
+          </a>
+        </div>
+      </div>
+
+      <div class="hero_visual" data-reveal style="--i:2">
+        <div class="bezel hero_bezel">
+          <div class="bezel_core hero_core"><Mascot /></div>
+        </div>
+        <aside class="legal_card" aria-label={t('home.legal_title')}>
+          <span class="mono legal_title">{t('home.legal_title')}</span>
+          <ul role="list">
+            <li><span class="mono">Ley 7509</span>{t('home.legal_7509')}</li>
+            <li><span class="mono">Ley 9071</span>{t('home.legal_9071')}</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services: asymmetric bento -->
+  <section class="section" id="services" aria-labelledby="services_title">
+    <div class="container">
+      <header class="section_head" data-reveal>
+        <h2 id="services_title">{t('home.services_title')}</h2>
+        <p>{t('home.services_lead')}</p>
+      </header>
+
+      <div class="bento">
+        {serviceGroups.map((group, g) => (
+          <>
+            <article class="group_card" data-reveal style={`--i:${g}`}>
+              <h3 class="group_title mono">{group.title}</h3>
+              <ul role="list">
+                {group.items.map((s) => (
+                  <li>
+                    <a href={s.href} class="service_row">
+                      <span class="service_row_text">
+                        <span class="service_row_title">{s.data.card.title}</span>
+                        <span class="service_row_meta">
+                          {s.data.card.summary}
+                          {s.data.law && <span class="mono service_row_law">{s.data.law}</span>}
+                        </span>
+                      </span>
+                      <span class="service_row_arrow"><ArrowIcon size={18} /></span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            {g === 0 && agro && (
+              <a href={agro.href} class="feature_card feature_accent" data-reveal style="--i:1">
+                <span class="feature_big">{agro.data.law}</span>
+                <span class="feature_text">
+                  <span class="feature_title">{agro.data.card.title}</span>
+                  <span class="feature_summary">{agro.data.card.summary}</span>
+                </span>
+                <span class="feature_arrow" aria-hidden="true"><ArrowIcon size={18} /></span>
+              </a>
+            )}
+
+            {g === 1 && inquiries && (
+              <a href={inquiries.href} class="feature_card feature_tint" data-reveal style="--i:2">
+                <span class="feature_big" aria-hidden="true">¿?</span>
+                <span class="feature_text">
+                  <span class="feature_title">{inquiries.data.card.title}</span>
+                  <span class="feature_summary">{inquiries.data.card.summary}</span>
+                </span>
+                <span class="feature_arrow" aria-hidden="true"><ArrowIcon size={18} /></span>
+              </a>
+            )}
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section" aria-labelledby="process_title">
+    <div class="container">
+      <div class="bezel process_bezel" data-reveal>
+        <div class="bezel_core process">
+          <header class="process_head">
+            <h2 id="process_title">{t('home.process_title')}</h2>
+            <p>{t('home.process_lead')}</p>
+          </header>
+          <ol class="process_steps" role="list">
+            {steps.map((step, i) => (
+              <li class="process_step" data-reveal style={`--i:${i + 1}`}>
+                <span class="mono process_number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why us -->
+  <section class="section" aria-labelledby="why_title">
+    <div class="container why">
+      <div class="file_panel" data-reveal aria-hidden="true">
+        <div class="file_card">
+          <div class="file_head">
+            <span class="file_title">{t('home.file_title')}</span>
+            <span class="mono file_code">Ley 7509 · Art. 4 e)</span>
+          </div>
+          <ul role="list">
+            {fileDocs.map((doc, i) => (
+              <li class="file_row" style={`--i:${i}`}>
+                <span>{doc.name}</span>
+                <span class:list={['mono', 'file_status', { file_status_done: doc.done }]}>
+                  {doc.done ? t('home.file_done') : t('home.file_pending')}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="why_text">
+        <h2 id="why_title" data-reveal>{t('home.why_title')}</h2>
+        <p data-reveal style="--i:1">{t('home.why_lead')}</p>
+        <ul class="benefits" role="list">
+          {benefits.map((b, i) => (
+            <li data-reveal style={`--i:${i + 2}`}>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+              <p><strong>{b.title}</strong> {b.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" aria-labelledby="cta_title">
+    <div class="container">
+      <div class="cta" data-reveal>
+        <div>
+          <h2 id="cta_title">{t('home.cta_title')}</h2>
+          <p>{t('home.cta_text')}</p>
+        </div>
+        <ArrowButton href={routes.contact[lang]}>{t('home.cta')}</ArrowButton>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ─────────────────────────────────────────────── */
+  .hero {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) var(--spacing_section);
+  }
+
+  .hero_grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero_text {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .hero_text h1 {
+    max-width: 13ch;
+  }
+
+  .hero_text p {
+    max-width: 46ch;
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  }
+
+  .hero_actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .hero_visual {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero_core {
+    aspect-ratio: 5 / 4;
+  }
+
+  .legal_card {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1.1rem 1.4rem;
+    border-radius: var(--radius_lg);
+    background: var(--color_surface);
+    border: 1px solid var(--color_border);
+    box-shadow: var(--shadow_lg);
+  }
+
+  .legal_title {
+    color: var(--color_subtle);
+  }
+
+  .legal_card ul {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .legal_card li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .legal_card li .mono {
+    color: var(--color_accent);
+    flex-shrink: 0;
+  }
+
+  /* ── Section head ─────────────────────────────────────── */
+  .section_head {
+    display: grid;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ── Bento ────────────────────────────────────────────── */
+  .bento {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .group_card {
+    padding: 0.75rem;
+    border-radius: var(--radius_lg);
+    background: var(--color_surface);
+    border: 1px solid var(--color_border);
+  }
+
+  .group_title {
+    padding: 0.75rem 1rem 0.25rem;
+    color: var(--color_subtle);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .group_card li + li {
+    border-top: 1px solid var(--color_border);
+    margin-inline: 1rem;
+  }
+
+  .group_card li + li .service_row {
+    margin-inline: -1rem;
+  }
+
+  .service_row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.1rem 1rem;
+    border-radius: var(--radius_md);
+    transition: background-color var(--transition);
+  }
+
+  .service_row:hover {
+    background: var(--color_row_hover);
+  }
+
+  .service_row_text {
+    display: grid;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+
+  .service_row_title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .service_row_meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--color_muted);
+  }
+
+  .service_row_law {
+    color: var(--color_subtle);
+    font-size: 0.72rem;
+  }
+
+  .service_row_arrow,
+  .feature_arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius_full);
+    color: var(--color_accent);
+    background: var(--color_tint);
+    transition: transform var(--duration_base) var(--ease_spring);
+  }
+
+  .service_row:hover .service_row_arrow,
+  .feature_card:hover .feature_arrow {
+    transform: translate(2px, -2px) scale(1.06);
+  }
+
+  .feature_card {
+    position: relative;
+    display: grid;
+    align-content: space-between;
+    gap: 2rem;
+    min-height: 220px;
+    padding: 1.75rem;
+    border-radius: var(--radius_xl);
+    transition: transform var(--duration_base) var(--ease_spring);
+  }
+
+  .feature_card:hover {
+    transform: translateY(-3px);
+  }
+
+  .feature_card:active {
+    transform: scale(0.99);
+  }
+
+  .feature_accent {
+    background: var(--color_accent);
+    color: var(--color_on_accent);
+  }
+
+  .feature_tint {
+    background: var(--color_tint);
+  }
+
+  .feature_big {
+    font-size: clamp(2.75rem, 5vw, 3.75rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .feature_tint .feature_big {
+    color: var(--color_accent);
+  }
+
+  .feature_text {
+    display: grid;
+    gap: 0.35rem;
+    max-width: 40ch;
+  }
+
+  .feature_title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .feature_summary {
+    font-size: 0.92rem;
+    opacity: 0.85;
+  }
+
+  .feature_tint .feature_summary {
+    color: var(--color_muted);
+    opacity: 1;
+  }
+
+  .feature_arrow {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .feature_accent .feature_arrow {
+    color: var(--color_on_accent);
+    background: rgb(255 255 255 / 0.16);
+  }
+
+  :global([data-theme="dark"]) .feature_accent .feature_arrow {
+    background: rgb(0 0 0 / 0.12);
+  }
+
+  .feature_tint .feature_arrow {
+    background: var(--color_surface);
+  }
+
+  /* ── Process ──────────────────────────────────────────── */
+  .process_bezel {
+    background: var(--color_tint);
+    border-color: transparent;
+    border-radius: 36px;
+  }
+
+  .process {
+    display: grid;
+    gap: 2.5rem;
+    padding: clamp(1.75rem, 5vw, 4rem);
+    border-radius: 30px;
+  }
+
+  .process_head {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .process_head h2 {
+    max-width: 12ch;
+  }
+
+  .process_head p {
+    max-width: 36ch;
+  }
+
+  .process_step {
+    display: grid;
+    gap: 0.25rem 1.5rem;
+    padding-block: 1.35rem;
+    border-bottom: 1px solid var(--color_border);
+  }
+
+  .process_step:first-child {
+    padding-top: 0;
+  }
+
+  .process_number {
+    color: var(--color_accent);
+  }
+
+  .process_step p {
+    font-size: 0.95rem;
+  }
+
+  /* ── Why ──────────────────────────────────────────────── */
+  .why {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .file_panel {
+    display: grid;
+    place-items: center;
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border-radius: var(--radius_lg);
+    background: var(--color_tint);
+  }
+
+  .file_card {
+    width: 100%;
+    max-width: 440px;
+    border-radius: var(--radius_md);
+    background: var(--color_surface);
+    border: 1px solid var(--color_border);
+    box-shadow: var(--shadow_lg);
+    overflow: hidden;
+  }
+
+  .file_head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem 1rem;
+    padding: 1.1rem 1.4rem;
+  }
+
+  .file_title {
+    font-weight: 600;
+  }
+
+  .file_code {
+    color: var(--color_subtle);
+  }
+
+  .file_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.4rem;
+    border-top: 1px solid var(--color_border);
+    font-size: 0.9rem;
+  }
+
+  .file_status {
+    flex-shrink: 0;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius_full);
+    border: 1px solid var(--color_border);
+    color: var(--color_muted);
+    font-size: 0.7rem;
+  }
+
+  .file_status_done {
+    border-color: transparent;
+    background: var(--color_tint);
+    color: var(--color_accent);
+  }
+
+  /* Rows check off one by one once the panel is revealed */
+  :global(.js) .file_panel .file_row {
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.6s var(--ease_out), transform 0.6s var(--ease_out);
+    transition-delay: calc(300ms + var(--i) * 140ms);
+  }
+
+  :global(.js) .file_panel:global(.is_visible) .file_row {
+    opacity: 1;
+    transform: none;
+  }
+
+  .why_text {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .why_text > p {
+    max-width: 56ch;
+  }
+
+  .benefits {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .benefits li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+
+  .benefits svg {
+    flex-shrink: 0;
+    color: var(--color_accent);
+  }
+
+  /* ── CTA ──────────────────────────────────────────────── */
+  .cta {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 5vw, 3.5rem);
+    border-radius: var(--radius_xl);
+    background: var(--color_tint);
+  }
+
+  .cta div {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  /* ── Breakpoints ──────────────────────────────────────── */
+  @media (min-width: 768px) {
+    .bento {
+      grid-template-columns: 7fr 5fr;
+    }
+
+    .process_step {
+      grid-template-columns: 2.5rem minmax(10rem, 14rem) 1fr;
+      align-items: baseline;
+    }
+
+    .process_step p {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .cta {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero_grid {
+      grid-template-columns: 1fr 1.05fr;
+      gap: 4rem;
+    }
+
+    /* The legal card overlaps the bezel corner on desktop */
+    .hero_visual {
+      padding-bottom: 3rem;
+    }
+
+    .legal_card {
+      position: absolute;
+      left: -2.5rem;
+      bottom: 0;
+      min-width: 300px;
+    }
+
+    .process {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 4rem;
+    }
+
+    .why {
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
+    }
+  }
+</style>
