@@ -52,7 +52,7 @@ export default defineConfig({
       CONTACT_FROM:   envField.string({
         context: 'server',
         access: 'secret',
-        default: 'TramiMuniSC <onboarding@resend.dev>',
+        default: 'TramiMuniSC <contacto@tramimunisc.com>',
       }),
       // Optional anti-spam services: each layer turns on when its keys exist
       PUBLIC_TURNSTILE_SITE_KEY: envField.string({ context: 'client', access: 'public', optional: true }),

@@ -105,7 +105,7 @@ Copiar `.env.example` a `.env`. En Vercel se configuran en *Project Settings →
 |---|---|
 | `RESEND_API_KEY` | Clave de API de Resend |
 | `CONTACT_TO` | Bandeja que recibe los mensajes |
-| `CONTACT_FROM` | Remitente. `onboarding@resend.dev` solo entrega al dueño de la cuenta; en producción, verificar un dominio |
+| `CONTACT_FROM` | Remitente. Por defecto `contacto@tramimunisc.com` (dominio verificado en Resend con registros DKIM/SPF/DMARC en el DNS de Vercel) |
 | `PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY` | Opcionales. Activan Cloudflare Turnstile |
 | `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | Opcionales. Límite de envíos compartido entre instancias |
 
