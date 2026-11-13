@@ -1,0 +1,91 @@
+---
+import ArrowIcon from './ArrowIcon.astro';
+import { forms, type FormKey } from '../data/forms';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  form: FormKey;
+  lang: Lang;
+  index?: number;
+}
+const { form, lang, index = 0 } = Astro.props;
+const t = useTranslations(lang);
+const data = forms[form];
+const title = t(`forms.${form}`);
+---
+<a href={data.href} class="form_download" download data-reveal style={`--i:${index}`} aria-label={`${t('forms.download')}: ${title}`}>
+  <span class="form_icon" aria-hidden="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg>
+  </span>
+  <span class="form_text">
+    <span class="form_title">{title}</span>
+    <span class="form_meta mono">{data.code} · {t('forms.pages')(data.pages)} · {data.sizeKb} KB · {t('forms.fillable')}</span>
+  </span>
+  <span class="form_arrow" aria-hidden="true"><ArrowIcon direction="down" size={18} /></span>
+</a>
+
+<style>
+  .form_download {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    border-radius: var(--radius_md);
+    background: var(--color_surface);
+    border: 1px solid var(--color_border);
+    transition: border-color var(--transition), background-color var(--transition), transform var(--duration_fast) var(--ease_spring);
+  }
+
+  .form_download:hover {
+    border-color: var(--color_accent);
+  }
+
+  .form_download:active {
+    transform: scale(0.99);
+  }
+
+  .form_icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius_sm);
+    background: var(--color_tint);
+    color: var(--color_accent);
+  }
+
+  .form_text {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .form_title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  .form_meta {
+    color: var(--color_subtle);
+    font-size: 0.72rem;
+  }
+
+  .form_arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius_full);
+    background: var(--color_tint);
+    color: var(--color_accent);
+    transition: transform var(--duration_base) var(--ease_spring);
+  }
+
+  .form_download:hover .form_arrow {
+    transform: translateY(2px);
+  }
+</style>

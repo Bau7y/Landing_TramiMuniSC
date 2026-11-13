@@ -1,14 +1,14 @@
 ---
-order: 3
+order: 6
+url_slug: consultas
+group: orientacion
 nav_label: Consultas
 title: Consultas municipales
 subtitle: Resolución de consultas sobre trámites, requisitos y procesos ante la Municipalidad de San Carlos.
 meta_description: Consultas municipales — TramiMuniSC. Resolución de consultas sobre trámites y procesos municipales en San Carlos.
 card:
   title: Consultas
-  summary: Resolución de consultas sobre trámites, requisitos y procesos municipales.
-  image: ../../assets/services/inquiries.png
-  alt: Persona realizando una consulta municipal en línea
+  summary: ¿No sabe qué trámite necesita? Le orientamos sin costo.
 intro_title: ¿En qué tipo de consultas le ayudamos?
 list:
   title: Temas de consulta frecuentes
@@ -16,7 +16,7 @@ list:
     - Requisitos y procedimientos para exoneraciones de bienes inmuebles.
     - Cálculo y declaración del impuesto de bienes inmuebles.
     - Plazos, fechas de vencimiento y recargos por mora.
-    - Permisos de construcción y uso de suelo.
+    - Uso de suelo, patentes y valoración de terrenos agropecuarios.
     - Estado de trámites en curso ante la municipalidad.
 steps:
   title: ¿Cómo funciona el servicio de consultas?

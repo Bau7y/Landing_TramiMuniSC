@@ -1,37 +1,52 @@
 ---
 import Logo from './Logo.astro';
 import { site } from '../data/site';
-import { getNavigation } from '../data/navigation';
+import { forms } from '../data/forms';
+import { getServices } from '../data/services';
+import { routes, useTranslations, type Lang } from '../i18n/ui';
 
-const { services, contact } = await getNavigation();
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const services = await getServices(lang);
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
   <div class="container">
     <div class="footer_grid">
       <div class="footer_brand">
-        <Logo size="sm" />
-        <p>{site.description}</p>
+        <Logo lang={lang} size="sm" />
+        <p>{t('site.description')}</p>
       </div>
 
       <nav class="footer_col" aria-labelledby="footer_services">
-        <h2 id="footer_services">Servicios</h2>
+        <h2 id="footer_services">{t('footer.services')}</h2>
         <ul role="list">
-          {services.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+          {services.map((s) => <li><a href={s.href}>{s.data.nav_label}</a></li>)}
         </ul>
       </nav>
 
       <div class="footer_col">
-        <h2 id="footer_contact">Contacto</h2>
+        <h2 id="footer_forms">{t('footer.forms')}</h2>
+        <ul role="list" aria-labelledby="footer_forms">
+          <li><a href={forms.exoneracion.href} download>{t('forms.exoneracion')}</a></li>
+          <li><a href={forms.declaracion.href} download>{t('forms.declaracion')}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer_col">
+        <h2 id="footer_contact">{t('footer.contact')}</h2>
         <ul role="list" aria-labelledby="footer_contact">
-          <li><a href={contact.href}>Formulario de contacto</a></li>
+          <li><a href={routes.contact[lang]}>{t('footer.contact_form')}</a></li>
           <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer_bottom">
-      <p>© {year} {site.name}. Todos los derechos reservados.</p>
+      <p>© {year} {site.name}. {t('footer.rights')}</p>
       <p>{site.location}</p>
     </div>
   </div>
@@ -39,7 +54,6 @@ const year = new Date().getFullYear();
 
 <style>
   .footer {
-    background: var(--color_bg_secondary);
     border-top: 1px solid var(--color_border);
     padding: var(--spacing_xl) 0 var(--spacing_md);
   }
@@ -57,47 +71,48 @@ const year = new Date().getFullYear();
   }
 
   .footer_col h2 {
-    font-family: var(--font_body);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-family: var(--font_mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color_text);
+    color: var(--color_subtle);
     margin-bottom: var(--spacing_sm);
   }
 
   .footer_col ul {
     display: grid;
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
 
   .footer_col a {
+    display: inline-block;
+    padding-block: 0.2rem;
     font-size: 0.92rem;
-    color: var(--color_text_muted);
+    color: var(--color_muted);
     transition: color var(--transition);
   }
 
   .footer_col a:hover {
-    color: var(--color_primary);
+    color: var(--color_accent);
   }
 
   .footer_bottom {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 0.25rem;
     padding-top: var(--spacing_sm);
     border-top: 1px solid var(--color_border);
-    text-align: center;
   }
 
   .footer_bottom p {
     font-size: 0.8rem;
+    color: var(--color_subtle);
   }
 
   @media (min-width: 768px) {
     .footer_grid {
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 1.6fr 1fr 1.2fr 1fr;
     }
 
     .footer_bottom {

@@ -1,0 +1,67 @@
+---
+/** The production mascot: morphing green blob with the building and the TramiMuni wordmark. */
+import BuildingIcon from './BuildingIcon.astro';
+---
+<div class="mascot" aria-hidden="true">
+  <div class="mascot_blob">
+    <BuildingIcon size={72} stroke={1.4} class="mascot_icon" />
+    <span class="mascot_word">TramiMuni</span>
+  </div>
+</div>
+
+<style>
+  .mascot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    background:
+      radial-gradient(closest-side, color-mix(in srgb, var(--color_brand_light) 38%, transparent), transparent 75%),
+      #111a13;
+    overflow: hidden;
+  }
+
+  .mascot_blob {
+    width: clamp(200px, 60%, 330px);
+    aspect-ratio: 1;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.75rem;
+    color: #fff;
+    background: linear-gradient(140deg, var(--color_brand_light), var(--color_brand) 55%, var(--color_brand_dark));
+    border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+    box-shadow:
+      0 0 80px -10px color-mix(in srgb, var(--color_brand_light) 70%, transparent),
+      inset 0 2px 0 rgb(255 255 255 / 0.25);
+    animation: blob_morph 10s ease-in-out infinite, blob_float 6s ease-in-out infinite;
+  }
+
+  .mascot_blob :global(.mascot_icon) {
+    width: clamp(48px, 22%, 72px);
+    height: auto;
+    opacity: 0.92;
+  }
+
+  .mascot_word {
+    font-family: var(--font_mascot);
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.2);
+  }
+
+  @keyframes blob_morph {
+    0%, 100% { border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; }
+    25%      { border-radius: 50% 50% 40% 60% / 60% 40% 55% 45%; }
+    50%      { border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%; }
+    75%      { border-radius: 55% 45% 45% 55% / 40% 60% 45% 55%; }
+  }
+
+  @keyframes blob_float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+</style>
