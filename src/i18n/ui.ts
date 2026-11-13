@@ -77,6 +77,8 @@ export const ui = {
     'forms.declaracion': 'Declaración de bienes inmuebles',
     'forms.source': 'Fuente oficial',
     'forms.sign_note': 'La firma va a mano o con firma digital antes de presentarlo.',
+    'forms.mobile_tip':
+      'En el celular, ábralo con la app Archivos (iPhone) o con Google Drive o Adobe Acrobat (Android) para poder llenarlo.',
 
     'contact.title': 'Contáctenos',
     'contact.subtitle': 'Envíenos su consulta y le responderemos a la brevedad posible.',
@@ -209,6 +211,8 @@ export const ui = {
     'forms.declaracion': 'Property declaration (Spanish)',
     'forms.source': 'Official source',
     'forms.sign_note': 'Sign it by hand or with a digital signature before filing.',
+    'forms.mobile_tip':
+      'On a phone, open it with the Files app (iPhone) or with Google Drive or Adobe Acrobat (Android) to fill it in.',
 
     'contact.title': 'Contact us',
     'contact.subtitle': 'Send us your question and we will reply as soon as possible.',
