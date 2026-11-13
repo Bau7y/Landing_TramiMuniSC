@@ -118,7 +118,7 @@ Para separar los mensajes dudosos en Gmail: filtro con *Asunto contiene `[Revisa
 ```bash
 yarn install
 yarn dev       # http://localhost:4321
-yarn check     # verificación de tipos (.astro + .ts)
+yarn typecheck # verificación de tipos (.astro + .ts)
 yarn build     # salida para Vercel en .vercel/output
 yarn test:a11y # axe sobre el build (requiere `npx playwright install chromium-headless-shell`)
 ```

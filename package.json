@@ -10,7 +10,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check",
+    "typecheck": "astro check",
     "test:a11y": "node scripts/a11y.mjs"
   },
   "dependencies": {
