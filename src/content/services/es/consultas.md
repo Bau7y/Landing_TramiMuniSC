@@ -37,11 +37,11 @@ aside:
   note: El servicio de consultas es orientativo. Para trámites complejos recomendamos el acompañamiento completo.
 faq:
   - q: "¿La consulta tiene costo?"
-    a: "No. La orientación inicial es sin costo y sin compromiso."
+    a: "No. La orientación inicial es sin costo."
   - q: "¿Qué información debo enviar?"
-    a: "Su nombre, un correo de contacto, el número de finca si lo tiene y una descripción breve de su situación."
+    a: "Su nombre, correo, número de finca si lo tiene y una breve descripción del caso."
   - q: "¿Cuándo me responden?"
-    a: "Respondemos lo antes posible dentro del horario de atención, al correo que nos indique."
+    a: "Lo antes posible dentro del horario de atención."
 cta:
   title: ¿Tiene alguna duda?
   text: Estamos para orientarle sin costo y sin compromiso.

@@ -38,11 +38,11 @@ aside:
   note: Los requisitos finales los define la municipalidad; los confirmamos antes de presentar.
 faq:
   - q: "¿Cuándo necesito un certificado de uso de suelo?"
-    a: "Normalmente antes de un permiso de construcción o de una licencia comercial (patente), y en algunos trámites ante otras instituciones."
+    a: "Antes de un permiso de construcción o de una patente."
   - q: "¿Qué significa «conforme» o «no conforme»?"
-    a: "«Conforme» indica que la actividad está permitida en esa zona según el Plan Regulador; «no conforme» indica que no lo está."
+    a: "Conforme: la actividad está permitida en esa zona. No conforme: no lo está."
   - q: "¿El uso de suelo me autoriza a construir o abrir el negocio?"
-    a: "No. Es un requisito previo: después se tramita el permiso de construcción o la licencia comercial."
+    a: "No. Es un requisito previo al permiso de construcción o a la patente."
 cta:
   title: ¿No sabe si su actividad está permitida?
   text: Escríbanos y lo revisamos con usted.

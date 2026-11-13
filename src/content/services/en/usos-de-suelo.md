@@ -38,11 +38,11 @@ aside:
   note: The municipality sets the final requirements; we confirm them before filing.
 faq:
   - q: "When do I need a land use certificate?"
-    a: "Usually before a building permit or a business license (patente), and for some procedures with other institutions."
+    a: "Before a building permit or a business license."
   - q: "What do “conforme” and “no conforme” mean?"
-    a: "“Conforme” means the activity is allowed in that zone under the zoning plan; “no conforme” means it is not."
+    a: "Conforme: the activity is allowed in that zone. No conforme: it is not."
   - q: "Does the certificate allow me to build or open my business?"
-    a: "No. It is a prior requirement: the building permit or business license is requested afterwards."
+    a: "No. It is a prior requirement for the building permit or license."
 cta:
   title: Not sure if your activity is allowed?
   text: Write to us and we will review it with you.

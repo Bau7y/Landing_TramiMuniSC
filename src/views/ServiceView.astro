@@ -70,8 +70,6 @@ const alternates = {
           ))}
         </ol>
       </section>
-
-      <Faq id="faq_title" title={t('service.faq_title')} items={data.faq} />
     </div>
 
     <aside class="page_aside" aria-label={data.aside.title}>
@@ -99,6 +97,15 @@ const alternates = {
     </aside>
   </div>
 
+  <!-- FAQ: full width, right before the contact call to action -->
+  {data.faq.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <Faq id="faq_title" title={t('service.faq_title')} hint={t('faq.hint')} items={data.faq} />
+      </div>
+    </section>
+  )}
+
   <section class="section" aria-labelledby="cta_title">
     <div class="container">
       <div class="cta" data-reveal>
@@ -125,8 +132,7 @@ const alternates = {
     min-width: 0;
   }
 
-  .page_content h2,
-  .page_content :global(.faq h2) {
+  .page_content h2 {
     font-size: clamp(1.4rem, 2.4vw, 1.85rem);
     margin-bottom: 1.25rem;
   }

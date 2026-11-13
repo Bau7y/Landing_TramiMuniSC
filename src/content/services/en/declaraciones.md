@@ -37,11 +37,11 @@ aside:
   note: An incorrect declaration can lead to fines and surcharges.
 faq:
   - q: "How often do I need to declare my property?"
-    a: "At least every five years, under Ley N.° 7509."
+    a: "At least every five years (Ley 7509)."
   - q: "What happens if I don’t declare on time?"
-    a: "The municipality may value the property through an administrative appraisal, which can lead to surcharges."
+    a: "The municipality may carry out an administrative appraisal and charge surcharges."
   - q: "My property is held in shares (derechos). How do I declare?"
-    a: "One declaration form is filed for each share."
+    a: "One form is filed for each share."
 cta:
   title: Need to file your declaration?
   text: We support you at every step.

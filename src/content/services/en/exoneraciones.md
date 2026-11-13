@@ -39,11 +39,11 @@ aside:
   note: The single-property exemption must be renewed every year.
 faq:
   - q: "How often do I need to renew the exemption?"
-    a: "Every year. The single-property exemption is not permanent: it must be requested again for each period."
+    a: "Every year: it is not permanent and is requested for each period."
   - q: "Can I apply if I own more than one property?"
-    a: "No. The single-property exemption only applies to owners of one property nationwide, registered or not."
+    a: "No. It only applies to owners of a single property nationwide."
   - q: "Does my property declaration need to be up to date?"
-    a: "Yes. Your property declaration and municipal tax payments must be up to date."
+    a: "Yes. Your declaration and municipal taxes must be up to date."
 cta:
   title: Questions about your case?
   text: Write to us and we will guide you free of charge.

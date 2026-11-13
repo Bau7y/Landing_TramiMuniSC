@@ -41,9 +41,9 @@ faq:
   - q: "Which land qualifies under Ley 9071?"
     a: "Land dedicated to primary crop or livestock production."
   - q: "Are farm buildings included in the valuation?"
-    a: "No. Farm and agro-industrial infrastructure on the property is not counted."
+    a: "No. Farm and agro-industrial infrastructure is not counted."
   - q: "What if I stop using the land for farming?"
-    a: "You must inform the municipality immediately. If the agricultural use is not kept, the law provides for penalties."
+    a: "You must report it immediately; otherwise the law provides for penalties."
 cta:
   title: Questions about Ley 9071?
   text: Write to us and we will review your case free of charge.

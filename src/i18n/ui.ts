@@ -71,6 +71,7 @@ export const ui = {
     'home.cta_text': 'Le respondemos al correo que nos indique.',
     'home.faq_title': 'Preguntas frecuentes sobre bienes inmuebles',
     'service.faq_title': 'Preguntas frecuentes',
+    'faq.hint': 'Ver respuesta',
 
     'service.contact': 'Contáctenos',
     'service.forms_title': 'Formulario oficial',
@@ -215,6 +216,7 @@ export const ui = {
     'home.cta_text': 'We will reply to the email address you give us.',
     'home.faq_title': 'Property tax: frequently asked questions',
     'service.faq_title': 'Frequently asked questions',
+    'faq.hint': 'See answer',
 
     'service.contact': 'Contact us',
     'service.forms_title': 'Official form',

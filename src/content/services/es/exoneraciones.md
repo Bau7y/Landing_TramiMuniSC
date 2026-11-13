@@ -39,11 +39,11 @@ aside:
   note: La exoneración de bien único se renueva cada año.
 faq:
   - q: "¿Cada cuánto debo renovar la exoneración?"
-    a: "Cada año. La exoneración de bien único no es permanente: debe solicitarse de nuevo para cada periodo."
+    a: "Cada año: no es permanente y se solicita para cada periodo."
   - q: "¿Puedo pedirla si tengo más de una propiedad?"
-    a: "No. La exoneración por bien único aplica solo a quien posee un único bien inmueble a nivel nacional, inscrito o no en el Registro."
+    a: "No. Aplica solo a quien tiene una única propiedad en todo el país."
   - q: "¿Tengo que estar al día con la declaración?"
-    a: "Sí. Es requisito estar al día con la declaración de bienes inmuebles y con el pago de los tributos municipales."
+    a: "Sí. Es requisito estar al día con la declaración y con los tributos municipales."
 cta:
   title: ¿Tiene dudas sobre su caso?
   text: Escríbanos y le orientamos sin costo.
