@@ -13,7 +13,7 @@ const t = useTranslations(lang);
 const data = forms[form];
 const title = t(`forms.${form}`);
 ---
-<a href={data.href} class="form_download" download data-reveal style={`--i:${index}`} aria-label={`${t('forms.download')}: ${title}`}>
+<a href={data.href} class="form_download" download data-reveal data-i={index} aria-label={`${t('forms.download')}: ${title}`}>
   <span class="form_icon" aria-hidden="true">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg>
   </span>

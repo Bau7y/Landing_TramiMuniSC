@@ -19,9 +19,9 @@ const t = useTranslations(lang);
         <li aria-current="page">{crumb}</li>
       </ol>
     </nav>
-    {eyebrow && <span class="eyebrow" data-reveal style="--i:1">{eyebrow}</span>}
-    <h1 id="page_title" data-reveal style="--i:1">{title}</h1>
-    <p data-reveal style="--i:2">{subtitle}</p>
+    {eyebrow && <span class="eyebrow" data-reveal data-i="1">{eyebrow}</span>}
+    <h1 id="page_title" data-reveal data-i="1">{title}</h1>
+    <p data-reveal data-i="2">{subtitle}</p>
   </div>
 </section>
 

@@ -4,6 +4,7 @@ url_slug: usos-de-suelo
 group: permisos
 law: Plan Regulador
 nav_label: Uso de suelo
+seo_title: "Certificado de uso de suelo en San Carlos"
 title: Certificado de uso de suelo
 subtitle: Le ayudamos a solicitar el certificado que indica qué actividades permite el Plan Regulador en su propiedad.
 meta_description: Certificado de uso de suelo — TramiMuniSC. Acompañamiento para solicitar el uso de suelo ante la Municipalidad de San Carlos.
@@ -35,6 +36,13 @@ aside:
   text: El uso de suelo suele ser el primer paso. Le ayudamos a obtenerlo.
   button: Contáctenos
   note: Los requisitos finales los define la municipalidad; los confirmamos antes de presentar.
+faq:
+  - q: "¿Cuándo necesito un certificado de uso de suelo?"
+    a: "Antes de un permiso de construcción o de una patente."
+  - q: "¿Qué significa «conforme» o «no conforme»?"
+    a: "Conforme: la actividad está permitida en esa zona. No conforme: no lo está."
+  - q: "¿El uso de suelo me autoriza a construir o abrir el negocio?"
+    a: "No. Es un requisito previo al permiso de construcción o a la patente."
 cta:
   title: ¿No sabe si su actividad está permitida?
   text: Escríbanos y lo revisamos con usted.

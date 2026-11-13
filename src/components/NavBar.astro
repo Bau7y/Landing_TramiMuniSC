@@ -18,6 +18,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
 const mobileLinks = [{ href: routes.home[lang], label: t('nav.home') }, ...services.map((s) => ({ href: s.href, label: s.data.nav_label }))];
 ---
+<div class="scroll_sentinel" data-scroll-sentinel aria-hidden="true"></div>
 <header class="navbar" data-navbar>
   <nav class="navbar_pill" aria-label={t('nav.main_label')}>
     <Logo lang={lang} />
@@ -62,12 +63,12 @@ const mobileLinks = [{ href: routes.home[lang], label: t('nav.home') }, ...servi
     <nav aria-label={t('nav.mobile_label')}>
       <ul role="list">
         {mobileLinks.map((link, i) => (
-          <li style={`--i:${i}`}>
+          <li data-i={i}>
             <a href={link.href} class:list={{ active: path === link.href }} aria-current={path === link.href ? 'page' : undefined}>{link.label}</a>
           </li>
         ))}
       </ul>
-      <div class="navbar_mobile_cta" style={`--i:${mobileLinks.length}`}>
+      <div class="navbar_mobile_cta" data-i={mobileLinks.length}>
         <ArrowButton href={contactHref}>{t('nav.contact')}</ArrowButton>
       </div>
     </nav>
@@ -113,17 +114,25 @@ const mobileLinks = [{ href: routes.home[lang], label: t('nav.home') }, ...servi
   });
 
   /* ── Elevated pill after scrolling ───────────────────── */
-  const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 12);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  // A sentinel at the top of the page: no scroll listener and no geometry
+  // reads (window.scrollY), so the browser never has to force a layout.
+  const sentinel = document.querySelector<HTMLElement>('[data-scroll-sentinel]')!;
+  new IntersectionObserver(([entry]) => navbar.classList.toggle('scrolled', !entry.isIntersecting)).observe(sentinel);
 
   /* ── Mobile menu ─────────────────────────────────────── */
+  // While open, everything outside the header is inert: keyboard and screen
+  // reader focus stay in the menu and the navbar controls above it.
+  const outside = () => document.querySelectorAll<HTMLElement>('body > :not(header):not(script)');
+
   const setMenuOpen = (isOpen: boolean) => {
+    if (isOpen === mobileMenu.classList.contains('open')) return;
     mobileMenu.classList.toggle('open', isOpen);
     menuButton.classList.toggle('open', isOpen);
     document.documentElement.classList.toggle('menu_open', isOpen);
     menuButton.setAttribute('aria-expanded', String(isOpen));
     menuButton.setAttribute('aria-label', (isOpen ? menuButton.dataset.labelClose : menuButton.dataset.labelOpen) ?? '');
+    outside().forEach((el) => el.toggleAttribute('inert', isOpen));
+    if (isOpen) mobileMenu.querySelector<HTMLElement>('a')?.focus();
   };
 
   menuButton.addEventListener('click', () => setMenuOpen(!mobileMenu.classList.contains('open')));
@@ -138,6 +147,16 @@ const mobileLinks = [{ href: routes.home[lang], label: t('nav.home') }, ...servi
 </script>
 
 <style>
+  /* Leaves the viewport after 12px of scroll (see script) */
+  .scroll_sentinel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 12px;
+    pointer-events: none;
+  }
+
   .navbar {
     position: fixed;
     inset: 0 0 auto;

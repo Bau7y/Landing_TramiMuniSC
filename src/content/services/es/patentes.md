@@ -4,6 +4,7 @@ url_slug: patentes
 group: permisos
 law: Ley 7773
 nav_label: Patentes
+seo_title: "Patentes comerciales en San Carlos"
 title: Licencia municipal (patente)
 subtitle: Gestión de la licencia para ejercer una actividad lucrativa en el cantón de San Carlos.
 meta_description: Patentes comerciales — TramiMuniSC. Gestión de licencias municipales para actividades lucrativas en San Carlos.
@@ -36,6 +37,13 @@ aside:
   text: Revisamos qué necesita y gestionamos la licencia.
   button: Contáctenos
   note: Las actividades con venta de licor requieren además una licencia de licores (Ley 9047).
+faq:
+  - q: "¿Necesito uso de suelo para sacar la patente?"
+    a: "Sí, un uso de suelo conforme para el local."
+  - q: "¿Puedo trasladar mi patente a otro local o traspasarla?"
+    a: "Sí, mediante traslado o traspaso, con los tributos al día."
+  - q: "¿Qué pasa si voy a vender licor?"
+    a: "Además de la patente, una licencia de licores (Ley 9047)."
 cta:
   title: ¿Necesita trasladar o traspasar su patente?
   text: También le ayudamos con traslados, traspasos y eliminaciones.
