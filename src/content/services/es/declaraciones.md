@@ -42,4 +42,4 @@ cta:
 
 Todo propietario de un inmueble debe declarar el valor de su propiedad ante la municipalidad **al menos cada cinco años**, según la Ley N.° 7509 de Impuesto sobre Bienes Inmuebles.
 
-Ese valor es la base sobre la que se calcula el impuesto anual, salvo que la municipalidad lo objete. Presentarla correctamente evita recargos, multas y una valoración de oficio.
+Ese valor es la base sobre la que se calcula el impuesto anual, salvo que la municipalidad lo objete. Presentarla a tiempo y de forma correcta evita recargos por avalúos administrativos.

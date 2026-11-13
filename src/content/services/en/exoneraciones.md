@@ -10,12 +10,13 @@ subtitle: We handle the single-property exemption before the Municipality of San
 meta_description: Property tax exemption — TramiMuniSC. Single-property exemption filings before the Municipality of San Carlos, Costa Rica.
 card:
   title: Exemptions
-  summary: Single-property exemption for your own home.
+  summary: Single-property exemption.
 intro_title: What is an exemption?
 list:
   title: Requirements
   items:
-    - Application form, complete and signed by the registered owner of the property.
+    - Exemption form, complete and signed by the registered owner of the property.
+    - Property declaration up to date.
     - Valid national ID verified with the TSE. Foreign residents provide their residence card.
     - Municipal taxes paid up to date (Ley 4755, articles 18 and 18 bis).
     - The form must be complete, with no erasures or crossed-out text.
@@ -41,6 +42,6 @@ cta:
   button: Ask now
 ---
 
-The property tax exemption (*no afectación*) applies to individuals who can show they own **only one property nationwide**, registered or not, under article 4, subsection e) of Costa Rica’s Ley N.° 7509.
+The property tax exemption (*no afectación*) applies to owners who can show they own **only one property nationwide**, registered or not, under article 4, subsection e) of Costa Rica’s Ley N.° 7509.
 
 TramiMuniSC only handles **single-property** exemptions. The benefit must be renewed every year.
