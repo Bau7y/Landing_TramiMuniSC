@@ -3,7 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Mascot from '../components/Mascot.astro';
 import ArrowButton from '../components/ArrowButton.astro';
 import ArrowIcon from '../components/ArrowIcon.astro';
-import { site } from '../data/site';
+import Faq from '../components/Faq.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { homeFaq } from '../data/home_faq';
+import { businessSchema } from '../lib/structured_data';
 import { getServices, type Service } from '../data/services';
 import { routes, useTranslations, type Lang } from '../i18n/ui';
 
@@ -25,15 +28,17 @@ const steps = t('home.steps');
 const benefits = t('home.benefits');
 const fileDocs = t('home.file_docs');
 ---
-<BaseLayout lang={lang} title={site.name} description={t('meta.home_description')} alternates={{ es: routes.home.es, en: routes.home.en }}>
+<BaseLayout lang={lang} title={t('meta.home_title')} description={t('meta.home_description')} alternates={{ es: routes.home.es, en: routes.home.en }}>
+  <JsonLd data={businessSchema(Astro.site!, lang, t('meta.home_description'), routes.home[lang])} />
+
   <!-- Hero: asymmetric split, mascot in a double bezel with the legal card -->
   <section class="hero" aria-labelledby="hero_title">
     <div class="container hero_grid">
       <div class="hero_text">
         <span class="eyebrow" data-reveal>{t('home.badge')}</span>
-        <h1 id="hero_title" data-reveal style="--i:1">{t('home.title')}</h1>
-        <p data-reveal style="--i:2">{t('home.lead')}</p>
-        <div class="hero_actions" data-reveal style="--i:3">
+        <h1 id="hero_title" data-reveal data-i="1">{t('home.title')}</h1>
+        <p data-reveal data-i="2">{t('home.lead')}</p>
+        <div class="hero_actions" data-reveal data-i="3">
           <ArrowButton href={routes.contact[lang]}>{t('home.cta')}</ArrowButton>
           <a href="#services" class="link_arrow">
             {t('home.see_services')}
@@ -42,7 +47,7 @@ const fileDocs = t('home.file_docs');
         </div>
       </div>
 
-      <div class="hero_visual" data-reveal style="--i:2">
+      <div class="hero_visual" data-reveal data-i="2">
         <div class="bezel hero_bezel">
           <div class="bezel_core hero_core"><Mascot /></div>
         </div>
@@ -68,7 +73,7 @@ const fileDocs = t('home.file_docs');
       <div class="bento">
         {serviceGroups.map((group, g) => (
           <>
-            <article class="group_card" data-reveal style={`--i:${g}`}>
+            <article class="group_card" data-reveal data-i={g}>
               <h3 class="group_title mono">{group.title}</h3>
               <ul role="list">
                 {group.items.map((s) => (
@@ -89,7 +94,7 @@ const fileDocs = t('home.file_docs');
             </article>
 
             {g === 0 && agro && (
-              <a href={agro.href} class="feature_card feature_accent" data-reveal style="--i:1">
+              <a href={agro.href} class="feature_card feature_accent" data-reveal data-i="1">
                 <span class="feature_big">{agro.data.law}</span>
                 <span class="feature_text">
                   <span class="feature_title">{agro.data.card.title}</span>
@@ -100,7 +105,7 @@ const fileDocs = t('home.file_docs');
             )}
 
             {g === 1 && inquiries && (
-              <a href={inquiries.href} class="feature_card feature_tint" data-reveal style="--i:2">
+              <a href={inquiries.href} class="feature_card feature_tint" data-reveal data-i="2">
                 <span class="feature_big" aria-hidden="true">¿?</span>
                 <span class="feature_text">
                   <span class="feature_title">{inquiries.data.card.title}</span>
@@ -126,7 +131,7 @@ const fileDocs = t('home.file_docs');
           </header>
           <ol class="process_steps" role="list">
             {steps.map((step, i) => (
-              <li class="process_step" data-reveal style={`--i:${i + 1}`}>
+              <li class="process_step" data-reveal data-i={i + 1}>
                 <span class="mono process_number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <h3>{step.title}</h3>
                 <p>{step.text}</p>
@@ -149,7 +154,7 @@ const fileDocs = t('home.file_docs');
           </div>
           <ul role="list">
             {fileDocs.map((doc, i) => (
-              <li class="file_row" style={`--i:${i}`}>
+              <li class="file_row" data-i={i}>
                 <span>{doc.name}</span>
                 <span class:list={['mono', 'file_status', { file_status_done: doc.done }]}>
                   {doc.done ? t('home.file_done') : t('home.file_pending')}
@@ -162,16 +167,23 @@ const fileDocs = t('home.file_docs');
 
       <div class="why_text">
         <h2 id="why_title" data-reveal>{t('home.why_title')}</h2>
-        <p data-reveal style="--i:1">{t('home.why_lead')}</p>
+        <p data-reveal data-i="1">{t('home.why_lead')}</p>
         <ul class="benefits" role="list">
           {benefits.map((b, i) => (
-            <li data-reveal style={`--i:${i + 2}`}>
+            <li data-reveal data-i={i + 2}>
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
               <p><strong>{b.title}</strong> {b.text}</p>
             </li>
           ))}
         </ul>
       </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container faq_wrap">
+      <Faq id="faq_title" title={t('home.faq_title')} items={homeFaq[lang]} />
     </div>
   </section>
 
@@ -588,6 +600,11 @@ const fileDocs = t('home.file_docs');
   .benefits svg {
     flex-shrink: 0;
     color: var(--color_accent);
+  }
+
+  /* ── FAQ ──────────────────────────────────────────────── */
+  .faq_wrap {
+    max-width: 920px;
   }
 
   /* ── CTA ──────────────────────────────────────────────── */

@@ -5,6 +5,7 @@ group: inmuebles
 law: Ley 7509
 form: declaracion
 nav_label: Declarations
+seo_title: "Property declaration in San Carlos, Costa Rica"
 title: Property declaration
 subtitle: Help declaring the value of your property before the Municipality of San Carlos.
 meta_description: Property declaration — TramiMuniSC. Help with property value declarations before the Municipality of San Carlos, Costa Rica.
@@ -34,6 +35,13 @@ aside:
   text: We help you complete the process correctly.
   button: Contact us
   note: An incorrect declaration can lead to fines and surcharges.
+faq:
+  - q: "How often do I need to declare my property?"
+    a: "At least every five years, under Ley N.° 7509."
+  - q: "What happens if I don’t declare on time?"
+    a: "The municipality may value the property through an administrative appraisal, which can lead to surcharges."
+  - q: "My property is held in shares (derechos). How do I declare?"
+    a: "One declaration form is filed for each share."
 cta:
   title: Need to file your declaration?
   text: We support you at every step.

@@ -7,6 +7,7 @@ import { site } from '../data/site';
 import { FORMS_SOURCE_URL } from '../data/forms';
 import { getServices } from '../data/services';
 import { routes, ui, useTranslations, type Lang } from '../i18n/ui';
+import { PUBLIC_TURNSTILE_SITE_KEY } from 'astro:env/client';
 
 interface Props {
   lang: Lang;
@@ -105,6 +106,10 @@ const clientStrings = Object.fromEntries(
           </div>
           <input type="hidden" name="loaded_at" id="loaded_at" />
 
+          {PUBLIC_TURNSTILE_SITE_KEY && (
+            <div class="cf-turnstile" data-sitekey={PUBLIC_TURNSTILE_SITE_KEY} data-language={lang} data-theme="auto" data-size="flexible" data-appearance="interaction-only"></div>
+          )}
+
           <div id="form_feedback" class="form_feedback" role="status" aria-live="polite" hidden></div>
 
           <div class="form_footer">
@@ -118,7 +123,7 @@ const clientStrings = Object.fromEntries(
       </div>
 
       <aside class="contact_aside" aria-label={t('contact.info_label')}>
-        <div class="bezel" data-reveal style="--i:1">
+        <div class="bezel" data-reveal data-i="1">
           <div class="bezel_core info_card">
             <h2>{t('contact.info_title')}</h2>
             <ul class="info_list" role="list">
@@ -150,6 +155,7 @@ const clientStrings = Object.fromEntries(
     </div>
   </section>
 
+  {PUBLIC_TURNSTILE_SITE_KEY && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
   <script type="application/json" id="contact_strings" set:html={JSON.stringify(clientStrings)} />
 </BaseLayout>
 
@@ -264,6 +270,8 @@ const clientStrings = Object.fromEntries(
       count++;
     }
 
+    // Announce how many fields need attention (feedback is an aria-live region)
+    if (count) showFeedback('error', text('contact.errors_summary').replace('{n}', String(count)));
     firstInvalid?.focus();
     return count;
   }
@@ -310,6 +318,8 @@ const clientStrings = Object.fromEntries(
     setLoading(true);
     const { error } = await actions.sendContact(new FormData(form));
     setLoading(false);
+    // Each Turnstile token works once: get a fresh one for the next attempt
+    (window as { turnstile?: { reset: () => void } }).turnstile?.reset();
 
     if (!error) {
       // Empty every field for a new message. The saved name stays in

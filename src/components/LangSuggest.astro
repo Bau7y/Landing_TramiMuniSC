@@ -1,0 +1,101 @@
+---
+/**
+ * Offers the other language when the browser prefers it. Never redirects:
+ * crawlers and people who chose a language keep the page they asked for.
+ */
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  altHref: string;
+}
+const { lang, altHref } = Astro.props;
+const target: Lang = lang === 'es' ? 'en' : 'es';
+const t = useTranslations(target);
+---
+<aside class="lang_suggest" data-lang-suggest data-target={target} lang={target} aria-label={t('lang.suggest')} hidden>
+  <p>{t('lang.suggest')}</p>
+  <a href={altHref} hreflang={target} class="btn btn_primary" data-lang-accept>{t('lang.accept')}</a>
+  <button type="button" class="lang_close" data-lang-dismiss aria-label={t('lang.dismiss')}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+  </button>
+</aside>
+
+<script>
+  const CHOICE_KEY = 'tramimuni_lang';
+  const DISMISS_KEY = 'tramimuni_lang_dismissed';
+
+  const box = document.querySelector<HTMLElement>('[data-lang-suggest]')!;
+  const target = box.dataset.target!;
+
+  const read = (key: string) => {
+    try { return localStorage.getItem(key); } catch { return null; }
+  };
+  const write = (key: string, value: string) => {
+    try { localStorage.setItem(key, value); } catch {}
+  };
+
+  const prefersTarget = navigator.languages.some((l, i) => i === 0 && l.toLowerCase().startsWith(target));
+  if (prefersTarget && !read(CHOICE_KEY) && !read(DISMISS_KEY)) box.hidden = false;
+
+  box.querySelector('[data-lang-accept]')!.addEventListener('click', () => write(CHOICE_KEY, target));
+  box.querySelector('[data-lang-dismiss]')!.addEventListener('click', () => {
+    write(DISMISS_KEY, '1');
+    box.hidden = true;
+  });
+</script>
+
+<style>
+  .lang_suggest {
+    position: fixed;
+    right: var(--container_px);
+    bottom: 1rem;
+    left: var(--container_px);
+    z-index: var(--z_navbar);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    max-width: 30rem;
+    margin-left: auto;
+    padding: 0.75rem 0.75rem 0.75rem 1.1rem;
+    border-radius: var(--radius_lg);
+    background: var(--color_surface);
+    border: 1px solid var(--color_border);
+    box-shadow: var(--shadow_lg);
+    animation: lang_in var(--duration_slow) var(--ease_out);
+  }
+
+  .lang_suggest[hidden] {
+    display: none;
+  }
+
+  .lang_suggest p {
+    flex: 1 1 12rem;
+    font-size: 0.9rem;
+    color: var(--color_text);
+  }
+
+  .lang_suggest .btn {
+    min-height: 44px;
+    padding-inline: 1.1rem;
+    font-size: 0.88rem;
+  }
+
+  .lang_close {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius_full);
+    color: var(--color_muted);
+  }
+
+  .lang_close:hover {
+    background: var(--color_row_hover);
+  }
+
+  @keyframes lang_in {
+    from { opacity: 0; transform: translateY(16px); }
+  }
+</style>

@@ -30,6 +30,10 @@ src/
 │   ├── ArrowButton.astro     → botón píldora con flecha en círculo
 │   ├── FormDownload.astro    → tarjeta de descarga de un formulario PDF
 │   ├── MobileFormTip.astro   → nota para llenar los PDF en el celular (solo pantallas táctiles)
+│   ├── Faq.astro             → acordeón <details> + su FAQPage JSON-LD
+│   ├── JsonLd.astro          → imprime datos estructurados
+│   ├── LangSuggest.astro     → ofrece el otro idioma (nunca redirige)
+│   ├── Fonts.astro           → fuentes propias (subconjunto latin) con preload
 │   ├── PageHero.astro
 │   ├── ArrowIcon.astro
 │   └── BuildingIcon.astro
@@ -38,27 +42,40 @@ src/
 ├── data/
 │   ├── site.ts               → nombre, correo, ubicación
 │   ├── services.ts           → servicios por idioma con su URL
-│   └── forms.ts              → formularios oficiales descargables
+│   ├── forms.ts              → formularios oficiales descargables
+│   └── home_faq.ts           → preguntas frecuentes generales del inicio
 ├── i18n/ui.ts                → textos de interfaz es/en y rutas por idioma
 ├── lib/
 │   ├── email.ts              → verificación DNS (MX) del correo
-│   └── attachment.ts         → límites del adjunto (cliente y servidor)
+│   ├── attachment.ts         → límites del adjunto (cliente y servidor)
+│   ├── structured_data.ts    → constructores de JSON-LD (negocio, servicio, migas, FAQ)
+│   ├── theme_init.mjs        → script de tema antes de pintar (también se hashea para la CSP)
+│   └── spam/                 → filtros del contacto, independientes entre sí
+│       ├── content.ts        → veredicto: ok / revisar / ofensivo / spam
+│       ├── lists.ts          → listas de palabras editables
+│       ├── text.ts           → normalización (acentos, leetspeak, letras repetidas)
+│       ├── rate_limit.ts     → límite por IP (Upstash o memoria)
+│       └── turnstile.ts      → verificación de Cloudflare Turnstile
 ├── layouts/BaseLayout.astro  → <head>, hreflang, tema sin parpadeo, animaciones
 ├── views/                    → Home, Service y Contact (las páginas de cada idioma solo pasan `lang`)
 ├── pages/
 │   ├── index.astro, contacto.astro, servicios/[slug].astro
 │   ├── en/index.astro, en/contact.astro, en/services/[slug].astro
+│   ├── robots.txt.ts         → robots.txt generado con el dominio de `site`
 │   └── 404.astro
 └── styles/global.css
 public/
 ├── formularios/              → PDF oficiales con campos rellenables
 └── favicon.svg, og.jpg
+scripts/a11y.mjs              → pruebas axe (WCAG 2.2 AA) en todas las páginas, claro y oscuro
+vercel.json                   → encabezados de seguridad y caché
+.github/workflows/a11y.yml    → corre las pruebas de accesibilidad en cada push
 ```
 
 ## Cómo agregar un servicio
 
 1. Crear `src/content/services/es/<clave>.md` y `src/content/services/en/<clave>.md` con el mismo nombre de archivo (la clave une ambas traducciones).
-2. Definir `url_slug` (segmento de la URL en ese idioma), `group` (`inmuebles`, `agro`, `permisos` u `orientacion`) y, si aplica, `law` y `form`.
+2. Definir `url_slug` (segmento de la URL en ese idioma), `group` (`inmuebles`, `agro`, `permisos` u `orientacion`), `seo_title` (con el lugar, para Google) y, si aplica, `law`, `form` y `faq` (lista de `q`/`a`).
 
 Sin tocar código, el servicio aparece en el navbar, el menú móvil, el footer, el inicio, el selector del formulario y su página en ambos idiomas. Si falta un campo requerido, el build falla con un error de Zod que indica cuál.
 
@@ -70,7 +87,12 @@ Los formularios oficiales de la municipalidad (`F-SBI-001-2024` y `F-SBI-002-202
 
 1. **Cliente** (`views/ContactView.astro`): valida igual que el servidor, muestra los errores por campo (`aria-invalid` y `aria-describedby`), indica que se está enviando y persiste el nombre en `localStorage`. `?service=<clave>` preselecciona el tipo de trámite y luego se limpia de la URL.
 2. **Servidor** (`actions/index.ts`): el esquema Zod es la fuente de verdad. Los errores de entrada vuelven como códigos (`email_unreachable`, `attachment_size`…) que el cliente traduce con `src/i18n/ui.ts`. El adjunto opcional (PDF, JPG o PNG, máximo 4 MB por el límite de 4,5 MB de Vercel) llega como archivo adjunto en el correo.
-3. **Anti-spam** sin dependencias: un campo trampa oculto y un tiempo mínimo de 3 s entre la carga y el envío. A un bot detectado se le responde "ok" y no se envía nada.
+3. **Anti-spam por capas** (`lib/spam/`), cada una independiente:
+   - Campo trampa oculto y tiempo mínimo de 3 s: a un bot se le responde "ok" y no se envía nada.
+   - Límite de 5 mensajes por hora y por IP. Con `UPSTASH_REDIS_REST_*` el conteo es compartido; sin ellas, en memoria por instancia.
+   - Cloudflare Turnstile (captcha invisible) si existen sus claves.
+   - Contenido: lenguaje ofensivo → se pide reescribir el mensaje; spam claro (varios enlaces, acortadores, correos desechables, alfabetos no esperados, 2+ términos de spam) → se descarta y queda en los logs de Vercel; señales leves o un mensaje que no menciona temas del servicio → llega con `[Revisar]` en el asunto y el motivo en el cuerpo. Nada legítimo se descarta solo por no usar palabras clave.
+   - Las listas están en `lib/spam/lists.ts`; la comparación ignora mayúsculas, acentos, leetspeak (`p3nd3j0`) y letras repetidas.
 4. **Verificación del correo** (`lib/email.ts`): consulta DNS del dominio. Rechaza dominios inexistentes, sin servidor de correo o con *null MX* (RFC 7505). Si el DNS falla o tarda más de 4 s, acepta el envío para no bloquear a un usuario real. No confirma que el buzón exista; para eso hace falta un correo de confirmación, que requiere un dominio verificado en Resend.
 5. **Después de enviar**: el formulario se vacía por completo. El nombre sigue en `localStorage` y se restaura en la próxima visita.
 6. **Correo**: texto plano y HTML con escape de caracteres. `replyTo` es el correo del usuario, así que basta con "Responder" en la bandeja.
@@ -84,8 +106,12 @@ Copiar `.env.example` a `.env`. En Vercel se configuran en *Project Settings →
 | `RESEND_API_KEY` | Clave de API de Resend |
 | `CONTACT_TO` | Bandeja que recibe los mensajes |
 | `CONTACT_FROM` | Remitente. `onboarding@resend.dev` solo entrega al dueño de la cuenta; en producción, verificar un dominio |
+| `PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY` | Opcionales. Activan Cloudflare Turnstile |
+| `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | Opcionales. Límite de envíos compartido entre instancias |
 
-Las variables se declaran con `astro:env`: son tipadas, solo existen en el servidor y el build falla si falta alguna.
+Las variables se declaran con `astro:env`: son tipadas, las secretas solo existen en el servidor y el build falla si falta alguna obligatoria. Las opcionales encienden su capa solo cuando existen.
+
+Para separar los mensajes dudosos en Gmail: filtro con *Asunto contiene `[Revisar]`* → aplicar una etiqueta.
 
 ## Scripts
 
@@ -94,6 +120,7 @@ yarn install
 yarn dev       # http://localhost:4321
 yarn check     # verificación de tipos (.astro + .ts)
 yarn build     # salida para Vercel en .vercel/output
+yarn test:a11y # axe sobre el build (requiere `npx playwright install chromium-headless-shell`)
 ```
 
 ## Convenciones de código
@@ -109,5 +136,15 @@ yarn build     # salida para Vercel en .vercel/output
 - **Modo oscuro**: un script en línea en el `<head>` aplica el tema antes de pintar. Si no hay preferencia guardada, respeta `prefers-color-scheme`. En estilos con alcance se usa `:global([data-theme="dark"])` porque `<html>` está fuera del ámbito del componente.
 - **Idiomas**: el botón ES/EN enlaza a la misma página en el otro idioma; cada página declara `hreflang` para buscadores.
 - **Animaciones**: elementos con `data-reveal` aparecen al entrar en pantalla (opacidad, desplazamiento y desenfoque, escalonados con `--i`). Solo se ocultan si hay JavaScript (`html.js`), y con *reducir movimiento* se muestran sin animación.
-- **Accesibilidad**: enlace "Saltar al contenido", `aria-current` en la navegación, menú móvil que se cierra con Escape, foco visible, `prefers-reduced-motion` y jerarquía de encabezados sin saltos.
-- **SEO**: `canonical`, Open Graph y título por página.
+- **Accesibilidad**: enlace "Saltar al contenido", `aria-current` en la navegación, foco visible, `prefers-reduced-motion`, jerarquía de encabezados sin saltos y contraste AA en todos los colores de texto. El menú móvil se cierra con Escape y deja el resto de la página `inert` mientras está abierto. El formulario anuncia cuántos campos tienen error. `yarn test:a11y` lo verifica en cada push.
+- **SEO**: `canonical`, `hreflang`, Open Graph, `seo_title` por servicio, `sitemap-index.xml`, `robots.txt` y JSON-LD (`ProfessionalService`, `Service`, `BreadcrumbList`, `FAQPage`). Google ya no muestra el desplegable de FAQ (desde mayo de 2026), pero sigue leyendo el marcado; las respuestas visibles son lo que aporta.
+- **Idioma sugerido**: si el navegador prefiere el otro idioma se ofrece un aviso descartable; nunca se redirige, para no confundir a buscadores ni a quien eligió un idioma.
+
+## Rendimiento y seguridad
+
+- **CSS en línea** (`build.inlineStylesheets: 'always'`): cada página trae su CSS dentro del HTML. No hay hojas de estilo externas que bloqueen el pintado ni que, si fallan, dejen la página sin estilos.
+- **Fuentes propias**, solo el subconjunto latin (español e inglés), con `preload` y `font-display: swap`.
+- **Sin reflows forzados**: el navbar detecta el scroll con `IntersectionObserver` sobre un centinela, sin leer `scrollY` ni medidas del DOM.
+- **CSP** (`security.csp` de Astro): cada página lleva una política con hashes de sus scripts y estilos; nada inyectado puede ejecutarse. Por eso no se usan atributos `style` en línea: el escalonado de animaciones usa `data-i`.
+- **Encabezados** (`vercel.json`): HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, sin iframes de terceros (`frame-ancestors 'none'`) y caché de un año para `/_astro/` (archivos con hash).
+- **Páginas estáticas**: solo el formulario corre en el servidor. SSR no aportaría nada en una landing y agregaría latencia y costo.
