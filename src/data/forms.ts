@@ -8,13 +8,13 @@ export const forms = {
     href: '/formularios/exoneracion-bienes-inmuebles.pdf',
     code: 'F-SBI-002-2024',
     pages: 2,
-    sizeKb: 260,
+    sizeKb: 243,
   },
   declaracion: {
     href: '/formularios/declaracion-bienes-inmuebles.pdf',
     code: 'F-SBI-001-2024',
     pages: 1,
-    sizeKb: 406,
+    sizeKb: 405,
   },
 } as const;
 
