@@ -3,7 +3,6 @@ order: 3
 url_slug: agricultural-land
 group: agro
 law: Ley 9071
-form: declaracion
 nav_label: Agricultural
 seo_title: "Agricultural land valuation (Ley 9071) in San Carlos"
 title: Agricultural land valuation
@@ -14,24 +13,18 @@ card:
   summary: Special valuation for crop or livestock land, excluding farm infrastructure.
 intro_title: What does Ley 9071 establish?
 list:
-  title: Usual requirements
+  title: Requirements
   items:
-    - Completed property declaration form, with agricultural use checked.
+    - Sign the MAG (Ministry of Agriculture) sworn statement.
+    - Fill in the inspection request form.
     - Valid ID of the owner or their legal representative.
-    - Property (finca) number and survey plan number.
-    - Municipal taxes paid up to date.
-    - Information supporting the agricultural or livestock activity, if the municipality requests it.
 steps:
   title: How it works
   items:
-    - title: Property check
-      text: We verify the property, survey plan and current land use.
-    - title: Declaration
-      text: We complete the declaration stating the agricultural use.
-    - title: Filing
-      text: We file it with the municipality’s Real Estate Section.
-    - title: Follow-up
-      text: We follow the valuation until it is resolved.
+    - title: Filing the documents
+      text: We file the MAG sworn statement and the inspection request with the municipality.
+    - title: Agricultural valuation
+      text: The municipality carries out the appraisal using the agricultural value platform; we follow it until it is resolved.
 aside:
   title: Is your land used for farming?
   text: We check whether it qualifies and help you declare it.
@@ -52,4 +45,4 @@ cta:
 
 Costa Rica’s Ley N.° 9071 promotes preserving land dedicated to **primary crop and livestock production**. For this land, the municipality applies a special valuation method based on land use and **does not count the farm and agro-industrial infrastructure** on the property.
 
-To qualify, the owner must inform the municipality, through their declaration, that the land is used for farming. If the municipality finds the land no longer keeps that use, the law provides for penalties.
+To qualify, the owner files the MAG sworn statement and requests an inspection of the land. If the municipality finds the land no longer keeps that use, the law provides for penalties.
