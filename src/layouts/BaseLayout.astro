@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import Fonts from '../components/Fonts.astro';
 import NavBar from '../components/NavBar.astro';
 import Footer from '../components/Footer.astro';
@@ -62,6 +63,8 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
     </main>
     <Footer lang={lang} />
     <LangSuggest lang={lang} altHref={alternates[otherLang]} />
+    <!-- Vercel Web Analytics: no cookies; only records in production -->
+    <Analytics />
 
     <script>
       // Scroll reveal: fade/slide/blur in once, when 15% of the element is visible.
