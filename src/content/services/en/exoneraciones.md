@@ -19,6 +19,7 @@ list:
     - Exemption form, complete and signed by the registered owner of the property.
     - Property declaration up to date.
     - Valid national ID verified with the TSE. Foreign nationals provide their residence card or passport.
+    - Municipal taxes paid up to date (Ley 4755, articles 18 and 18 bis).
     - The form must be complete, with no erasures or crossed-out text.
 steps:
   title: How it works
@@ -44,7 +45,7 @@ faq:
   - q: "Can I apply if I own more than one property?"
     a: "No. It only applies to owners of a single property nationwide."
   - q: "Does my property declaration need to be up to date?"
-    a: "Yes. Your property declaration must be up to date."
+    a: "Yes. Your declaration and municipal taxes must be up to date."
 cta:
   title: Questions about your case?
   text: Write to us and we will guide you free of charge.

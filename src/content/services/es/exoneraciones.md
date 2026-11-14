@@ -19,6 +19,7 @@ list:
     - Formulario de exoneración completo y firmado por la persona dueña registral de la propiedad.
     - Estar al día con la declaración de bienes inmuebles.
     - Cédula de identidad vigente, confrontada con el TSE. Si es extranjero, cédula de residencia o pasaporte.
+    - Estar al día con el pago de los tributos municipales (Ley 4755, artículos 18 y 18 bis).
     - El formulario debe venir completo, sin borrones ni tachones.
 steps:
   title: Pasos del proceso
@@ -44,7 +45,7 @@ faq:
   - q: "¿Puedo pedirla si tengo más de una propiedad?"
     a: "No. Aplica solo a quien tiene una única propiedad en todo el país."
   - q: "¿Tengo que estar al día con la declaración?"
-    a: "Sí. Es requisito estar al día con la declaración de bienes inmuebles."
+    a: "Sí. Es requisito estar al día con la declaración y con los tributos municipales."
 cta:
   title: ¿Tiene dudas sobre su caso?
   text: Escríbanos y le orientamos sin costo.
