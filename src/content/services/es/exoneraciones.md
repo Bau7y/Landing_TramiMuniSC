@@ -18,7 +18,7 @@ list:
   items:
     - Formulario de exoneración completo y firmado por la persona dueña registral de la propiedad.
     - Estar al día con la declaración de bienes inmuebles.
-    - Cédula de identidad vigente, confrontada con el TSE. Si es extranjero, cédula de residencia.
+    - Cédula de identidad vigente, confrontada con el TSE. Si es extranjero, cédula de residencia o pasaporte.
     - Estar al día con el pago de los tributos municipales (Ley 4755, artículos 18 y 18 bis).
     - El formulario debe venir completo, sin borrones ni tachones.
 steps:
@@ -28,6 +28,8 @@ steps:
       text: Nos contacta y verificamos si aplica para la exoneración según su situación.
     - title: Formulario y documentos
       text: Revisamos el formulario lleno y los documentos antes de presentarlos.
+    - title: Firma del contribuyente
+      text: Recogemos personalmente la firma del contribuyente en el formulario.
     - title: Presentación ante la municipalidad
       text: Presentamos la solicitud ante la Sección de Bienes Inmuebles.
     - title: Seguimiento y resolución

@@ -18,7 +18,7 @@ list:
   items:
     - Exemption form, complete and signed by the registered owner of the property.
     - Property declaration up to date.
-    - Valid national ID verified with the TSE. Foreign residents provide their residence card.
+    - Valid national ID verified with the TSE. Foreign nationals provide their residence card or passport.
     - Municipal taxes paid up to date (Ley 4755, articles 18 and 18 bis).
     - The form must be complete, with no erasures or crossed-out text.
 steps:
@@ -28,6 +28,8 @@ steps:
       text: You contact us and we check whether you qualify for the exemption.
     - title: Form and documents
       text: We review the completed form and documents before filing.
+    - title: Taxpayer’s signature
+      text: We collect the taxpayer’s signature on the form in person.
     - title: Filing with the municipality
       text: We file the application with the Real Estate Section.
     - title: Follow-up and resolution
