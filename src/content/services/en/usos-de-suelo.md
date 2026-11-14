@@ -13,13 +13,11 @@ card:
   summary: Certificate to build or open a business.
 intro_title: What is the land use certificate for?
 list:
-  title: Usual requirements
+  title: Requirements
   items:
-    - Municipal application form.
-    - Property (finca) number and a copy of the survey plan.
-    - Owner’s ID, or an authorization if someone else files it.
-    - Description of the activity you plan to carry out.
-    - Municipal taxes paid up to date.
+    - Copy of the survey plan.
+    - Applicant’s ID document.
+    - Description of the activity the land use certificate is requested for.
 steps:
   title: How it works
   items:

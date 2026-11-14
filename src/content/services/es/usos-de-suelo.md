@@ -13,13 +13,11 @@ card:
   summary: Certificado para construir o abrir un negocio.
 intro_title: ¿Para qué sirve el uso de suelo?
 list:
-  title: Requisitos usuales
+  title: Requisitos
   items:
-    - Formulario de solicitud de la municipalidad.
-    - Número de finca y copia del plano catastrado.
-    - Documento de identidad de la persona propietaria, o autorización si lo tramita otra persona.
-    - Descripción de la actividad que desea desarrollar en la propiedad.
-    - Estar al día con los tributos municipales.
+    - Copia del plano catastrado.
+    - Documento de identidad de la persona solicitante.
+    - Descripción de la actividad para la que se solicita el uso de suelo.
 steps:
   title: Pasos del proceso
   items:
