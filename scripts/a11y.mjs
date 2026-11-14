@@ -23,11 +23,16 @@ async function listPages(dir) {
 const server = createServer(async (req, res) => {
   const path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   const file = extname(path) ? join(ROOT, path) : join(ROOT, path, 'index.html');
+  // Read first, then answer: a missing file (e.g. /_vercel/insights/script.js,
+  // which only exists on Vercel) must become a clean 404.
+  let body;
   try {
-    res.writeHead(200, { 'content-type': TYPES[extname(file)] ?? 'application/octet-stream' }).end(await readFile(file));
+    body = await readFile(file);
   } catch {
     res.writeHead(404).end();
+    return;
   }
+  res.writeHead(200, { 'content-type': TYPES[extname(file)] ?? 'application/octet-stream' }).end(body);
 }).listen(0);
 
 const base = `http://localhost:${server.address().port}`;
