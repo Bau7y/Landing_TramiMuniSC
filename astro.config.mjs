@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import vercel from '@astrojs/vercel';
-import sitemap from '@astrojs/sitemap';
 import { createHash } from 'node:crypto';
 import { THEME_INIT } from './src/lib/theme_init.mjs';
 
@@ -11,9 +10,10 @@ const themeInitHash = `sha256-${createHash('sha256').update(THEME_INIT).digest('
 
 export default defineConfig({
   site: 'https://www.tramimunisc.com',
-  adapter: vercel(),
-  // hreflang pairs live in each page <head> (slugs differ by language)
-  integrations: [sitemap({ filter: (page) => !page.endsWith('/404') && !page.endsWith('/404/') })],
+  // staticHeaders: the CSP below is sent as an HTTP header for every page
+  // (instead of a <meta>), so frame-ancestors also applies.
+  adapter: vercel({ staticHeaders: true }),
+  // Sitemap, OG images and llms.txt are endpoints built from src/data/pages.ts
   trailingSlash: 'never',
   // All CSS goes inside each HTML page: no render-blocking request and no
   // unstyled page if a separate stylesheet fails to load.
@@ -33,6 +33,7 @@ export default defineConfig({
         "form-action 'self'",
         "base-uri 'self'",
         "object-src 'none'",
+        "frame-ancestors 'none'",
       ],
       scriptDirective: {
         resources: ["'self'", 'https://challenges.cloudflare.com'],
