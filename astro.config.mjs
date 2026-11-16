@@ -6,6 +6,12 @@ import { THEME_INIT } from './src/lib/theme_init.mjs';
 
 /** CSP hash for the one inline script Astro does not process (theme before first paint). */
 /** @type {`sha256-${string}`} */
+/**
+ * `astro dev` injects unhashed <style> tags (Vite) that the CSP header would
+ * block, leaving the page unstyled. The CSP applies to builds only.
+ */
+const isDev = process.argv.includes('dev');
+
 const themeInitHash = `sha256-${createHash('sha256').update(THEME_INIT).digest('base64')}`;
 
 export default defineConfig({
@@ -22,7 +28,7 @@ export default defineConfig({
   markdown: { syntaxHighlight: false },
   // Content Security Policy as a <meta> per page: Astro hashes every script
   // and style it emits, so nothing injected from outside can run.
-  security: {
+  security: isDev ? {} : {
     csp: {
       directives: [
         "default-src 'self'",
