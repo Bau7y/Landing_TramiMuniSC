@@ -4,14 +4,14 @@ import vercel from '@astrojs/vercel';
 import { createHash } from 'node:crypto';
 import { THEME_INIT } from './src/lib/theme_init.mjs';
 
-/** CSP hash for the one inline script Astro does not process (theme before first paint). */
-/** @type {`sha256-${string}`} */
 /**
  * `astro dev` injects unhashed <style> tags (Vite) that the CSP header would
  * block, leaving the page unstyled. The CSP applies to builds only.
  */
 const isDev = process.argv.includes('dev');
 
+/** CSP hash for the one inline script Astro does not process (theme before first paint). */
+/** @type {`sha256-${string}`} */
 const themeInitHash = `sha256-${createHash('sha256').update(THEME_INIT).digest('base64')}`;
 
 export default defineConfig({
@@ -26,8 +26,9 @@ export default defineConfig({
   build: { inlineStylesheets: 'always' },
   // No code blocks on the site; Shiki's inline styles would clash with the CSP
   markdown: { syntaxHighlight: false },
-  // Content Security Policy as a <meta> per page: Astro hashes every script
-  // and style it emits, so nothing injected from outside can run.
+  // Content Security Policy, sent as an HTTP header (staticHeaders above):
+  // Astro hashes every script and style it emits, so nothing injected from
+  // outside can run.
   security: isDev ? {} : {
     csp: {
       directives: [
