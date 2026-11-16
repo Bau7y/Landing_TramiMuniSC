@@ -8,9 +8,9 @@ seo_title: "Plataforma agropecuaria (Ley 9071) en San Carlos"
 title: Plataforma agropecuaria
 subtitle: Valoración especial para terrenos dedicados a la producción agrícola y pecuaria (Ley 9071).
 meta_description: "¿Su terreno es de uso agropecuario? Gestionamos la valoración con plataforma agropecuaria (Ley 9071) ante la Municipalidad de San Carlos."
-updated: 2026-11-15
+updated: 2026-11-16
 card:
-  title: Plataforma agropecuaria
+  title: Declaración Agro
   summary: Valoración especial para fincas de uso agrícola o pecuario, sin contar la infraestructura agropecuaria.
 intro_title: ¿Qué establece la Ley 9071?
 list:
@@ -19,6 +19,7 @@ list:
     - Firmar la declaración jurada del MAG.
     - Llenar el formulario de solicitud de inspección.
     - Documento de identidad vigente de la persona propietaria o de su representante legal.
+    - Si la propietaria es una persona jurídica, certificación de personería jurídica.
 steps:
   title: Pasos del proceso
   items:
@@ -30,7 +31,7 @@ aside:
   title: ¿Su finca es de uso agropecuario?
   text: Revisamos si aplica y le ayudamos a declararla.
   button: Contáctenos
-  note: Si el terreno deja de tener uso agropecuario, la ley obliga a informarlo de inmediato a la municipalidad.
+  note: Si el terreno deja de tener uso agropecuario, infórmelo a la municipalidad.
 faq:
   - q: "¿Qué terrenos pueden acogerse a la Ley 9071?"
     a: "Los dedicados a producción primaria agrícola o pecuaria."

@@ -8,7 +8,7 @@ seo_title: "Business license (patente) in San Carlos, Costa Rica"
 title: Municipal business license (patente)
 subtitle: We handle the license you need to run a business in the canton of San Carlos.
 meta_description: "Get or update your business license (patente) in San Carlos, Costa Rica. We check requirements and file the application for you."
-updated: 2026-11-15
+updated: 2026-11-16
 card:
   title: Business license
   summary: Municipal license for your business activity.
@@ -44,7 +44,7 @@ faq:
   - q: "Can I move my license to other premises or transfer it?"
     a: "Yes, through a relocation or transfer, with taxes up to date."
   - q: "What if I plan to sell alcohol?"
-    a: "Besides the license, a liquor license (Ley 9047)."
+    a: "Besides the business license, you need a liquor license (Ley 9047)."
 cta:
   title: Need to move or transfer your license?
   text: We also help with relocations, transfers and cancellations.
