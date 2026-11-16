@@ -55,7 +55,7 @@ src/
 │   ├── services.ts, guides.ts, legal.ts → entradas por idioma con su URL
 │   ├── pages.ts              → registro de todas las páginas indexables (sitemap, OG, llms.txt)
 │   ├── forms.ts              → formularios oficiales descargables
-│   └── home_faq.ts           → preguntas frecuentes legales del inicio (Ley 7509, Ley 4755)
+│   └── home_faq.ts           → preguntas frecuentes legales del inicio (Ley 7509)
 ├── i18n/ui.ts                → textos de interfaz es/en y rutas por idioma
 ├── lib/
 │   ├── email.ts              → verificación DNS (MX) del correo
@@ -120,8 +120,9 @@ Los formularios oficiales de la municipalidad (`F-SBI-001-2024` y `F-SBI-002-202
    - Contenido: lenguaje ofensivo → se pide reescribir el mensaje; spam claro (varios enlaces, acortadores, correos desechables, alfabetos no esperados, 2+ términos de spam) → se descarta y queda en los logs de Vercel; señales leves o un mensaje que no menciona temas del servicio → llega con `[Revisar]` en el asunto y el motivo en el cuerpo. Nada legítimo se descarta solo por no usar palabras clave.
    - Las listas están en `lib/spam/lists.ts`; la comparación ignora mayúsculas, acentos, leetspeak (`p3nd3j0`) y letras repetidas.
 4. **Verificación del correo** (`lib/email.ts`): consulta DNS del dominio. Rechaza dominios inexistentes, sin servidor de correo o con *null MX* (RFC 7505). Si el DNS falla o tarda más de 4 s, acepta el envío para no bloquear a un usuario real. No confirma que el buzón exista; para eso hace falta un correo de confirmación, que requiere un dominio verificado en Resend.
-5. **Después de enviar**: el formulario se vacía por completo. El nombre sigue en `localStorage` y se restaura en la próxima visita.
-6. **Correo**: texto plano y HTML con escape de caracteres. `replyTo` es el correo del usuario, así que basta con "Responder" en la bandeja.
+5. **Consentimiento (Ley 8968)**: casilla obligatoria de aceptación de la política de privacidad, con un aviso corto de responsable, finalidad y derechos junto a ella. El servidor rechaza el envío sin la casilla (`consent_required`) y el correo registra la versión de la política aceptada (su fecha `updated`).
+6. **Después de enviar**: el formulario se vacía por completo. El nombre sigue en `localStorage` y se restaura en la próxima visita.
+7. **Correo**: texto plano y HTML con escape de caracteres. `replyTo` es el correo del usuario, así que basta con "Responder" en la bandeja.
 
 ### Variables de entorno
 
@@ -166,7 +167,7 @@ yarn test:a11y # axe sobre el build
 - **Idiomas**: el botón ES/EN enlaza a la misma página en el otro idioma; cada página declara `hreflang` para buscadores.
 - **Animaciones**: elementos con `data-reveal` aparecen al entrar en pantalla (opacidad, desplazamiento y desenfoque, escalonados con `--i`). Solo se ocultan si hay JavaScript (`html.js`), y con *reducir movimiento* se muestran sin animación.
 - **Accesibilidad**: enlace "Saltar al contenido", `aria-current` en la navegación, foco visible, `prefers-reduced-motion`, jerarquía de encabezados sin saltos y contraste AA en todos los colores de texto. El menú móvil se cierra con Escape y deja el resto de la página `inert` mientras está abierto. El formulario anuncia cuántos campos tienen error. `yarn test:a11y` lo verifica en cada push.
-- **Preguntas frecuentes**: tarjetas que giran (pregunta al frente, respuesta breve atrás) a todo el ancho, justo antes del bloque de contacto del inicio y de cada servicio. Giran con el mouse, con el foco del teclado y con un toque en el celular; con *reducir movimiento* la respuesta aparece sin giro. Las del inicio están en `src/data/home_faq.ts`; las de cada servicio, en su frontmatter (`faq`). Las respuestas citan la norma y deben revisarse si cambia la ley.
+- **Preguntas frecuentes**: tarjetas que giran (pregunta al frente, respuesta breve atrás) a todo el ancho, justo antes del bloque de contacto del inicio y de cada servicio. Giran con el mouse, con el foco del teclado y con un toque en el celular; con *reducir movimiento* la respuesta aparece sin giro. Las del inicio están en `src/data/home_faq.ts`; las de cada servicio, en su frontmatter (`faq`). Las respuestas citan la norma y deben revisarse si cambia la ley. Regla del contenido legal: solo se publica lo que se pudo confirmar en el texto de la ley; lo no verificado se quita.
 - **SEO**: `canonical`, `hreflang`, Open Graph con imagen propia por página, `seo_title` por servicio, sitemap con `hreflang` y `lastmod`, `robots.txt`, `llms.txt` y JSON-LD (`ProfessionalService`, `Service`, `Article`, `Legislation`, `BreadcrumbList`, `FAQPage`). La 404 lleva `noindex` y no declara `canonical`. Si `site.ts` tiene `phone` o `profiles`, se publican como `telephone` y `sameAs`. Google ya no muestra el desplegable de FAQ (desde mayo de 2026), pero sigue leyendo el marcado; las respuestas visibles son lo que aporta.
 - **Idioma sugerido**: si el navegador prefiere el otro idioma se ofrece un aviso descartable; nunca se redirige, para no confundir a buscadores ni a quien eligió un idioma.
 
