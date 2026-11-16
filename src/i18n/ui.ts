@@ -142,6 +142,7 @@ export const ui = {
     'error.message_max': 'Máximo 5000 caracteres',
     'error.attachment_type': 'Solo se aceptan archivos PDF, JPG o PNG',
     'error.attachment_size': 'El archivo supera los 4 MB',
+    'error.consent_required': 'Debe aceptar la política de privacidad para enviar el mensaje',
 
     'footer.services': 'Servicios',
     'footer.contact': 'Contacto',
@@ -168,7 +169,7 @@ export const ui = {
     'home.guides_title': 'Guías para resolver sus dudas',
     'home.guides_all': 'Ver todas las guías',
     'page.updated': 'Actualizado el',
-    'contact.privacy_note': 'Usamos sus datos solo para responder su consulta. Más detalles en la',
+    'contact.consent': 'Acepto que TramiMuniSC use mis datos solo para atender esta consulta, según la',
     'contact.privacy_link': 'política de privacidad',
     'footer.legal': 'Legal',
     'footer.disclaimer':
@@ -308,6 +309,7 @@ export const ui = {
     'error.message_max': 'Up to 5000 characters',
     'error.attachment_type': 'Only PDF, JPG or PNG files are accepted',
     'error.attachment_size': 'The file is larger than 4 MB',
+    'error.consent_required': 'You must accept the privacy policy to send the message',
 
     'footer.services': 'Services',
     'footer.contact': 'Contact',
@@ -334,7 +336,7 @@ export const ui = {
     'home.guides_title': 'Guides to answer your questions',
     'home.guides_all': 'See all guides',
     'page.updated': 'Updated on',
-    'contact.privacy_note': 'We only use your data to answer your request. Details in our',
+    'contact.consent': 'I agree that TramiMuniSC may use my data only to handle this request, as described in the',
     'contact.privacy_link': 'privacy policy',
     'footer.legal': 'Legal',
     'footer.disclaimer':
