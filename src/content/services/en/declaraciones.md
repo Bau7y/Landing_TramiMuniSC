@@ -35,7 +35,7 @@ aside:
   title: Need to declare?
   text: We help you complete the process correctly.
   button: Contact us
-  note: An incorrect declaration can lead to fines and surcharges.
+  note: A declaration with incorrect data changes the tax amount.
 faq:
   - q: "How often do I need to declare my property?"
     a: "At least every five years (Ley 7509)."

@@ -5,8 +5,8 @@ service: declaraciones
 law: Ley 7509
 title: ¿Qué pasa si no declaro mi propiedad?
 seo_title: "Qué pasa si no declaro bienes inmuebles en San Carlos"
-meta_description: "Si no declara su propiedad cada cinco años, la municipalidad puede valorarla de oficio y cobrar una multa. Cómo ponerse al día y cómo impugnar un avalúo."
-summary: "La municipalidad puede valorar la propiedad de oficio y cobrar una multa igual al impuesto que se dejó de pagar (Ley 7509, art. 17). Para evitarlo, se declara al menos cada cinco años."
+meta_description: "Si no declara su propiedad al menos cada cinco años, la municipalidad puede valorarla de oficio. Cómo ponerse al día y cómo impugnar el avalúo."
+summary: "La municipalidad puede valorar la propiedad de oficio, sin su declaración (Ley 7509, art. 17). Para evitarlo, se declara al menos cada cinco años."
 updated: 2026-11-16
 ---
 
@@ -16,16 +16,13 @@ Toda persona dueña de un inmueble debe declarar su valor ante la municipalidad 
 
 ## Qué puede hacer la municipalidad
 
-Si la declaración no se presenta, o se presenta tarde, el artículo 17 permite a la municipalidad:
-
-- **Valorar la propiedad de oficio**, es decir, hacer un avalúo sin su declaración.
-- **Cobrar una multa** igual a la diferencia de impuesto que se dejó de pagar.
+Si la declaración no se presenta, el artículo 17 permite a la municipalidad **valorar la propiedad de oficio**, es decir, hacer un avalúo sin su declaración.
 
 Además, la declaración al día es requisito para pedir la exoneración por bien único, así que no declarar también puede costarle ese beneficio.
 
 ## Cómo ponerse al día
 
-1. Revise el estado de su propiedad: si tiene declaración vigente y si hay trimestres pendientes.
+1. Revise el estado de su propiedad: si tiene declaración vigente y si hay pagos pendientes.
 2. Llene el formulario de declaración con los datos reales del terreno y las construcciones.
 3. Preséntelo con su identificación ante la municipalidad.
 

@@ -33,10 +33,10 @@ If you own two or more properties, even if one is a small lot, you do not qualif
 
 ## When to apply
 
-The exemption is not permanent: at the Municipality of San Carlos it is requested **every year**. Since the tax is charged from January to December, the best time to file is **January**, so it covers the whole period from the first quarter.
+The exemption is not permanent: at the Municipality of San Carlos it is requested **every year**. Since the tax is charged from January to December, the best time to file is **January**, so it covers the whole period from the start of the year.
 
 ## Common mistakes
 
-- Filing with an unpaid quarter: the request is rejected until it is paid.
+- Filing with unpaid municipal taxes: it does not meet the up-to-date requirement.
 - Forgetting to renew it: the next year the full tax is charged again.
 - Signing on someone else's behalf: the owner or their legal representative must sign.

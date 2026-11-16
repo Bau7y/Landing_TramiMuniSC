@@ -49,6 +49,6 @@ cta:
   button: Hacer una consulta
 ---
 
-Muchos contribuyentes desconocen los requisitos, plazos y procedimientos que exigen los trámites municipales. Una consulta mal orientada puede resultar en documentos incorrectos, visitas innecesarias o multas evitables.
+Muchos contribuyentes desconocen los requisitos, plazos y procedimientos que exigen los trámites municipales. Una consulta mal orientada puede resultar en documentos incorrectos, visitas innecesarias o atrasos evitables.
 
 TramiMuniSC le brinda orientación clara y personalizada sobre cualquier proceso relacionado con la Municipalidad de San Carlos, basada en la normativa vigente.

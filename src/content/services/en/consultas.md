@@ -49,6 +49,6 @@ cta:
   button: Ask a question
 ---
 
-Many taxpayers are unsure about the requirements, deadlines and procedures municipal paperwork demands. A poorly guided inquiry can mean wrong documents, unnecessary trips or avoidable fines.
+Many taxpayers are unsure about the requirements, deadlines and procedures municipal paperwork demands. A poorly guided inquiry can mean wrong documents, unnecessary trips or avoidable delays.
 
 TramiMuniSC gives you clear, personal guidance on any process with the Municipality of San Carlos, based on current regulations.

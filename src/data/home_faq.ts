@@ -1,7 +1,7 @@
 /**
  * General legal questions about the property tax, shown on the home page.
  * Service-specific questions live in each service's frontmatter (`faq`).
- * Sources: Ley 7509 (arts. 4 e, 16, 17, 22, 23), Ley 4755 (arts. 18 y 18 bis)
+ * Sources: Ley 7509 (arts. 4 e, 16, 17, 22, 23; checked against the law text), Ley 4755 (arts. 18 y 18 bis)
  * and the municipality's form F-SBI-002-2024.
  */
 import type { FaqItem } from '../lib/structured_data';
@@ -15,7 +15,7 @@ export const homeFaq: Record<Lang, FaqItem[]> = {
     },
     {
       q: '¿Qué pasa si no declaro a tiempo?',
-      a: 'La municipalidad puede cobrar una multa igual al impuesto dejado de pagar y valorar la propiedad de oficio (Ley 7509, art. 17).',
+      a: 'La municipalidad puede valorar la propiedad de oficio, sin su declaración (Ley 7509, art. 17).',
     },
     {
       q: '¿Cuándo conviene solicitar la exoneración por bien único?',
@@ -41,7 +41,7 @@ export const homeFaq: Record<Lang, FaqItem[]> = {
     },
     {
       q: 'What happens if I don’t declare on time?',
-      a: 'The municipality may charge a fine equal to the unpaid tax and value the property on its own (Ley 7509, art. 17).',
+      a: 'The municipality may value the property on its own, without your declaration (Ley 7509, art. 17).',
     },
     {
       q: 'When is the best time to request the single-property exemption?',

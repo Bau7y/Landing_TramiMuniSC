@@ -33,10 +33,10 @@ Si tiene dos o más propiedades, aunque una sea un lote pequeño, no califica.
 
 ## Cuándo pedirla
 
-La exoneración no es permanente: en la Municipalidad de San Carlos se solicita **cada año**. Como el impuesto se cobra de enero a diciembre, lo ideal es presentarla **en enero**, para que cubra el periodo completo desde el primer trimestre.
+La exoneración no es permanente: en la Municipalidad de San Carlos se solicita **cada año**. Como el impuesto se cobra de enero a diciembre, lo ideal es presentarla **en enero**, para que cubra el periodo completo desde el inicio del año.
 
 ## Errores comunes
 
-- Presentarla con un trimestre pendiente: la solicitud se rechaza hasta que se pague.
+- Presentarla con tributos municipales pendientes: no cumple el requisito de estar al día.
 - Olvidar renovarla: al año siguiente vuelve a cobrarse el impuesto completo.
 - Firmar por otra persona: la firma debe ser de la persona dueña o de su apoderado.

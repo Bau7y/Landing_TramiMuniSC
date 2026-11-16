@@ -6,7 +6,7 @@ law: Ley 7509
 title: ¿Cuánto se paga de impuesto sobre bienes inmuebles en San Carlos?
 seo_title: "Cuánto se paga de bienes inmuebles en San Carlos"
 meta_description: "El impuesto de bienes inmuebles es el 0,25 % anual del valor registrado de su propiedad. Vea cómo se calcula, cuándo se paga y cómo reducirlo."
-summary: "Se paga el 0,25 % anual del valor registrado de la propiedad (terreno y construcciones). El periodo va de enero a diciembre y el monto se divide en cuatro pagos trimestrales."
+summary: "Se paga el 0,25 % anual del valor registrado de la propiedad (terreno y construcciones). El periodo va de enero a diciembre y la municipalidad define si se paga en uno, dos o cuatro tractos."
 updated: 2026-11-16
 ---
 
@@ -16,11 +16,11 @@ El impuesto sobre bienes inmuebles lo cobra la Municipalidad de San Carlos segú
 
 El valor registrado es el que la municipalidad tiene en su base de datos para su finca. Incluye el terreno y las construcciones o instalaciones fijas y permanentes, como la casa, una bodega o un tanque.
 
-**Ejemplo:** una propiedad con un valor registrado de ₡30 000 000 paga ₡75 000 al año (30 000 000 × 0,0025), es decir, ₡18 750 por trimestre.
+**Ejemplo:** una propiedad con un valor registrado de ₡30 000 000 paga ₡75 000 al año (30 000 000 × 0,0025).
 
 ## Cuándo se paga
 
-El impuesto es anual: el periodo empieza el 1 de enero y termina el 31 de diciembre (Ley 7509, art. 22). Para el cobro, el monto del año se divide en cuatro trimestres. Si un trimestre queda pendiente, la deuda genera intereses.
+El impuesto es anual: el periodo empieza el 1 de enero y termina el 31 de diciembre (Ley 7509, art. 22). Según el mismo artículo, cada municipalidad define si se paga en un solo pago anual, en dos pagos semestrales o en cuatro cuotas trimestrales.
 
 ## De dónde sale el valor registrado
 

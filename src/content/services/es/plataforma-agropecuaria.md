@@ -37,7 +37,7 @@ faq:
   - q: "¿Se valoran las instalaciones de la finca?"
     a: "No. La infraestructura agropecuaria y agroindustrial no se toma en cuenta."
   - q: "¿Qué pasa si dejo de usar el terreno para producción?"
-    a: "Debe informarlo de inmediato; si no, la ley prevé sanciones."
+    a: "La valoración especial depende de ese uso, así que debe informarlo a la municipalidad."
 cta:
   title: ¿Tiene dudas sobre la Ley 9071?
   text: Escríbanos y revisamos su caso sin costo.
@@ -46,4 +46,4 @@ cta:
 
 La Ley N.° 9071 promueve la preservación de los terrenos dedicados a la **producción primaria agrícola y pecuaria**. Para estos terrenos, la municipalidad aplica una metodología de valoración especial basada en el uso de la tierra y **no toma en cuenta la infraestructura agropecuaria y agroindustrial** del inmueble.
 
-Para acogerse, la persona propietaria presenta la declaración jurada del MAG y solicita una inspección del terreno. Si la municipalidad comprueba que el terreno no mantiene ese uso, la ley prevé sanciones.
+Para acogerse, la persona propietaria presenta la declaración jurada del MAG y solicita una inspección del terreno.

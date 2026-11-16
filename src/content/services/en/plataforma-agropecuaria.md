@@ -37,7 +37,7 @@ faq:
   - q: "Are farm buildings included in the valuation?"
     a: "No. Farm and agro-industrial infrastructure is not counted."
   - q: "What if I stop using the land for farming?"
-    a: "You must report it immediately; otherwise the law provides for penalties."
+    a: "The special valuation depends on that use, so you must report it to the municipality."
 cta:
   title: Questions about Ley 9071?
   text: Write to us and we will review your case free of charge.
@@ -46,4 +46,4 @@ cta:
 
 Costa Rica’s Ley N.° 9071 promotes preserving land dedicated to **primary crop and livestock production**. For this land, the municipality applies a special valuation method based on land use and **does not count the farm and agro-industrial infrastructure** on the property.
 
-To qualify, the owner files the MAG sworn statement and requests an inspection of the land. If the municipality finds the land no longer keeps that use, the law provides for penalties.
+To qualify, the owner files the MAG sworn statement and requests an inspection of the land.
