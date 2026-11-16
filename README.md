@@ -18,7 +18,7 @@ Producción: **https://www.tramimunisc.com** (`tramimunisc.com` y `landing-trami
 | Backend | Astro Actions + Zod | Validación tipada del formulario en el servidor |
 | Correo | Resend | Envío transaccional desde `contacto@tramimunisc.com` (gratis hasta 3 000 correos al mes y 100 al día) |
 | Anti-spam | Módulo propio + Cloudflare Turnstile + Upstash (opcional) | Capas independientes en `src/lib/spam/` |
-| Pruebas | axe + Playwright | Accesibilidad WCAG 2.2 AA en cada push (GitHub Actions) |
+| Pruebas | Vitest + Playwright + axe | Unitarias del anti-spam y el correo, humo del formulario y SEO, y accesibilidad WCAG 2.2 AA en cada push (GitHub Actions) |
 | Deploy | Vercel (`@astrojs/vercel`) | Páginas estáticas en CDN y la acción como función serverless. Dominio y DNS también en Vercel |
 | Fuentes | `@fontsource-variable` (Geist, Geist Mono y Playfair Display para la mascota) | Se sirven desde el propio sitio: no dependen de Google Fonts ni bloquean el render |
 
@@ -85,8 +85,11 @@ public/
 ├── formularios/              → PDF oficiales con campos rellenables
 └── favicon.svg, og.jpg
 scripts/a11y.mjs              → pruebas axe (WCAG 2.2 AA) en todas las páginas, claro y oscuro
+scripts/lib/static_server.mjs → sirve el build para las pruebas
+tests/unit/                   → Vitest: spam (texto, contenido, límite, Turnstile) y verificación de correo
+tests/e2e/                    → node:test + Playwright sobre el build: formulario, 404, sitemap, OG y llms.txt
 vercel.json                   → encabezados de seguridad y caché
-.github/workflows/a11y.yml    → corre las pruebas de accesibilidad en cada push
+.github/workflows/ci.yml      → tipos, unitarias, build, humo y accesibilidad en cada push
 ```
 
 ## Cómo agregar un servicio
@@ -143,7 +146,10 @@ yarn install
 yarn dev       # http://localhost:4321
 yarn typecheck # verificación de tipos (.astro + .ts)
 yarn build     # salida para Vercel en .vercel/output
-yarn test:a11y # axe sobre el build (requiere `npx playwright install chromium-headless-shell`)
+yarn test      # pruebas unitarias (Vitest), no necesitan build
+yarn test:e2e  # humo sobre el build: formulario y SEO
+yarn test:a11y # axe sobre el build
+# test:e2e y test:a11y requieren `yarn build` y `yarn playwright install chromium-headless-shell`
 ```
 
 ## Convenciones de código
