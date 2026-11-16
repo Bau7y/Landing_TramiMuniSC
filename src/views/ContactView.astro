@@ -6,6 +6,7 @@ import MobileFormTip from '../components/MobileFormTip.astro';
 import { site } from '../data/site';
 import { FORMS_SOURCE_URL } from '../data/forms';
 import { getServices } from '../data/services';
+import { getLegalHref } from '../data/legal';
 import { routes, ui, useTranslations, type Lang } from '../i18n/ui';
 import { PUBLIC_TURNSTILE_SITE_KEY } from 'astro:env/client';
 
@@ -15,6 +16,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const services = await getServices(lang);
+const privacyHref = await getLegalHref('privacidad', lang);
 
 // Strings the client script needs (errors come back from the server as codes)
 const clientStrings = Object.fromEntries(
@@ -119,6 +121,11 @@ const clientStrings = Object.fromEntries(
             </button>
             <p class="form_required_note"><span aria-hidden="true">*</span> {t('contact.required')}</p>
           </div>
+          {privacyHref && (
+            <p class="form_privacy_note">
+              {t('contact.privacy_note')} <a href={privacyHref}>{t('contact.privacy_link')}</a>.
+            </p>
+          )}
         </form>
       </div>
 
@@ -602,6 +609,17 @@ const clientStrings = Object.fromEntries(
 
   .form_required_note {
     font-size: 0.82rem;
+  }
+
+  .form_privacy_note {
+    font-size: 0.82rem;
+    color: var(--color_muted);
+  }
+
+  .form_privacy_note a {
+    color: var(--color_accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   /* Aside */

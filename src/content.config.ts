@@ -21,7 +21,9 @@ const services = defineCollection({
     /** <title> for search results; falls back to nav_label. Include the place. */
     seo_title: z.string().optional(),
     subtitle: z.string(),
-    meta_description: z.string(),
+    meta_description: z.string().max(160),
+    /** Last content review; shown on the page and used as sitemap lastmod. */
+    updated: z.coerce.date(),
     card: z.object({
       title: z.string(),
       summary: z.string(),
@@ -50,4 +52,36 @@ const services = defineCollection({
   }),
 });
 
-export const collections = { services };
+/**
+ * Practical guides: src/content/guides/{es,en}/<key>.md. They answer one
+ * question in depth and link to the service that solves it (`service` key).
+ */
+const guides = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
+  schema: z.object({
+    order: z.number().int(),
+    url_slug: z.string().regex(/^[a-z0-9-]+$/),
+    service: z.string(),
+    law: z.string().optional(),
+    title: z.string(),
+    seo_title: z.string(),
+    meta_description: z.string().max(160),
+    /** Direct answer shown first on the page and reused by llms.txt. */
+    summary: z.string(),
+    updated: z.coerce.date(),
+  }),
+});
+
+/** Privacy policy and legal notice: src/content/legal/{es,en}/<key>.md. */
+const legal = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/legal' }),
+  schema: z.object({
+    order: z.number().int(),
+    url_slug: z.string().regex(/^[a-z0-9-]+$/),
+    title: z.string(),
+    meta_description: z.string().max(160),
+    updated: z.coerce.date(),
+  }),
+});
+
+export const collections = { services, guides, legal };

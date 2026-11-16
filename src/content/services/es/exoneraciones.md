@@ -8,7 +8,8 @@ nav_label: Exoneraciones
 seo_title: "Exoneración de bienes inmuebles en San Carlos"
 title: Exoneración de bienes inmuebles
 subtitle: Gestión de la exoneración de bien único ante la Municipalidad de San Carlos.
-meta_description: Exoneración de bienes inmuebles — TramiMuniSC. Gestión de la exoneración de bien único ante la Municipalidad de San Carlos.
+meta_description: "Tramitamos su exoneración de bienes inmuebles por bien único en San Carlos: revisamos requisitos, recogemos su firma y presentamos la solicitud."
+updated: 2026-11-15
 card:
   title: Exoneraciones
   summary: Exoneración por bien único.

@@ -7,7 +7,8 @@ nav_label: Land use
 seo_title: "Land use certificate in San Carlos, Costa Rica"
 title: Land use certificate
 subtitle: We help you request the certificate that states which activities the zoning plan allows on your property.
-meta_description: Land use certificate — TramiMuniSC. Help requesting a land use certificate from the Municipality of San Carlos, Costa Rica.
+meta_description: "Get a land use certificate in San Carlos, Costa Rica with your cadastral map, ID and a description of the activity. We file it for you."
+updated: 2026-11-15
 card:
   title: Land use
   summary: Certificate to build or open a business.

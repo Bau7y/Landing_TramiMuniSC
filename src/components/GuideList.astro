@@ -1,0 +1,78 @@
+---
+/** Guides as linked rows: title, short answer and arrow. */
+import ArrowIcon from './ArrowIcon.astro';
+import type { Guide } from '../data/guides';
+
+interface Props {
+  guides: Guide[];
+  /** Heading level of each guide title inside the list. */
+  level?: 'h2' | 'h3';
+}
+const { guides, level = 'h3' } = Astro.props;
+const Heading = level;
+---
+<ul class="guide_list" role="list">
+  {guides.map((g, i) => (
+    <li data-reveal data-i={i}>
+      <a href={g.href} class="guide_row">
+        <span class="guide_row_text">
+          <Heading class="guide_row_title">{g.data.title}</Heading>
+          <span class="guide_row_summary">{g.data.summary}</span>
+        </span>
+        <span class="guide_row_arrow"><ArrowIcon size={18} /></span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .guide_list {
+    display: grid;
+    border-top: 1px solid var(--color_border);
+  }
+
+  .guide_list li {
+    border-bottom: 1px solid var(--color_border);
+  }
+
+  .guide_row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 0.75rem;
+    transition: background-color var(--transition);
+  }
+
+  .guide_row:hover {
+    background: var(--color_row_hover);
+  }
+
+  .guide_row_text {
+    display: grid;
+    gap: 0.4rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .guide_row_title {
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    letter-spacing: -0.02em;
+  }
+
+  .guide_row_summary {
+    max-width: 75ch;
+    font-size: 0.95rem;
+    color: var(--color_muted);
+    line-height: 1.55;
+  }
+
+  .guide_row_arrow {
+    flex-shrink: 0;
+    color: var(--color_accent);
+    transition: transform var(--transition);
+  }
+
+  .guide_row:hover .guide_row_arrow {
+    transform: translate(2px, -2px);
+  }
+</style>

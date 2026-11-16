@@ -7,7 +7,8 @@ nav_label: Business license
 seo_title: "Business license (patente) in San Carlos, Costa Rica"
 title: Municipal business license (patente)
 subtitle: We handle the license you need to run a business in the canton of San Carlos.
-meta_description: Business licenses — TramiMuniSC. Municipal business license (patente) filings in San Carlos, Costa Rica.
+meta_description: "Get or update your business license (patente) in San Carlos, Costa Rica. We check requirements and file the application for you."
+updated: 2026-11-15
 card:
   title: Business license
   summary: Municipal license for your business activity.

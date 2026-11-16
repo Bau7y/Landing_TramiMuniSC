@@ -8,7 +8,8 @@ nav_label: Declarations
 seo_title: "Property declaration in San Carlos, Costa Rica"
 title: Property declaration
 subtitle: Help declaring the value of your property before the Municipality of San Carlos.
-meta_description: Property declaration — TramiMuniSC. Help with property value declarations before the Municipality of San Carlos, Costa Rica.
+meta_description: "Declare your property value to the Municipality of San Carlos without queuing. We help with the form and the filing (Ley 7509)."
+updated: 2026-11-15
 card:
   title: Declarations
   summary: Your property value, declared and verified.

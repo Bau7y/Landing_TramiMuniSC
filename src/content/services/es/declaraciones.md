@@ -8,7 +8,8 @@ nav_label: Declaraciones
 seo_title: "Declaración de bienes inmuebles en San Carlos"
 title: Declaración de bienes inmuebles
 subtitle: Acompañamiento en la declaración del valor de su propiedad ante la Municipalidad de San Carlos.
-meta_description: Declaración de bienes inmuebles — TramiMuniSC. Acompañamiento en declaraciones ante la Municipalidad de San Carlos.
+meta_description: "Declare el valor de su propiedad ante la Municipalidad de San Carlos sin hacer filas. Le ayudamos con el formulario y la presentación (Ley 7509)."
+updated: 2026-11-15
 card:
   title: Declaraciones
   summary: Valor de su propiedad declarado y verificado.

@@ -6,7 +6,8 @@ nav_label: Consultas
 seo_title: "Consultas sobre trámites municipales en San Carlos"
 title: Consultas municipales
 subtitle: Resolución de consultas sobre trámites, requisitos y procesos ante la Municipalidad de San Carlos.
-meta_description: Consultas municipales — TramiMuniSC. Resolución de consultas sobre trámites y procesos municipales en San Carlos.
+meta_description: "¿Dudas sobre un trámite municipal en San Carlos? Le explicamos requisitos, plazos y pasos según su caso, con respuesta a su correo."
+updated: 2026-11-15
 card:
   title: Consultas
   summary: ¿No sabe qué trámite necesita? Le orientamos sin costo.

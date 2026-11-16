@@ -7,7 +7,8 @@ nav_label: Agropecuario
 seo_title: "Plataforma agropecuaria (Ley 9071) en San Carlos"
 title: Plataforma agropecuaria
 subtitle: Valoración especial para terrenos dedicados a la producción agrícola y pecuaria (Ley 9071).
-meta_description: Plataforma agropecuaria, Ley 9071 — TramiMuniSC. Acompañamiento para la valoración especial de terrenos de uso agropecuario en San Carlos.
+meta_description: "¿Su terreno es de uso agropecuario? Gestionamos la valoración con plataforma agropecuaria (Ley 9071) ante la Municipalidad de San Carlos."
+updated: 2026-11-15
 card:
   title: Plataforma agropecuaria
   summary: Valoración especial para fincas de uso agrícola o pecuario, sin contar la infraestructura agropecuaria.

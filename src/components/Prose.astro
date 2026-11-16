@@ -1,0 +1,56 @@
+---
+/** Typography for long Markdown content (guides, legal pages). */
+---
+<div class="prose_long"><slot /></div>
+
+<style>
+  .prose_long {
+    max-width: 68ch;
+  }
+
+  .prose_long :global(h2) {
+    margin: 2.75rem 0 1rem;
+    font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+  }
+
+  .prose_long :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .prose_long :global(p),
+  .prose_long :global(ul),
+  .prose_long :global(ol) {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .prose_long :global(ul),
+  .prose_long :global(ol) {
+    display: grid;
+    gap: 0.5rem;
+    padding-left: 1.25rem;
+  }
+
+  .prose_long :global(ul) {
+    list-style: disc;
+  }
+
+  .prose_long :global(ol) {
+    list-style: decimal;
+  }
+
+  .prose_long :global(li::marker) {
+    color: var(--color_accent);
+  }
+
+  .prose_long :global(strong) {
+    color: var(--color_text);
+    font-weight: 600;
+  }
+
+  .prose_long :global(a) {
+    color: var(--color_accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

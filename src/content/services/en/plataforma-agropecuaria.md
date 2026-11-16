@@ -7,7 +7,8 @@ nav_label: Agricultural
 seo_title: "Agricultural land valuation (Ley 9071) in San Carlos"
 title: Agricultural land valuation
 subtitle: Special valuation for land used for crop and livestock production (Ley 9071).
-meta_description: Agricultural land, Ley 9071 — TramiMuniSC. Help with the special valuation of agricultural land in San Carlos, Costa Rica.
+meta_description: "Is your land used for farming? We handle the agricultural valuation (Ley 9071) before the Municipality of San Carlos, Costa Rica."
+updated: 2026-11-15
 card:
   title: Agricultural land
   summary: Special valuation for crop or livestock land, excluding farm infrastructure.
