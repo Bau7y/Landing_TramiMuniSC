@@ -89,7 +89,8 @@ export const ui = {
 
     'contact.title': 'Contáctenos',
     'contact.subtitle': 'Envíenos su consulta y le responderemos a la brevedad posible.',
-    'contact.meta': 'Contáctenos — TramiMuniSC. Envíenos su consulta sobre trámites municipales en San Carlos.',
+    'contact.meta':
+      'Escríbanos su consulta sobre trámites municipales en San Carlos y adjunte el formulario lleno. Le respondemos al correo que indique.',
     'contact.forms_title': 'Antes de escribirnos',
     'contact.forms_text':
       'Si su trámite usa uno de estos formularios, descárguelo, llénelo y adjúntelo al mensaje. Así avanzamos más rápido.',
@@ -141,6 +142,7 @@ export const ui = {
     'error.message_max': 'Máximo 5000 caracteres',
     'error.attachment_type': 'Solo se aceptan archivos PDF, JPG o PNG',
     'error.attachment_size': 'El archivo supera los 4 MB',
+    'error.consent_required': 'Debe aceptar la política de privacidad para enviar el mensaje',
 
     'footer.services': 'Servicios',
     'footer.contact': 'Contacto',
@@ -151,12 +153,35 @@ export const ui = {
     'not_found.title': 'Esta página no existe',
     'not_found.text': 'Puede que el enlace esté desactualizado o que la dirección tenga un error.',
     'not_found.home': 'Ir al inicio',
+
+    'guides.title': 'Guías sobre trámites municipales',
+    'guides.lead': 'Respuestas claras, con su base legal, a las dudas más comunes sobre bienes inmuebles en San Carlos.',
+    'guides.meta':
+      'Guías prácticas sobre el impuesto de bienes inmuebles en San Carlos: cuánto se paga, cómo exonerar su propiedad y qué pasa si no declara.',
+    'guides.nav': 'Guías',
+    'guides.read': 'Leer guía',
+    'guides.summary': 'Respuesta corta',
+    'guides.related': 'Le ayudamos con este trámite',
+    'guides.related_cta': 'Ver el servicio',
+    'guides.more': 'Más guías',
+    'guides.disclaimer':
+      'Información general basada en la normativa vigente a la fecha indicada. No sustituye una resolución de la municipalidad ni una asesoría legal.',
+    'home.guides_title': 'Guías para resolver sus dudas',
+    'home.guides_all': 'Ver todas las guías',
+    'page.updated': 'Actualizado el',
+    'contact.consent': 'Acepto que TramiMuniSC use mis datos solo para atender esta consulta, según la',
+    'contact.privacy_link': 'política de privacidad',
+    'contact.consent_notice':
+      'Responsable: TramiMuniSC, San Carlos, Alajuela. Finalidad: atender su consulta. Dar sus datos es voluntario, pero sin ellos no podemos responderle. Puede acceder a ellos, corregirlos o eliminarlos escribiendo al correo de contacto.',
+    'footer.legal': 'Legal',
+    'footer.disclaimer':
+      'TramiMuniSC es un servicio privado de acompañamiento. No es la Municipalidad de San Carlos ni actúa en su nombre.',
   },
   en: {
     'meta.locale': 'en_US',
     'meta.home_title': 'TramiMuniSC | Municipal procedures in San Carlos, Costa Rica',
     'meta.home_description':
-      'Help with procedures before the Municipality of San Carlos, Costa Rica: property tax exemptions and declarations, agricultural land, land use, business licenses and inquiries.',
+      'Help with procedures at the Municipality of San Carlos, Costa Rica: property tax exemptions and declarations, land use, business licenses and more.',
     'site.description': 'Assistance with municipal procedures in San Carlos, Costa Rica.',
     'site.hours': 'Monday to Friday, 8:00 a.m. - 10:00 p.m.',
 
@@ -234,7 +259,8 @@ export const ui = {
 
     'contact.title': 'Contact us',
     'contact.subtitle': 'Send us your question and we will reply as soon as possible.',
-    'contact.meta': 'Contact — TramiMuniSC. Send us your question about municipal procedures in San Carlos.',
+    'contact.meta':
+      'Send us your question about municipal procedures in San Carlos, Costa Rica, and attach your completed form. We reply by email.',
     'contact.forms_title': 'Before you write',
     'contact.forms_text':
       'If your procedure uses one of these forms, download it, fill it in and attach it to your message. It helps us move faster.',
@@ -285,6 +311,7 @@ export const ui = {
     'error.message_max': 'Up to 5000 characters',
     'error.attachment_type': 'Only PDF, JPG or PNG files are accepted',
     'error.attachment_size': 'The file is larger than 4 MB',
+    'error.consent_required': 'You must accept the privacy policy to send the message',
 
     'footer.services': 'Services',
     'footer.contact': 'Contact',
@@ -295,6 +322,29 @@ export const ui = {
     'not_found.title': 'This page does not exist',
     'not_found.text': 'The link may be outdated or the address may contain a typo.',
     'not_found.home': 'Go to home',
+
+    'guides.title': 'Guides to municipal procedures',
+    'guides.lead': 'Clear answers, with their legal basis, to the most common property tax questions in San Carlos.',
+    'guides.meta':
+      'Practical guides to the property tax in San Carlos, Costa Rica: how much you pay, how to get an exemption and what happens if you do not declare.',
+    'guides.nav': 'Guides',
+    'guides.read': 'Read guide',
+    'guides.summary': 'Short answer',
+    'guides.related': 'We can help with this procedure',
+    'guides.related_cta': 'See the service',
+    'guides.more': 'More guides',
+    'guides.disclaimer':
+      'General information based on the regulations in force on the date shown. It does not replace a municipal resolution or legal advice.',
+    'home.guides_title': 'Guides to answer your questions',
+    'home.guides_all': 'See all guides',
+    'page.updated': 'Updated on',
+    'contact.consent': 'I agree that TramiMuniSC may use my data only to handle this request, as described in the',
+    'contact.privacy_link': 'privacy policy',
+    'contact.consent_notice':
+      'Controller: TramiMuniSC, San Carlos, Alajuela. Purpose: handling your request. Providing your data is voluntary, but without it we cannot reply. You can access, correct or delete it by writing to our contact email.',
+    'footer.legal': 'Legal',
+    'footer.disclaimer':
+      'TramiMuniSC is a private assistance service. It is not the Municipality of San Carlos and does not act on its behalf.',
   },
 } as const;
 
@@ -316,4 +366,6 @@ export const routes = {
   home: { es: '/', en: '/en' },
   contact: { es: '/contacto', en: '/en/contact' },
   servicesBase: { es: '/servicios', en: '/en/services' },
+  guides: { es: '/guias', en: '/en/guides' },
+  legalBase: { es: '', en: '/en' },
 } as const satisfies Record<string, Record<Lang, string>>;

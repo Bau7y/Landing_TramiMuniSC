@@ -4,39 +4,12 @@
  *
  *   yarn build && yarn test:a11y
  */
-import { createServer } from 'node:http';
-import { readFile, readdir } from 'node:fs/promises';
-import { extname, join, relative, sep } from 'node:path';
 import { chromium } from 'playwright';
 import { AxeBuilder } from '@axe-core/playwright';
+import { listPages, startStaticServer } from './lib/static_server.mjs';
 
-const ROOT = '.vercel/output/static';
-const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.pdf': 'application/pdf', '.jpg': 'image/jpeg' };
-
-async function listPages(dir) {
-  const entries = await readdir(dir, { withFileTypes: true, recursive: true });
-  return entries
-    .filter((e) => e.isFile() && e.name === 'index.html')
-    .map((e) => '/' + relative(ROOT, join(e.parentPath, e.name)).split(sep).slice(0, -1).join('/'));
-}
-
-const server = createServer(async (req, res) => {
-  const path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-  const file = extname(path) ? join(ROOT, path) : join(ROOT, path, 'index.html');
-  // Read first, then answer: a missing file (e.g. /_vercel/insights/script.js,
-  // which only exists on Vercel) must become a clean 404.
-  let body;
-  try {
-    body = await readFile(file);
-  } catch {
-    res.writeHead(404).end();
-    return;
-  }
-  res.writeHead(200, { 'content-type': TYPES[extname(file)] ?? 'application/octet-stream' }).end(body);
-}).listen(0);
-
-const base = `http://localhost:${server.address().port}`;
-const pages = await listPages(ROOT);
+const { base, close } = await startStaticServer();
+const pages = await listPages();
 // CHROMIUM_PATH lets you reuse a browser already installed on the machine.
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 let failures = 0;
@@ -58,6 +31,6 @@ for (const scheme of ['light', 'dark']) {
 }
 
 await browser.close();
-server.close();
+close();
 console.log(failures ? `\n${failures} violations` : `\n✓ ${pages.length} pages × 2 themes, no violations`);
 process.exit(failures ? 1 : 0);

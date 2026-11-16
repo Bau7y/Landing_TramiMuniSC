@@ -1,9 +1,14 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import vercel from '@astrojs/vercel';
-import sitemap from '@astrojs/sitemap';
 import { createHash } from 'node:crypto';
 import { THEME_INIT } from './src/lib/theme_init.mjs';
+
+/**
+ * `astro dev` injects unhashed <style> tags (Vite) that the CSP header would
+ * block, leaving the page unstyled. The CSP applies to builds only.
+ */
+const isDev = process.argv.includes('dev');
 
 /** CSP hash for the one inline script Astro does not process (theme before first paint). */
 /** @type {`sha256-${string}`} */
@@ -11,18 +16,20 @@ const themeInitHash = `sha256-${createHash('sha256').update(THEME_INIT).digest('
 
 export default defineConfig({
   site: 'https://www.tramimunisc.com',
-  adapter: vercel(),
-  // hreflang pairs live in each page <head> (slugs differ by language)
-  integrations: [sitemap({ filter: (page) => !page.endsWith('/404') && !page.endsWith('/404/') })],
+  // staticHeaders: the CSP below is sent as an HTTP header for every page
+  // (instead of a <meta>), so frame-ancestors also applies.
+  adapter: vercel({ staticHeaders: true }),
+  // Sitemap, OG images and llms.txt are endpoints built from src/data/pages.ts
   trailingSlash: 'never',
   // All CSS goes inside each HTML page: no render-blocking request and no
   // unstyled page if a separate stylesheet fails to load.
   build: { inlineStylesheets: 'always' },
   // No code blocks on the site; Shiki's inline styles would clash with the CSP
   markdown: { syntaxHighlight: false },
-  // Content Security Policy as a <meta> per page: Astro hashes every script
-  // and style it emits, so nothing injected from outside can run.
-  security: {
+  // Content Security Policy, sent as an HTTP header (staticHeaders above):
+  // Astro hashes every script and style it emits, so nothing injected from
+  // outside can run.
+  security: isDev ? {} : {
     csp: {
       directives: [
         "default-src 'self'",
@@ -33,6 +40,7 @@ export default defineConfig({
         "form-action 'self'",
         "base-uri 'self'",
         "object-src 'none'",
+        "frame-ancestors 'none'",
       ],
       scriptDirective: {
         resources: ["'self'", 'https://challenges.cloudflare.com'],

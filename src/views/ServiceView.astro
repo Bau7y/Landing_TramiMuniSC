@@ -5,6 +5,8 @@ import PageHero from '../components/PageHero.astro';
 import ArrowButton from '../components/ArrowButton.astro';
 import FormDownload from '../components/FormDownload.astro';
 import Faq from '../components/Faq.astro';
+import GuideList from '../components/GuideList.astro';
+import { getGuides } from '../data/guides';
 import JsonLd from '../components/JsonLd.astro';
 import { breadcrumbSchema, serviceSchema } from '../lib/structured_data';
 import MobileFormTip from '../components/MobileFormTip.astro';
@@ -19,6 +21,7 @@ const { data, key } = service;
 const lang: Lang = service.lang;
 const t = useTranslations(lang);
 const { Content } = await render(service);
+const guides = (await getGuides(lang)).filter((g) => g.data.service === key);
 
 const contactHref = `${routes.contact[lang]}?service=${key}`;
 const alternates = {
@@ -29,7 +32,13 @@ const alternates = {
 <BaseLayout lang={lang} title={data.seo_title ?? data.nav_label} description={data.meta_description} alternates={alternates}>
   <JsonLd
     data={[
-      serviceSchema(Astro.site!, lang, data.title, data.meta_description, service.href),
+      serviceSchema(Astro.site!, lang, {
+        name: data.title,
+        type: data.nav_label,
+        description: data.meta_description,
+        path: service.href,
+        law: data.law,
+      }),
       breadcrumbSchema(Astro.site!, [
         { name: t('nav.home'), path: routes.home[lang] },
         { name: data.nav_label, path: service.href },
@@ -37,7 +46,7 @@ const alternates = {
     ]}
   />
 
-  <PageHero lang={lang} title={data.title} subtitle={data.subtitle} crumb={data.nav_label} eyebrow={data.law} />
+  <PageHero lang={lang} title={data.title} subtitle={data.subtitle} crumb={data.nav_label} eyebrow={data.law} updated={data.updated} />
 
   <div class="container page_layout">
     <div class="page_content">
@@ -96,6 +105,15 @@ const alternates = {
       )}
     </aside>
   </div>
+
+  {guides.length > 0 && (
+    <section class="section" aria-labelledby="related_guides_title">
+      <div class="container">
+        <h2 id="related_guides_title" class="related_title" data-reveal>{t('guides.nav')}</h2>
+        <GuideList guides={guides} />
+      </div>
+    </section>
+  )}
 
   <!-- FAQ: full width, right before the contact call to action -->
   {data.faq.length > 0 && (
@@ -244,6 +262,11 @@ const alternates = {
   .aside_form_note {
     font-size: 0.8rem !important;
     color: var(--color_subtle);
+  }
+
+  .related_title {
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
   }
 
   .cta {

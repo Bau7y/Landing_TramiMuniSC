@@ -3,6 +3,7 @@ import Logo from './Logo.astro';
 import { site } from '../data/site';
 import { forms } from '../data/forms';
 import { getServices } from '../data/services';
+import { getLegalPages } from '../data/legal';
 import { routes, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const services = await getServices(lang);
+const legalPages = await getLegalPages(lang);
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
@@ -25,6 +27,7 @@ const year = new Date().getFullYear();
         <h2 id="footer_services">{t('footer.services')}</h2>
         <ul role="list">
           {services.map((s) => <li><a href={s.href}>{s.data.nav_label}</a></li>)}
+          <li><a href={routes.guides[lang]}>{t('guides.nav')}</a></li>
         </ul>
       </nav>
 
@@ -43,7 +46,16 @@ const year = new Date().getFullYear();
           <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
         </ul>
       </div>
+
+      <nav class="footer_col" aria-labelledby="footer_legal">
+        <h2 id="footer_legal">{t('footer.legal')}</h2>
+        <ul role="list">
+          {legalPages.map((p) => <li><a href={p.href}>{p.data.title}</a></li>)}
+        </ul>
+      </nav>
     </div>
+
+    <p class="footer_disclaimer">{t('footer.disclaimer')}</p>
 
     <div class="footer_bottom">
       <p>© {year} {site.name}. {t('footer.rights')}</p>
@@ -97,6 +109,13 @@ const year = new Date().getFullYear();
     color: var(--color_accent);
   }
 
+  .footer_disclaimer {
+    max-width: 70ch;
+    margin-bottom: var(--spacing_sm);
+    font-size: 0.8rem;
+    color: var(--color_subtle);
+  }
+
   .footer_bottom {
     display: flex;
     flex-direction: column;
@@ -112,12 +131,18 @@ const year = new Date().getFullYear();
 
   @media (min-width: 768px) {
     .footer_grid {
-      grid-template-columns: 1.6fr 1fr 1.2fr 1fr;
+      grid-template-columns: 1fr 1fr;
     }
 
     .footer_bottom {
       flex-direction: row;
       justify-content: space-between;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer_grid {
+      grid-template-columns: 1.6fr 1fr 1.2fr 1fr 1fr;
     }
   }
 </style>

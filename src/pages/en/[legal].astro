@@ -1,0 +1,11 @@
+---
+import type { GetStaticPaths } from 'astro';
+import LegalView from '../../views/LegalView.astro';
+import { getLegalPages } from '../../data/legal';
+
+export const getStaticPaths = (async () =>
+  (await getLegalPages('en')).map((page) => ({ params: { legal: page.data.url_slug }, props: { page } }))) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+<LegalView page={page} />

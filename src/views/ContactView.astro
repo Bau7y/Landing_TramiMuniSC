@@ -6,6 +6,7 @@ import MobileFormTip from '../components/MobileFormTip.astro';
 import { site } from '../data/site';
 import { FORMS_SOURCE_URL } from '../data/forms';
 import { getServices } from '../data/services';
+import { getLegalHref } from '../data/legal';
 import { routes, ui, useTranslations, type Lang } from '../i18n/ui';
 import { PUBLIC_TURNSTILE_SITE_KEY } from 'astro:env/client';
 
@@ -15,6 +16,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const services = await getServices(lang);
+const privacyHref = await getLegalHref('privacidad', lang);
 
 // Strings the client script needs (errors come back from the server as codes)
 const clientStrings = Object.fromEntries(
@@ -110,6 +112,18 @@ const clientStrings = Object.fromEntries(
             <div class="cf-turnstile" data-sitekey={PUBLIC_TURNSTILE_SITE_KEY} data-language={lang} data-theme="auto" data-size="flexible" data-appearance="interaction-only"></div>
           )}
 
+          <div class="field">
+            <div class="consent_row">
+              <input type="checkbox" id="consent" name="consent" class="consent_input" required aria-describedby="consent_notice" />
+              <label for="consent" class="consent_label">
+                {t('contact.consent')}{' '}
+                {privacyHref ? <a href={privacyHref}>{t('contact.privacy_link')}</a> : t('contact.privacy_link')}.
+                <span class="field_required" aria-hidden="true">*</span>
+              </label>
+            </div>
+            <span id="consent_notice" class="field_hint consent_notice">{t('contact.consent_notice')}</span>
+          </div>
+
           <div id="form_feedback" class="form_feedback" role="status" aria-live="polite" hidden></div>
 
           <div class="form_footer">
@@ -168,7 +182,7 @@ const clientStrings = Object.fromEntries(
 
   const NAME_STORAGE_KEY = 'tramimuni_contact_name';
 
-  type Field = 'name' | 'email' | 'subject' | 'message' | 'attachment';
+  type Field = 'name' | 'email' | 'subject' | 'message' | 'attachment' | 'consent';
   type FieldErrors = Partial<Record<Field, string | string[] | undefined>>;
 
   const form = document.querySelector<HTMLFormElement>('#contact_form')!;
@@ -240,6 +254,7 @@ const clientStrings = Object.fromEntries(
     else if (value('message').length < 10) errors.message = 'message_min';
     if (file && !(ATTACHMENT_TYPES as readonly string[]).includes(file.type)) errors.attachment = 'attachment_type';
     else if (file && file.size > MAX_ATTACHMENT_BYTES) errors.attachment = 'attachment_size';
+    if (!input('consent').checked) errors.consent = 'consent_required';
 
     return errors;
   }
@@ -255,7 +270,12 @@ const clientStrings = Object.fromEntries(
       if (!element || !code) continue;
 
       const errorId = `${field}_error`;
-      const target = field === 'attachment' ? element.closest<HTMLElement>('[data-file-drop]')! : element;
+      const target =
+        field === 'attachment'
+          ? element.closest<HTMLElement>('[data-file-drop]')!
+          : field === 'consent'
+            ? element.closest<HTMLElement>('.consent_row')!
+            : element;
       target.classList.add('input_error');
       element.setAttribute('aria-invalid', 'true');
       element.setAttribute('aria-describedby', [element.getAttribute('aria-describedby'), errorId].filter(Boolean).join(' '));
@@ -602,6 +622,46 @@ const clientStrings = Object.fromEntries(
 
   .form_required_note {
     font-size: 0.82rem;
+  }
+
+  .consent_row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .consent_input {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.15rem;
+    accent-color: var(--color_accent);
+  }
+
+  /* The error ring goes on the checkbox, not around the whole row */
+  .form .consent_row:global(.input_error) {
+    box-shadow: none;
+  }
+
+  .form .consent_row:global(.input_error) .consent_input {
+    outline: 2px solid var(--color_error);
+    outline-offset: 2px;
+  }
+
+  .consent_notice {
+    padding-left: calc(1.25rem + 0.7rem);
+  }
+
+  .consent_label {
+    font-size: 0.9rem;
+    color: var(--color_muted);
+    line-height: 1.5;
+  }
+
+  .consent_label a {
+    color: var(--color_accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   /* Aside */

@@ -7,25 +7,46 @@ interface Props {
   subtitle: string;
   crumb: string;
   eyebrow?: string;
+  /** Last content review, shown under the subtitle. */
+  updated?: Date;
+  /** Intermediate breadcrumb level, e.g. the guides index. */
+  parent?: { label: string; href: string };
 }
-const { lang, title, subtitle, crumb, eyebrow } = Astro.props;
+const { lang, title, subtitle, crumb, eyebrow, updated, parent } = Astro.props;
 const t = useTranslations(lang);
+const updatedText = updated?.toLocaleDateString(lang === 'es' ? 'es-CR' : 'en-US', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
 ---
 <section class="page_hero" aria-labelledby="page_title">
   <div class="container page_hero_inner">
     <nav class="breadcrumb" aria-label={t('nav.breadcrumb')} data-reveal>
       <ol role="list">
         <li><a href={routes.home[lang]}>{t('nav.home')}</a></li>
+        {parent && <li><a href={parent.href}>{parent.label}</a></li>}
         <li aria-current="page">{crumb}</li>
       </ol>
     </nav>
     {eyebrow && <span class="eyebrow" data-reveal data-i="1">{eyebrow}</span>}
     <h1 id="page_title" data-reveal data-i="1">{title}</h1>
     <p data-reveal data-i="2">{subtitle}</p>
+    {updated && (
+      <p class="page_updated mono" data-reveal data-i="3">
+        {t('page.updated')} <time datetime={updated.toISOString().slice(0, 10)}>{updatedText}</time>
+      </p>
+    )}
   </div>
 </section>
 
 <style>
+  .page_hero .page_updated {
+    font-size: 0.8rem;
+    color: var(--color_subtle);
+  }
+
   .page_hero {
     padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2.5rem, 5vw, 4rem);
   }

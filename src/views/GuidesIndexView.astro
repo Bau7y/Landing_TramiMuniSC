@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import GuideList from '../components/GuideList.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { breadcrumbSchema } from '../lib/structured_data';
+import { getGuides } from '../data/guides';
+import { routes, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const guides = await getGuides(lang);
+---
+<BaseLayout lang={lang} title={t('guides.title')} description={t('guides.meta')} alternates={routes.guides}>
+  <JsonLd
+    data={breadcrumbSchema(Astro.site!, [
+      { name: t('nav.home'), path: routes.home[lang] },
+      { name: t('guides.nav'), path: routes.guides[lang] },
+    ])}
+  />
+  <PageHero lang={lang} title={t('guides.title')} subtitle={t('guides.lead')} crumb={t('guides.nav')} />
+
+  <section class="guides_index" aria-label={t('guides.nav')}>
+    <div class="container">
+      <GuideList guides={guides} level="h2" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .guides_index {
+    padding-bottom: var(--spacing_section);
+  }
+</style>

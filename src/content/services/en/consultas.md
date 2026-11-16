@@ -6,7 +6,8 @@ nav_label: Inquiries
 seo_title: "Municipal inquiries in San Carlos, Costa Rica"
 title: Municipal inquiries
 subtitle: Answers about procedures, requirements and processes before the Municipality of San Carlos.
-meta_description: Municipal inquiries — TramiMuniSC. Answers about municipal procedures and processes in San Carlos, Costa Rica.
+meta_description: "Questions about a municipal procedure in San Carlos, Costa Rica? We explain requirements, deadlines and steps for your case by email."
+updated: 2026-11-15
 card:
   title: Inquiries
   summary: Not sure which procedure you need? We guide you free of charge.
@@ -48,6 +49,6 @@ cta:
   button: Ask a question
 ---
 
-Many taxpayers are unsure about the requirements, deadlines and procedures municipal paperwork demands. A poorly guided inquiry can mean wrong documents, unnecessary trips or avoidable fines.
+Many taxpayers are unsure about the requirements, deadlines and procedures municipal paperwork demands. A poorly guided inquiry can mean wrong documents, unnecessary trips or avoidable delays.
 
 TramiMuniSC gives you clear, personal guidance on any process with the Municipality of San Carlos, based on current regulations.

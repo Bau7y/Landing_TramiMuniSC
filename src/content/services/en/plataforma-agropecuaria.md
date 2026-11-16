@@ -7,7 +7,8 @@ nav_label: Agricultural
 seo_title: "Agricultural land valuation (Ley 9071) in San Carlos"
 title: Agricultural land valuation
 subtitle: Special valuation for land used for crop and livestock production (Ley 9071).
-meta_description: Agricultural land, Ley 9071 — TramiMuniSC. Help with the special valuation of agricultural land in San Carlos, Costa Rica.
+meta_description: "Is your land used for farming? We handle the agricultural valuation (Ley 9071) before the Municipality of San Carlos, Costa Rica."
+updated: 2026-11-15
 card:
   title: Agricultural land
   summary: Special valuation for crop or livestock land, excluding farm infrastructure.
@@ -36,7 +37,7 @@ faq:
   - q: "Are farm buildings included in the valuation?"
     a: "No. Farm and agro-industrial infrastructure is not counted."
   - q: "What if I stop using the land for farming?"
-    a: "You must report it immediately; otherwise the law provides for penalties."
+    a: "The special valuation depends on that use, so you must report it to the municipality."
 cta:
   title: Questions about Ley 9071?
   text: Write to us and we will review your case free of charge.
@@ -45,4 +46,4 @@ cta:
 
 Costa Rica’s Ley N.° 9071 promotes preserving land dedicated to **primary crop and livestock production**. For this land, the municipality applies a special valuation method based on land use and **does not count the farm and agro-industrial infrastructure** on the property.
 
-To qualify, the owner files the MAG sworn statement and requests an inspection of the land. If the municipality finds the land no longer keeps that use, the law provides for penalties.
+To qualify, the owner files the MAG sworn statement and requests an inspection of the land.

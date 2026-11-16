@@ -1,23 +1,10 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getLocalized, type Localized } from './localized';
 import { routes, type Lang } from '../i18n/ui';
 
-export type Service = CollectionEntry<'services'> & { key: string; lang: Lang; href: string };
-
-const keyOf = (id: string) => id.split('/')[1];
-const langOf = (id: string) => id.split('/')[0] as Lang;
+export type Service = Localized<'services'>;
 
 /** All services of a language, sorted by `order`, with key and localized href. */
-export async function getServices(lang: Lang): Promise<Service[]> {
-  const entries = await getCollection('services', ({ id }) => langOf(id) === lang);
-  return entries
-    .map((entry) => ({
-      ...entry,
-      key: keyOf(entry.id),
-      lang,
-      href: `${routes.servicesBase[lang]}/${entry.data.url_slug}`,
-    }))
-    .sort((a, b) => a.data.order - b.data.order);
-}
+export const getServices = (lang: Lang) => getLocalized('services', lang, routes.servicesBase[lang]);
 
 /** URL of the same service in another language. */
 export async function getServiceHref(key: string, lang: Lang): Promise<string | undefined> {

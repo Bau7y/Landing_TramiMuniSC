@@ -1,0 +1,150 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Prose from '../components/Prose.astro';
+import GuideList from '../components/GuideList.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { articleSchema, breadcrumbSchema } from '../lib/structured_data';
+import { getGuideHref, getGuides, type Guide } from '../data/guides';
+import { getServices } from '../data/services';
+import { ogImagePath } from '../data/pages';
+import { routes, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  guide: Guide;
+}
+const { guide } = Astro.props;
+const { data, key } = guide;
+const lang: Lang = guide.lang;
+const t = useTranslations(lang);
+const { Content } = await render(guide);
+
+const service = (await getServices(lang)).find((s) => s.key === data.service);
+const others = (await getGuides(lang)).filter((g) => g.key !== key);
+const alternates = {
+  es: (await getGuideHref(key, 'es')) ?? routes.guides.es,
+  en: (await getGuideHref(key, 'en')) ?? routes.guides.en,
+};
+---
+<BaseLayout lang={lang} title={data.seo_title} description={data.meta_description} alternates={alternates}>
+  <JsonLd
+    data={[
+      articleSchema(Astro.site!, lang, {
+        title: data.title,
+        description: data.meta_description,
+        path: guide.href,
+        image: ogImagePath(guide.href),
+        updated: data.updated,
+        law: data.law,
+      }),
+      breadcrumbSchema(Astro.site!, [
+        { name: t('nav.home'), path: routes.home[lang] },
+        { name: t('guides.nav'), path: routes.guides[lang] },
+        { name: data.title, path: guide.href },
+      ]),
+    ]}
+  />
+
+  <PageHero
+    lang={lang}
+    title={data.title}
+    subtitle={data.summary}
+    crumb={data.title}
+    eyebrow={data.law}
+    updated={data.updated}
+    parent={{ label: t('guides.nav'), href: routes.guides[lang] }}
+  />
+
+  <div class="container guide_layout">
+    <article class="guide_body" data-reveal>
+      <Prose><Content /></Prose>
+      <p class="guide_disclaimer">{t('guides.disclaimer')}</p>
+    </article>
+
+    {service && (
+      <aside class="guide_aside" aria-labelledby="guide_service_title">
+        <div class="bezel" data-reveal data-i="1">
+          <div class="bezel_core guide_service">
+            <span class="mono guide_service_label" id="guide_service_title">{t('guides.related')}</span>
+            <h2>{service.data.title}</h2>
+            <p>{service.data.card.summary}</p>
+            <ArrowButton href={service.href}>{t('guides.related_cta')}</ArrowButton>
+          </div>
+        </div>
+      </aside>
+    )}
+  </div>
+
+  {others.length > 0 && (
+    <section class="section" aria-labelledby="more_guides_title">
+      <div class="container">
+        <h2 id="more_guides_title" class="more_title" data-reveal>{t('guides.more')}</h2>
+        <GuideList guides={others} />
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .guide_layout {
+    display: grid;
+    gap: 3rem;
+    padding-bottom: var(--spacing_section);
+  }
+
+  .guide_disclaimer {
+    max-width: 68ch;
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color_border);
+    font-size: 0.85rem;
+    color: var(--color_subtle);
+  }
+
+  .guide_aside {
+    align-content: start;
+  }
+
+  .guide_service {
+    display: grid;
+    gap: 0.85rem;
+    padding: 1.75rem;
+  }
+
+  .guide_service_label {
+    font-size: 0.75rem;
+    color: var(--color_subtle);
+  }
+
+  .guide_service h2 {
+    font-size: 1.3rem;
+  }
+
+  .guide_service p {
+    font-size: 0.95rem;
+  }
+
+  .guide_service :global(.btn) {
+    width: fit-content;
+  }
+
+  .more_title {
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  }
+
+  @media (min-width: 1024px) {
+    .guide_layout {
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 5rem;
+    }
+
+    .guide_aside {
+      position: sticky;
+      top: calc(var(--navbar_offset) + 1rem);
+      align-self: start;
+    }
+  }
+</style>

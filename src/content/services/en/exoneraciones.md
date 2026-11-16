@@ -8,7 +8,8 @@ nav_label: Exemptions
 seo_title: "Property tax exemption in San Carlos, Costa Rica"
 title: Property tax exemption
 subtitle: We handle the single-property exemption before the Municipality of San Carlos.
-meta_description: Property tax exemption — TramiMuniSC. Single-property exemption filings before the Municipality of San Carlos, Costa Rica.
+meta_description: "We file your single-property tax exemption in San Carlos, Costa Rica: we check requirements, collect your signature and submit the request."
+updated: 2026-11-15
 card:
   title: Exemptions
   summary: Single-property exemption.

@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar.astro';
 import Footer from '../components/Footer.astro';
 import LangSuggest from '../components/LangSuggest.astro';
 import { site } from '../data/site';
+import { getPages, ogImagePath, OG_SIZE } from '../data/pages';
 import { THEME_INIT } from '../lib/theme_init.mjs';
 import { languages, useTranslations, type Lang } from '../i18n/ui';
 
@@ -16,14 +17,18 @@ interface Props {
   description?: string;
   /** Same page in each language, for the switcher and hreflang. */
   alternates: Record<Lang, string>;
+  /** Pages that must stay out of search results (404). No canonical or hreflang either. */
+  noindex?: boolean;
 }
 
-const { lang, title, description, alternates } = Astro.props;
+const { lang, title, description, alternates, noindex = false } = Astro.props;
 const t = useTranslations(lang);
 const metaDescription = description ?? t('site.description');
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const ogImageUrl = new URL('/og.jpg', Astro.site);
+// Per-page image when the page is in the registry; the generic one otherwise.
+const inRegistry = (await getPages()).some((p) => p.path === Astro.url.pathname);
+const ogImageUrl = new URL(inRegistry ? ogImagePath(Astro.url.pathname) : '/og.jpg', Astro.site);
 const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 ---
 <!doctype html>
@@ -34,11 +39,17 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
     <Fonts />
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
-    <link rel="canonical" href={canonicalUrl} />
-    {(Object.keys(languages) as Lang[]).map((l) => (
-      <link rel="alternate" hreflang={l} href={new URL(alternates[l], Astro.site)} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={new URL(alternates.es, Astro.site)} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonicalUrl} />
+        {(Object.keys(languages) as Lang[]).map((l) => (
+          <link rel="alternate" hreflang={l} href={new URL(alternates[l], Astro.site)} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={new URL(alternates.es, Astro.site)} />
+      </>
+    )}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#2e7d32" />
 
@@ -48,8 +59,11 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={metaDescription} />
-    <meta property="og:url" content={canonicalUrl} />
+    {!noindex && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content={String(OG_SIZE.width)} />
+    <meta property="og:image:height" content={String(OG_SIZE.height)} />
+    <meta property="og:image:alt" content={fullTitle} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Theme before first paint, and the `js` class that enables scroll reveals -->

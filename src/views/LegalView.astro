@@ -1,0 +1,32 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Prose from '../components/Prose.astro';
+import { getLegalHref, type LegalPage } from '../data/legal';
+import { routes, type Lang } from '../i18n/ui';
+
+interface Props {
+  page: LegalPage;
+}
+const { page } = Astro.props;
+const { data, key } = page;
+const lang: Lang = page.lang;
+const { Content } = await render(page);
+const alternates = {
+  es: (await getLegalHref(key, 'es')) ?? routes.home.es,
+  en: (await getLegalHref(key, 'en')) ?? routes.home.en,
+};
+---
+<BaseLayout lang={lang} title={data.title} description={data.meta_description} alternates={alternates}>
+  <PageHero lang={lang} title={data.title} subtitle={data.meta_description} crumb={data.title} updated={data.updated} />
+  <div class="container legal_body">
+    <Prose><Content /></Prose>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal_body {
+    padding-bottom: var(--spacing_section);
+  }
+</style>

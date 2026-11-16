@@ -7,7 +7,8 @@ nav_label: Patentes
 seo_title: "Patentes comerciales en San Carlos"
 title: Licencia municipal (patente)
 subtitle: Gestión de la licencia para ejercer una actividad lucrativa en el cantón de San Carlos.
-meta_description: Patentes comerciales — TramiMuniSC. Gestión de licencias municipales para actividades lucrativas en San Carlos.
+meta_description: "Obtenga o modifique su patente comercial en San Carlos. Revisamos requisitos y presentamos la solicitud de licencia municipal por usted."
+updated: 2026-11-15
 card:
   title: Patentes
   summary: Licencia municipal para su actividad comercial.

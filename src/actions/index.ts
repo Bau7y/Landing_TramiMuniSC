@@ -52,6 +52,11 @@ const contactSchema = z.object({
   website: z.string().nullish().transform((v) => v ?? ''),
   loaded_at: z.coerce.number().nullish().transform((v) => v ?? 0),
   'cf-turnstile-response': z.string().nullish().transform((v) => v ?? ''),
+  // Ley 8968: written (electronic) consent. A checked checkbox sends "on".
+  consent: z
+    .string()
+    .nullish()
+    .refine((v) => v === 'on', 'consent_required'),
 });
 
 let client: Resend | null = null;
@@ -117,6 +122,10 @@ export const server = {
         ['Idioma', input.lang === 'en' ? 'Inglés' : 'Español'],
         ['Adjunto', input.attachment ? input.attachment.name : 'Ninguno'],
       ];
+      // Record of the consent: the policy version the sender accepted.
+      const privacy = await getEntry('legal', 'es/privacidad');
+      const policyDate = privacy?.data.updated.toISOString().slice(0, 10) ?? 'sin fecha';
+      rows.push(['Consentimiento', `Aceptó la política de privacidad (versión del ${policyDate})`]);
       if (needsReview) rows.push(['Revisar', analysis.reasons.join(', ')]);
 
       const text = [...rows.map(([key, value]) => `${key}: ${value}`), '', input.message].join('\n');
