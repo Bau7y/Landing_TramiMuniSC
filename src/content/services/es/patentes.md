@@ -8,7 +8,7 @@ seo_title: "Patentes comerciales en San Carlos"
 title: Licencia municipal (patente)
 subtitle: Gestión de la licencia para ejercer una actividad lucrativa en el cantón de San Carlos.
 meta_description: "Obtenga o modifique su patente comercial en San Carlos. Revisamos requisitos y presentamos la solicitud de licencia municipal por usted."
-updated: 2026-11-15
+updated: 2026-11-16
 card:
   title: Patentes
   summary: Licencia municipal para su actividad comercial.
@@ -44,7 +44,7 @@ faq:
   - q: "¿Puedo trasladar mi patente a otro local o traspasarla?"
     a: "Sí, mediante traslado o traspaso, con los tributos al día."
   - q: "¿Qué pasa si voy a vender licor?"
-    a: "Además de la patente, una licencia de licores (Ley 9047)."
+    a: "Además de la patente comercial, necesita una licencia de licores (Ley 9047)."
 cta:
   title: ¿Necesita trasladar o traspasar su patente?
   text: También le ayudamos con traslados, traspasos y eliminaciones.

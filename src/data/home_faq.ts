@@ -1,7 +1,7 @@
 /**
  * General legal questions about the property tax, shown on the home page.
  * Service-specific questions live in each service's frontmatter (`faq`).
- * Sources: Ley 7509 (arts. 4 e, 16, 17, 22, 23; checked against the law text), Ley 4755 (arts. 18 y 18 bis)
+ * Sources: Ley 7509 (arts. 4 e, 16, 17, 22, 23; checked against the law text)
  * and the municipality's form F-SBI-002-2024.
  */
 import type { FaqItem } from '../lib/structured_data';
@@ -22,12 +22,8 @@ export const homeFaq: Record<Lang, FaqItem[]> = {
       a: 'En enero. El impuesto es anual (enero a diciembre) y la exoneración se renueva cada año: pedirla al inicio cubre el periodo completo.',
     },
     {
-      q: '¿Qué propiedades pueden exonerarse por bien único?',
-      a: 'La única propiedad de una persona física en todo el país. Cubre hasta 45 salarios base; sobre el exceso se paga impuesto (Ley 7509, art. 4 e).',
-    },
-    {
-      q: '¿Puedo pedir la exoneración si tengo tributos pendientes?',
-      a: 'No. Estar al día con los tributos municipales es requisito indispensable (Ley 4755, arts. 18 y 18 bis).',
+      q: '¿Quién tiene derecho a solicitar la exoneración del impuesto de bienes inmuebles?',
+      a: 'Las personas que poseen un solo bien inmueble a nivel nacional. El derecho es de la persona, no de la propiedad, y cubre hasta 45 salarios base del valor (Ley 7509, art. 4 e).',
     },
     {
       q: '¿Cuánto es el impuesto sobre bienes inmuebles?',
@@ -48,12 +44,8 @@ export const homeFaq: Record<Lang, FaqItem[]> = {
       a: 'In January. The tax is annual (January to December) and the exemption is renewed every year: requesting it early covers the whole period.',
     },
     {
-      q: 'Which properties qualify for the single-property exemption?',
-      a: 'An individual’s only property nationwide. It covers up to 45 base salaries; tax is paid on the excess (Ley 7509, art. 4 e).',
-    },
-    {
-      q: 'Can I request the exemption if I owe municipal taxes?',
-      a: 'No. Being up to date with municipal taxes is mandatory (Ley 4755, arts. 18 and 18 bis).',
+      q: 'Who is entitled to request the property tax exemption?',
+      a: 'People who own only one property nationwide. The right belongs to the person, not to the property, and covers up to 45 base salaries of its value (Ley 7509, art. 4 e).',
     },
     {
       q: 'How much is the property tax?',
