@@ -7,7 +7,7 @@ title: What happens if I don't declare my property?
 seo_title: "Not declaring your property in San Carlos, Costa Rica"
 meta_description: "If you don't declare your property every five years, the municipality may value it on its own and charge a fine. How to catch up and how to appeal."
 summary: "The municipality may value the property on its own and charge a fine equal to the tax left unpaid (Ley 7509, art. 17). To avoid it, declare at least every five years."
-updated: 2026-11-15
+updated: 2026-11-16
 ---
 
 ## The obligation

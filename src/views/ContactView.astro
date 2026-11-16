@@ -114,13 +114,14 @@ const clientStrings = Object.fromEntries(
 
           <div class="field">
             <div class="consent_row">
-              <input type="checkbox" id="consent" name="consent" class="consent_input" required />
+              <input type="checkbox" id="consent" name="consent" class="consent_input" required aria-describedby="consent_notice" />
               <label for="consent" class="consent_label">
                 {t('contact.consent')}{' '}
                 {privacyHref ? <a href={privacyHref}>{t('contact.privacy_link')}</a> : t('contact.privacy_link')}.
                 <span class="field_required" aria-hidden="true">*</span>
               </label>
             </div>
+            <span id="consent_notice" class="field_hint consent_notice">{t('contact.consent_notice')}</span>
           </div>
 
           <div id="form_feedback" class="form_feedback" role="status" aria-live="polite" hidden></div>
@@ -645,6 +646,10 @@ const clientStrings = Object.fromEntries(
   .form .consent_row:global(.input_error) .consent_input {
     outline: 2px solid var(--color_error);
     outline-offset: 2px;
+  }
+
+  .consent_notice {
+    padding-left: calc(1.25rem + 0.7rem);
   }
 
   .consent_label {

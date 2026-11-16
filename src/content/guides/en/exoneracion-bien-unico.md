@@ -7,14 +7,14 @@ title: "Single-property exemption: requirements and when to apply"
 seo_title: "Single-property tax exemption in San Carlos, Costa Rica"
 meta_description: "Who can exempt their property from Costa Rica's property tax, what the Municipality of San Carlos requires and why January is the best time to apply."
 summary: "It applies to an individual who owns only one property nationwide. It covers up to 45 base salaries of the value, is requested every year and is best filed in January, with the declaration and municipal taxes up to date."
-updated: 2026-11-15
+updated: 2026-11-16
 ---
 
 ## What it is
 
 Ley N.° 7509 (art. 4, item e) states that an individual's **only property**, whether or not it is recorded in the National Registry, pays no property tax up to a value of **45 base salaries**. If the property is worth more, tax is paid only on the difference.
 
-The base salary is set every year by the Judiciary, so the cap changes from year to year.
+The base salary amount is updated every year (Ley N.° 7337), so the cap changes from year to year.
 
 ## Who can apply
 
@@ -33,7 +33,7 @@ If you own two or more properties, even if one is a small lot, you do not qualif
 
 ## When to apply
 
-The exemption is not permanent: it is requested **every year**. Since the tax is charged from January to December, the best time to file is **January**, so it covers the whole period from the first quarter.
+The exemption is not permanent: at the Municipality of San Carlos it is requested **every year**. Since the tax is charged from January to December, the best time to file is **January**, so it covers the whole period from the first quarter.
 
 ## Common mistakes
 

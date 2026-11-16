@@ -7,12 +7,12 @@ title: How much is the property tax in San Carlos?
 seo_title: "How much property tax you pay in San Carlos, Costa Rica"
 meta_description: "Costa Rica's property tax is 0.25% per year of your property's registered value. See how it is calculated, when it is paid and how to lower it."
 summary: "You pay 0.25% per year of the property's registered value (land and buildings). The period runs from January to December and the amount is split into four quarterly payments."
-updated: 2026-11-15
+updated: 2026-11-16
 ---
 
 ## How it is calculated
 
-The Municipality of San Carlos collects the property tax under Ley N.° 7509. The rate is the same for every property: **0.25% of the registered value**.
+The Municipality of San Carlos collects the property tax under Ley N.° 7509. The rate is the same for every property: **0.25% of the registered value** (art. 23).
 
 The registered value is the one the municipality holds in its database for your property. It includes the land and the fixed, permanent buildings or installations, such as the house, a warehouse or a water tank.
 
@@ -34,6 +34,6 @@ If the value does not match your property, the way to correct it is to file an u
 
 ## How to pay less, legally
 
-- **Single-property exemption:** if the property is the only one an individual owns nationwide, no tax is paid on the first 45 base salaries of its value; only on the excess (art. 4, item e). It is requested every year.
+- **Single-property exemption:** if the property is the only one an individual owns nationwide, no tax is paid on the first 45 base salaries of its value; only on the excess (art. 4, item e). In San Carlos it is requested every year.
 - **Agricultural land:** Ley N.° 9071 allows it to be valued with the agricultural value platform, which usually gives a lower value than an urban lot.
 - **Declare accurate data:** a wrong area or building type changes the amount.

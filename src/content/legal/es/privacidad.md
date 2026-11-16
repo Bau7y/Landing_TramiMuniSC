@@ -10,7 +10,9 @@ Esta política explica cómo TramiMuniSC trata los datos personales que recibe a
 
 ## Responsable
 
-TramiMuniSC, servicio privado de acompañamiento en trámites municipales, con sede en San Carlos, Alajuela, Costa Rica. Contacto: [tramimuni.sc@gmail.com](mailto:tramimuni.sc@gmail.com).
+TramiMuniSC, nombre comercial de un servicio privado de acompañamiento en trámites municipales, con sede en San Carlos, Alajuela, Costa Rica. Contacto y notificaciones: [tramimuni.sc@gmail.com](mailto:tramimuni.sc@gmail.com). Si necesita la identificación completa de la persona responsable para ejercer sus derechos, solicítela a ese correo.
+
+Los mensajes del formulario se guardan en nuestro buzón de correo, que funciona como el registro de consultas.
 
 ## Qué datos recogemos
 
@@ -38,7 +40,7 @@ El tiempo necesario para atender su consulta y dar seguimiento al trámite. Desp
 
 ## Sus derechos
 
-Puede pedir en cualquier momento **acceder** a sus datos, **corregirlos** o **eliminarlos**, y **revocar su consentimiento**, escribiendo a [tramimuni.sc@gmail.com](mailto:tramimuni.sc@gmail.com). Si considera que sus derechos no fueron atendidos, puede acudir a la Agencia de Protección de Datos de los Habitantes (PRODHAB).
+Puede pedir en cualquier momento **acceder** a sus datos, **corregirlos** o **eliminarlos**, y **revocar su consentimiento**, escribiendo a [tramimuni.sc@gmail.com](mailto:tramimuni.sc@gmail.com). La gestión es gratuita y la resolvemos en un plazo máximo de cinco días hábiles desde que recibimos la solicitud. Si considera que sus derechos no fueron atendidos, puede acudir a la Agencia de Protección de Datos de los Habitantes (PRODHAB).
 
 Dar sus datos es voluntario, pero sin ellos no podemos responder su consulta.
 

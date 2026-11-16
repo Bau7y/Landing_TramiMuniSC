@@ -10,7 +10,9 @@ This policy explains how TramiMuniSC handles the personal data it receives throu
 
 ## Controller
 
-TramiMuniSC, a private service that assists with municipal procedures, based in San Carlos, Alajuela, Costa Rica. Contact: [tramimuni.sc@gmail.com](mailto:tramimuni.sc@gmail.com).
+TramiMuniSC, the trade name of a private service that assists with municipal procedures, based in San Carlos, Alajuela, Costa Rica. Contact and notices: [tramimuni.sc@gmail.com](mailto:tramimuni.sc@gmail.com). If you need the full identification of the person responsible in order to exercise your rights, request it at that address.
+
+Form messages are kept in our email inbox, which serves as the record of requests.
 
 ## What data we collect
 
@@ -38,7 +40,7 @@ As long as needed to answer your request and follow up on the procedure. After t
 
 ## Your rights
 
-You can ask at any time to **access**, **correct** or **delete** your data, and **revoke your consent**, by writing to [tramimuni.sc@gmail.com](mailto:tramimuni.sc@gmail.com). If you believe your rights were not respected, you can contact Costa Rica's Data Protection Agency (PRODHAB).
+You can ask at any time to **access**, **correct** or **delete** your data, and **revoke your consent**, by writing to [tramimuni.sc@gmail.com](mailto:tramimuni.sc@gmail.com). It is free of charge and we resolve it within five business days of receiving the request. If you believe your rights were not respected, you can contact Costa Rica's Data Protection Agency (PRODHAB).
 
 Providing your data is voluntary, but without it we cannot answer your request.
 

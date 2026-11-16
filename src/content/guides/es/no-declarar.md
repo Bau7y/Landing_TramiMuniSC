@@ -7,7 +7,7 @@ title: ¿Qué pasa si no declaro mi propiedad?
 seo_title: "Qué pasa si no declaro bienes inmuebles en San Carlos"
 meta_description: "Si no declara su propiedad cada cinco años, la municipalidad puede valorarla de oficio y cobrar una multa. Cómo ponerse al día y cómo impugnar un avalúo."
 summary: "La municipalidad puede valorar la propiedad de oficio y cobrar una multa igual al impuesto que se dejó de pagar (Ley 7509, art. 17). Para evitarlo, se declara al menos cada cinco años."
-updated: 2026-11-15
+updated: 2026-11-16
 ---
 
 ## La obligación

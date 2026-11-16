@@ -7,14 +7,14 @@ title: "Exoneración por bien único: requisitos y cuándo pedirla"
 seo_title: "Exoneración de bien único en San Carlos: requisitos"
 meta_description: "Quién puede exonerar su propiedad del impuesto de bienes inmuebles, qué requisitos pide la Municipalidad de San Carlos y por qué conviene pedirla en enero."
 summary: "Aplica a la persona física que tiene una sola propiedad en todo el país. Cubre hasta 45 salarios base del valor, se pide cada año y conviene hacerlo en enero, con la declaración y los tributos municipales al día."
-updated: 2026-11-15
+updated: 2026-11-16
 ---
 
 ## Qué es
 
 La Ley N.° 7509 (art. 4, inciso e) establece que no paga impuesto sobre bienes inmuebles la **única propiedad** de una persona física, inscrita o no en el Registro Nacional, hasta un valor de **45 salarios base**. Si la propiedad vale más, el impuesto se paga solo sobre la diferencia.
 
-El salario base lo fija cada año el Poder Judicial, por eso el tope cambia de un año a otro.
+El monto del salario base se actualiza cada año (Ley N.° 7337), por eso el tope cambia de un año a otro.
 
 ## Quién puede pedirla
 
@@ -33,7 +33,7 @@ Si tiene dos o más propiedades, aunque una sea un lote pequeño, no califica.
 
 ## Cuándo pedirla
 
-La exoneración no es permanente: se solicita **cada año**. Como el impuesto se cobra de enero a diciembre, lo ideal es presentarla **en enero**, para que cubra el periodo completo desde el primer trimestre.
+La exoneración no es permanente: en la Municipalidad de San Carlos se solicita **cada año**. Como el impuesto se cobra de enero a diciembre, lo ideal es presentarla **en enero**, para que cubra el periodo completo desde el primer trimestre.
 
 ## Errores comunes
 

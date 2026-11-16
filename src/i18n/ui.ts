@@ -171,6 +171,8 @@ export const ui = {
     'page.updated': 'Actualizado el',
     'contact.consent': 'Acepto que TramiMuniSC use mis datos solo para atender esta consulta, según la',
     'contact.privacy_link': 'política de privacidad',
+    'contact.consent_notice':
+      'Responsable: TramiMuniSC, San Carlos, Alajuela. Finalidad: atender su consulta. Dar sus datos es voluntario, pero sin ellos no podemos responderle. Puede acceder a ellos, corregirlos o eliminarlos escribiendo al correo de contacto.',
     'footer.legal': 'Legal',
     'footer.disclaimer':
       'TramiMuniSC es un servicio privado de acompañamiento. No es la Municipalidad de San Carlos ni actúa en su nombre.',
@@ -338,6 +340,8 @@ export const ui = {
     'page.updated': 'Updated on',
     'contact.consent': 'I agree that TramiMuniSC may use my data only to handle this request, as described in the',
     'contact.privacy_link': 'privacy policy',
+    'contact.consent_notice':
+      'Controller: TramiMuniSC, San Carlos, Alajuela. Purpose: handling your request. Providing your data is voluntary, but without it we cannot reply. You can access, correct or delete it by writing to our contact email.',
     'footer.legal': 'Legal',
     'footer.disclaimer':
       'TramiMuniSC is a private assistance service. It is not the Municipality of San Carlos and does not act on its behalf.',
