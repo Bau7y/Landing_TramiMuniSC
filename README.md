@@ -13,7 +13,8 @@ Producción: **https://www.tramimunisc.com** (`tramimunisc.com` y `landing-trami
 | Interactividad | TypeScript nativo en `<script>` | Tema, idioma, menú móvil, animaciones y formulario. Sin librerías de UI |
 | Idiomas | i18n de Astro (`es` sin prefijo, `en` en `/en/...`) | Textos de interfaz en `src/i18n/ui.ts`; contenido de servicios por idioma |
 | Animaciones | CSS + `IntersectionObserver` | Aparición al hacer scroll (`data-reveal`), curvas propias; se desactivan con *reducir movimiento* |
-| Contenido | Content Collections (Markdown + Zod) | Un archivo `.md` por servicio |
+| Contenido | Content Collections (Markdown + Zod) | Un archivo `.md` por servicio, guía y página legal |
+| Imágenes para redes | satori + sharp | Una imagen Open Graph por página, generada en el build |
 | Backend | Astro Actions + Zod | Validación tipada del formulario en el servidor |
 | Correo | Resend | Envío transaccional desde `contacto@tramimunisc.com` (gratis hasta 3 000 correos al mes y 100 al día) |
 | Anti-spam | Módulo propio + Cloudflare Turnstile + Upstash (opcional) | Capas independientes en `src/lib/spam/` |
@@ -38,21 +39,29 @@ src/
 │   ├── JsonLd.astro          → imprime datos estructurados
 │   ├── LangSuggest.astro     → ofrece el otro idioma (nunca redirige)
 │   ├── Fonts.astro           → fuentes propias (subconjunto latin) con preload
-│   ├── PageHero.astro
+│   ├── PageHero.astro         → migas, título, subtítulo y fecha de actualización
+│   ├── GuideList.astro       → lista de guías (inicio, índice, servicio relacionado)
+│   ├── Prose.astro           → tipografía del Markdown largo (guías y legales)
 │   ├── ArrowIcon.astro
 │   └── BuildingIcon.astro
-├── content/services/{es,en}/<clave>.md → un archivo por servicio e idioma
-├── content.config.ts         → esquema Zod de la colección
+├── content/
+│   ├── services/{es,en}/<clave>.md → un archivo por servicio e idioma
+│   ├── guides/{es,en}/<clave>.md   → guías que responden una duda y enlazan a su servicio
+│   └── legal/{es,en}/<clave>.md    → política de privacidad y aviso legal
+├── content.config.ts         → esquemas Zod de las colecciones
 ├── data/
-│   ├── site.ts               → nombre, correo, ubicación
-│   ├── services.ts           → servicios por idioma con su URL
+│   ├── site.ts               → nombre, correo, ubicación, teléfono y perfiles (opcionales)
+│   ├── localized.ts          → lee una colección por idioma y arma la URL de cada entrada
+│   ├── services.ts, guides.ts, legal.ts → entradas por idioma con su URL
+│   ├── pages.ts              → registro de todas las páginas indexables (sitemap, OG, llms.txt)
 │   ├── forms.ts              → formularios oficiales descargables
 │   └── home_faq.ts           → preguntas frecuentes legales del inicio (Ley 7509, Ley 4755)
 ├── i18n/ui.ts                → textos de interfaz es/en y rutas por idioma
 ├── lib/
 │   ├── email.ts              → verificación DNS (MX) del correo
 │   ├── attachment.ts         → límites del adjunto (cliente y servidor)
-│   ├── structured_data.ts    → constructores de JSON-LD (negocio, servicio, migas, FAQ)
+│   ├── structured_data.ts    → constructores de JSON-LD (negocio, servicio, artículo, ley, migas, FAQ)
+│   ├── og_image.ts           → imagen Open Graph 1200×630 de una página
 │   ├── theme_init.mjs        → script de tema antes de pintar (también se hashea para la CSP)
 │   └── spam/                 → filtros del contacto, independientes entre sí
 │       ├── content.ts        → veredicto: ok / revisar / ofensivo / spam
@@ -61,11 +70,15 @@ src/
 │       ├── rate_limit.ts     → límite por IP (Upstash o memoria)
 │       └── turnstile.ts      → verificación de Cloudflare Turnstile
 ├── layouts/BaseLayout.astro  → <head>, hreflang, tema sin parpadeo, animaciones
-├── views/                    → Home, Service y Contact (las páginas de cada idioma solo pasan `lang`)
+├── views/                    → Home, Service, Contact, Guide, GuidesIndex y Legal (las páginas solo pasan datos)
 ├── pages/
 │   ├── index.astro, contacto.astro, servicios/[slug].astro
-│   ├── en/index.astro, en/contact.astro, en/services/[slug].astro
+│   ├── guias/, [legal].astro → guías y páginas legales (/privacidad, /aviso-legal)
+│   ├── en/…                  → las mismas páginas en inglés
 │   ├── robots.txt.ts         → robots.txt generado con el dominio de `site`
+│   ├── sitemap.xml.ts        → sitemap con hreflang y lastmod (sitemap-index.xml apunta a él)
+│   ├── llms.txt.ts           → resumen del sitio para asistentes de IA
+│   └── og/[...path].png.ts   → imágenes Open Graph
 │   └── 404.astro
 └── styles/global.css
 public/
@@ -81,7 +94,13 @@ vercel.json                   → encabezados de seguridad y caché
 1. Crear `src/content/services/es/<clave>.md` y `src/content/services/en/<clave>.md` con el mismo nombre de archivo (la clave une ambas traducciones).
 2. Definir `url_slug` (segmento de la URL en ese idioma), `group` (`inmuebles`, `agro`, `permisos` u `orientacion`), `seo_title` (con el lugar, para Google) y, si aplica, `law`, `form` y `faq` (lista de `q`/`a`).
 
+3. Poner `updated` (fecha de la última revisión del contenido): se muestra en la página y va al sitemap.
+
 Sin tocar código, el servicio aparece en el navbar, el menú móvil, el footer, el inicio, el selector del formulario y su página en ambos idiomas. Si falta un campo requerido, el build falla con un error de Zod que indica cuál.
+
+## Cómo agregar una guía
+
+Crear `src/content/guides/es/<clave>.md` y `src/content/guides/en/<clave>.md` con `url_slug`, `service` (clave del servicio relacionado), `title`, `seo_title`, `meta_description` (máx. 160 caracteres), `summary` (la respuesta directa, va primero) y `updated`. El cuerpo usa `##` para cada sección. La guía aparece en el índice, en el inicio, en la página del servicio, en el sitemap y en `llms.txt`, con su imagen para redes.
 
 ## Formularios PDF
 
@@ -142,7 +161,7 @@ yarn test:a11y # axe sobre el build (requiere `npx playwright install chromium-h
 - **Animaciones**: elementos con `data-reveal` aparecen al entrar en pantalla (opacidad, desplazamiento y desenfoque, escalonados con `--i`). Solo se ocultan si hay JavaScript (`html.js`), y con *reducir movimiento* se muestran sin animación.
 - **Accesibilidad**: enlace "Saltar al contenido", `aria-current` en la navegación, foco visible, `prefers-reduced-motion`, jerarquía de encabezados sin saltos y contraste AA en todos los colores de texto. El menú móvil se cierra con Escape y deja el resto de la página `inert` mientras está abierto. El formulario anuncia cuántos campos tienen error. `yarn test:a11y` lo verifica en cada push.
 - **Preguntas frecuentes**: tarjetas que giran (pregunta al frente, respuesta breve atrás) a todo el ancho, justo antes del bloque de contacto del inicio y de cada servicio. Giran con el mouse, con el foco del teclado y con un toque en el celular; con *reducir movimiento* la respuesta aparece sin giro. Las del inicio están en `src/data/home_faq.ts`; las de cada servicio, en su frontmatter (`faq`). Las respuestas citan la norma y deben revisarse si cambia la ley.
-- **SEO**: `canonical`, `hreflang`, Open Graph, `seo_title` por servicio, `sitemap-index.xml`, `robots.txt` y JSON-LD (`ProfessionalService`, `Service`, `BreadcrumbList`, `FAQPage`). Google ya no muestra el desplegable de FAQ (desde mayo de 2026), pero sigue leyendo el marcado; las respuestas visibles son lo que aporta.
+- **SEO**: `canonical`, `hreflang`, Open Graph con imagen propia por página, `seo_title` por servicio, sitemap con `hreflang` y `lastmod`, `robots.txt`, `llms.txt` y JSON-LD (`ProfessionalService`, `Service`, `Article`, `Legislation`, `BreadcrumbList`, `FAQPage`). La 404 lleva `noindex` y no declara `canonical`. Si `site.ts` tiene `phone` o `profiles`, se publican como `telephone` y `sameAs`. Google ya no muestra el desplegable de FAQ (desde mayo de 2026), pero sigue leyendo el marcado; las respuestas visibles son lo que aporta.
 - **Idioma sugerido**: si el navegador prefiere el otro idioma se ofrece un aviso descartable; nunca se redirige, para no confundir a buscadores ni a quien eligió un idioma.
 
 ## Rendimiento y seguridad
@@ -150,14 +169,14 @@ yarn test:a11y # axe sobre el build (requiere `npx playwright install chromium-h
 - **CSS en línea** (`build.inlineStylesheets: 'always'`): cada página trae su CSS dentro del HTML. No hay hojas de estilo externas que bloqueen el pintado ni que, si fallan, dejen la página sin estilos.
 - **Fuentes propias**, solo el subconjunto latin (español e inglés), con `preload` y `font-display: swap`.
 - **Sin reflows forzados**: el navbar detecta el scroll con `IntersectionObserver` sobre un centinela, sin leer `scrollY` ni medidas del DOM.
-- **CSP** (`security.csp` de Astro): cada página lleva una política con hashes de sus scripts y estilos; nada inyectado puede ejecutarse. Por eso no se usan atributos `style` en línea: el escalonado de animaciones usa `data-i`.
-- **Encabezados** (`vercel.json`): HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, sin iframes de terceros (`frame-ancestors 'none'`) y caché de un año para `/_astro/` (archivos con hash).
+- **CSP** (`security.csp` de Astro + `staticHeaders` del adaptador): cada página se sirve con un encabezado `Content-Security-Policy` con hashes de sus scripts y estilos, incluido `frame-ancestors 'none'`; nada inyectado puede ejecutarse. Por eso no se usan atributos `style` en línea: el escalonado de animaciones usa `data-i`.
+- **Encabezados** (`vercel.json`): HSTS, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options` y caché de un año para `/_astro/` (archivos con hash).
 - **Páginas estáticas**: solo el formulario corre en el servidor. SSR no aportaría nada en una landing y agregaría latencia y costo.
 
 ## Dominio, correo y buscadores
 
 - **Dominio**: `tramimunisc.com`, comprado y administrado en Vercel (DNS incluido). `site` en `astro.config.mjs` apunta a `https://www.tramimunisc.com`, así que `canonical`, sitemap, `robots.txt` y JSON-LD usan ese dominio.
 - **Resend**: dominio verificado con registros DKIM (`resend._domainkey`), SPF (`send`), retorno (`rsend`) y DMARC (`_dmarc`) en el DNS de Vercel. Cualquier dirección `@tramimunisc.com` puede enviar a cualquier destinatario; `contacto@` solo envía, no tiene buzón.
-- **Search Console**: propiedad de dominio verificada con un registro TXT en la raíz. El sitemap a enviar es `https://www.tramimunisc.com/sitemap-index.xml`.
+- **Search Console**: propiedad de dominio verificada con un registro TXT en la raíz. El sitemap enviado es `https://www.tramimunisc.com/sitemap-index.xml`, que apunta a `/sitemap.xml`.
 - **Vistas previas**: Vercel les agrega `X-Robots-Tag: noindex`, así que no compiten con producción en Google.
 
