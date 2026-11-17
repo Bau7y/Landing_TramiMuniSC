@@ -40,10 +40,10 @@ const fileDocs = t('home.file_docs');
   <section class="hero" aria-labelledby="hero_title">
     <div class="container hero_grid">
       <div class="hero_text">
-        <span class="eyebrow" data-reveal>{t('home.badge')}</span>
-        <h1 id="hero_title" data-reveal data-i="1">{t('home.title')}</h1>
-        <p data-reveal data-i="2">{t('home.lead')}</p>
-        <div class="hero_actions" data-reveal data-i="3">
+        <span class="eyebrow">{t('home.badge')}</span>
+        <h1 id="hero_title">{t('home.title')}</h1>
+        <p>{t('home.lead')}</p>
+        <div class="hero_actions">
           <ArrowButton href={routes.contact[lang]}>{t('home.cta')}</ArrowButton>
           <a href="#services" class="link_arrow">
             {t('home.see_services')}
@@ -52,7 +52,7 @@ const fileDocs = t('home.file_docs');
         </div>
       </div>
 
-      <div class="hero_visual" data-reveal data-i="2">
+      <div class="hero_visual" data-reveal data-i="1">
         <div class="bezel hero_bezel">
           <div class="bezel_core hero_core"><Mascot /></div>
         </div>
