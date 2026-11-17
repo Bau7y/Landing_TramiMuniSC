@@ -1,0 +1,45 @@
+---
+/** "Who we are": why the service exists, in plain words. */
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const paragraphs = t('home.about_text');
+---
+<section class="section" aria-labelledby="about_title">
+  <div class="container about">
+    <h2 id="about_title" data-reveal>{t('home.about_title')}</h2>
+    <div class="about_text">
+      {paragraphs.map((text, i) => <p data-reveal data-i={i + 1}>{text}</p>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .about_text {
+    display: grid;
+    gap: 1rem;
+    max-width: 64ch;
+  }
+
+  .about_text p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  @media (min-width: 900px) {
+    .about {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+</style>

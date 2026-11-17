@@ -4,6 +4,8 @@ import Mascot from '../components/Mascot.astro';
 import ArrowButton from '../components/ArrowButton.astro';
 import ArrowIcon from '../components/ArrowIcon.astro';
 import Faq from '../components/Faq.astro';
+import AboutUs from '../components/AboutUs.astro';
+import PortalComparison from '../components/PortalComparison.astro';
 import GuideList from '../components/GuideList.astro';
 import { getGuides } from '../data/guides';
 import JsonLd from '../components/JsonLd.astro';
@@ -183,7 +185,10 @@ const fileDocs = t('home.file_docs');
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- Trust: why pay if the portal is free, and who is behind the service -->
+  <PortalComparison lang={lang} />
+  <AboutUs lang={lang} />
+
   <!-- Guides: in-depth answers that link to each service -->
   {guides.length > 0 && (
     <section class="section" aria-labelledby="guides_title">

@@ -1,0 +1,164 @@
+---
+/**
+ * Answers "why pay if the municipal portal is free?": the portal and the
+ * service side by side, with a link to the official portal.
+ */
+import { site } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const rows = t('home.compare_rows');
+const portalLabel = new URL(site.municipalPortal).host;
+---
+<section class="section" aria-labelledby="compare_title">
+  <div class="container compare">
+    <header class="compare_head" data-reveal>
+      <h2 id="compare_title">{t('home.compare_title')}</h2>
+      <p>{t('home.compare_lead')}</p>
+    </header>
+
+    <div class="compare_wrap" data-reveal data-i="1">
+      <table class="compare_table">
+        <caption class="sr_only">{t('home.compare_title')}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{t('home.compare_aspect')}</th>
+            <th scope="col">{t('home.compare_self')}</th>
+            <th scope="col" class="compare_us_head">{t('home.compare_us')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr>
+              <th scope="row">{row.aspect}</th>
+              <td data-label={t('home.compare_self')}>{row.self}</td>
+              <td data-label={t('home.compare_us')} class="compare_us">{row.us}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="compare_note" data-reveal data-i="2">
+      {t('home.compare_note')}{' '}
+      <a href={site.municipalPortal} rel="noopener" target="_blank">{portalLabel}</a>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .compare {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .compare_head {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .compare_wrap {
+    border: 1px solid var(--color_border);
+    border-radius: var(--radius_lg);
+    background: var(--color_surface);
+    overflow: hidden;
+  }
+
+  .compare_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .compare_table th,
+  .compare_table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  .compare_table thead th {
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color_muted);
+    background: var(--color_tint);
+  }
+
+  .compare_table tbody tr + tr {
+    border-top: 1px solid var(--color_border);
+  }
+
+  .compare_table tbody th {
+    font-weight: 600;
+    width: 22%;
+  }
+
+  .compare_table td {
+    color: var(--color_muted);
+  }
+
+  .compare_table .compare_us {
+    color: var(--color_text);
+    background: color-mix(in srgb, var(--color_tint) 45%, transparent);
+  }
+
+  .compare_table .compare_us_head {
+    color: var(--color_accent);
+  }
+
+  .compare_note {
+    font-size: 0.9rem;
+    color: var(--color_muted);
+  }
+
+  .compare_note a {
+    color: var(--color_accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Narrow screens: each row becomes a card with labelled cells */
+  @media (max-width: 719px) {
+    .compare_table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+
+    .compare_table,
+    .compare_table tbody,
+    .compare_table tr,
+    .compare_table th,
+    .compare_table td {
+      display: block;
+      width: auto;
+    }
+
+    .compare_table tbody th {
+      width: auto;
+      padding-bottom: 0.25rem;
+    }
+
+    .compare_table td {
+      padding-top: 0.5rem;
+    }
+
+    .compare_table td::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color_subtle);
+    }
+  }
+</style>
