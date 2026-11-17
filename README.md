@@ -20,6 +20,7 @@ Producción: **https://www.tramimunisc.com** (`tramimunisc.com` y `landing-trami
 | Anti-spam | Módulo propio + Cloudflare Turnstile + Upstash (opcional) | Capas independientes en `src/lib/spam/` |
 | Pruebas | Vitest + Playwright + axe | Unitarias del anti-spam y el correo, humo del formulario y SEO, y accesibilidad WCAG 2.2 AA en cada push (GitHub Actions) |
 | Deploy | Vercel (`@astrojs/vercel`) | Páginas estáticas en CDN y la acción como función serverless. Dominio y DNS también en Vercel |
+| Métricas | Vercel Web Analytics + Speed Insights | Visitas sin cookies y Core Web Vitals de usuarios reales; solo registran en producción y se activan en el panel de Vercel |
 | Fuentes | `@fontsource-variable` (Geist, Geist Mono y Playfair Display para la mascota) | Se sirven desde el propio sitio: no dependen de Google Fonts ni bloquean el render |
 
 ## Estructura
