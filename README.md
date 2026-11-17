@@ -40,6 +40,8 @@ src/
 │   ├── LangSuggest.astro     → ofrece el otro idioma (nunca redirige)
 │   ├── Fonts.astro           → fuentes propias (subconjunto latin) con preload
 │   ├── PageHero.astro         → migas, título, subtítulo y fecha de actualización
+│   ├── PortalComparison.astro → "¿Por qué no hacerlo usted en el portal?": portal municipal vs. servicio
+│   ├── AboutUs.astro         → quiénes somos
 │   ├── GuideList.astro       → lista de guías (inicio, índice, servicio relacionado)
 │   ├── Prose.astro           → tipografía del Markdown largo (guías y legales)
 │   ├── ArrowIcon.astro
@@ -50,7 +52,7 @@ src/
 │   └── legal/{es,en}/<clave>.md    → política de privacidad y aviso legal
 ├── content.config.ts         → esquemas Zod de las colecciones
 ├── data/
-│   ├── site.ts               → nombre, correo, ubicación, teléfono y perfiles (opcionales)
+│   ├── site.ts               → nombre, correo, ubicación, portal municipal, teléfono y perfiles (opcionales)
 │   ├── localized.ts          → lee una colección por idioma y arma la URL de cada entrada
 │   ├── services.ts, guides.ts, legal.ts → entradas por idioma con su URL
 │   ├── pages.ts              → registro de todas las páginas indexables (sitemap, OG, llms.txt)

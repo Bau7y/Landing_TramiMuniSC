@@ -4,6 +4,8 @@ import Mascot from '../components/Mascot.astro';
 import ArrowButton from '../components/ArrowButton.astro';
 import ArrowIcon from '../components/ArrowIcon.astro';
 import Faq from '../components/Faq.astro';
+import AboutUs from '../components/AboutUs.astro';
+import PortalComparison from '../components/PortalComparison.astro';
 import GuideList from '../components/GuideList.astro';
 import { getGuides } from '../data/guides';
 import JsonLd from '../components/JsonLd.astro';
@@ -98,7 +100,7 @@ const fileDocs = t('home.file_docs');
 
             {g === 0 && agro && (
               <a href={agro.href} class="feature_card feature_accent" data-reveal data-i="1">
-                <span class="feature_big">{agro.data.law}</span>
+                <span class="feature_big feature_big_words">{agro.data.title}</span>
                 <span class="feature_text">
                   <span class="feature_title">{agro.data.card.title}</span>
                   <span class="feature_summary">{agro.data.card.summary}</span>
@@ -183,7 +185,10 @@ const fileDocs = t('home.file_docs');
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- Trust: why pay if the portal is free, and who is behind the service -->
+  <PortalComparison lang={lang} />
+  <AboutUs lang={lang} />
+
   <!-- Guides: in-depth answers that link to each service -->
   {guides.length > 0 && (
     <section class="section" aria-labelledby="guides_title">
@@ -427,6 +432,15 @@ const fileDocs = t('home.file_docs');
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1;
+  }
+
+  /* A title in words instead of a short figure: smaller, and clear of the arrow */
+  .feature_big_words {
+    max-width: 14ch;
+    padding-right: 3.5rem;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1.05;
+    text-wrap: balance;
   }
 
   .feature_tint .feature_big {
