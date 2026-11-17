@@ -20,9 +20,11 @@ interface Props {
   alternates: Record<Lang, string>;
   /** Pages that must stay out of search results (404). No canonical or hreflang either. */
   noindex?: boolean;
+  /** The page shows the mascot above the fold: preload its font. */
+  mascot?: boolean;
 }
 
-const { lang, title, description, alternates, noindex = false } = Astro.props;
+const { lang, title, description, alternates, noindex = false, mascot = false } = Astro.props;
 const t = useTranslations(lang);
 const metaDescription = description ?? t('site.description');
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
@@ -37,7 +39,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <Fonts />
+    <Fonts mascot={mascot} />
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     {noindex ? (

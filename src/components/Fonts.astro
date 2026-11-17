@@ -1,15 +1,25 @@
 ---
 /**
  * Self-hosted fonts, latin subset only (covers Spanish and English).
- * The two text fonts are preloaded. @font-face lives in a processed <style>,
+ * The two text fonts are always preloaded; the mascot font only on pages that
+ * show the mascot above the fold. @font-face lives in a processed <style>,
  * so it is inlined with the rest of the CSS and hashed for the CSP.
  * font-display: swap shows the fallback font while they load.
  */
 import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 import geistMono from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url';
+import playfair from '@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2?url';
+
+interface Props {
+  /** Preload the mascot font, so it does not chain after the HTML (home, 404). */
+  mascot?: boolean;
+}
+
+const { mascot = false } = Astro.props;
 ---
 <link rel="preload" href={geist} as="font" type="font/woff2" crossorigin />
 <link rel="preload" href={geistMono} as="font" type="font/woff2" crossorigin />
+{mascot && <link rel="preload" href={playfair} as="font" type="font/woff2" crossorigin />}
 
 <style is:global>
   @font-face {

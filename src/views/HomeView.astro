@@ -33,7 +33,7 @@ const steps = t('home.steps');
 const benefits = t('home.benefits');
 const fileDocs = t('home.file_docs');
 ---
-<BaseLayout lang={lang} title={t('meta.home_title')} description={t('meta.home_description')} alternates={{ es: routes.home.es, en: routes.home.en }}>
+<BaseLayout mascot lang={lang} title={t('meta.home_title')} description={t('meta.home_description')} alternates={{ es: routes.home.es, en: routes.home.en }}>
   <JsonLd data={businessSchema(Astro.site!, lang, t('meta.home_description'), routes.home[lang])} />
 
   <!-- Hero: asymmetric split, mascot in a double bezel with the legal card -->
