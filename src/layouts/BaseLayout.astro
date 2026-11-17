@@ -84,7 +84,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
     <SpeedInsights />
 
     <script>
-      // Scroll reveal: fade/slide/blur in once, when 15% of the element is visible.
+      // Scroll reveal: fade/slide in once (opacity + transform, compositor only), when 15% of the element is visible.
       const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
       const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 

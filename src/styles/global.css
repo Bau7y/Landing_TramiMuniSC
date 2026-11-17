@@ -361,18 +361,15 @@ strong {
 .js [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
-  filter: blur(6px);
   transition:
     opacity var(--duration_slow) var(--ease_out),
-    transform var(--duration_slow) var(--ease_out),
-    filter var(--duration_slow) var(--ease_out);
+    transform var(--duration_slow) var(--ease_out);
   transition-delay: calc(var(--i, 0) * 80ms);
 }
 
 .js [data-reveal].is_visible {
   opacity: 1;
   transform: none;
-  filter: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -381,7 +378,6 @@ strong {
   .js [data-reveal] {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 
   *, *::before, *::after {

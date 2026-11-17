@@ -1,5 +1,5 @@
 ---
-/** The production mascot: morphing green blob with the building and the TramiMuni wordmark. */
+/** The production mascot: green blob that turns and breathes with the building and the TramiMuni wordmark. */
 import BuildingIcon from './BuildingIcon.astro';
 ---
 <div class="mascot" aria-hidden="true">
@@ -23,7 +23,11 @@ import BuildingIcon from './BuildingIcon.astro';
     overflow: hidden;
   }
 
+  /* The blob shape lives on ::before so it can turn and breathe with transform
+     only (compositor). Animating border-radius repainted it on every frame. */
   .mascot_blob {
+    position: relative;
+    isolation: isolate;
     width: clamp(200px, 60%, 330px);
     aspect-ratio: 1;
     display: grid;
@@ -31,12 +35,20 @@ import BuildingIcon from './BuildingIcon.astro';
     justify-items: center;
     gap: 0.75rem;
     color: #fff;
+    animation: blob_float 6s ease-in-out infinite;
+  }
+
+  .mascot_blob::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     background: linear-gradient(140deg, var(--color_brand_light), var(--color_brand) 55%, var(--color_brand_dark));
     border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
     box-shadow:
       0 0 80px -10px color-mix(in srgb, var(--color_brand_light) 70%, transparent),
       inset 0 2px 0 rgb(255 255 255 / 0.25);
-    animation: blob_morph 10s ease-in-out infinite, blob_float 6s ease-in-out infinite;
+    animation: blob_turn 12s ease-in-out infinite;
   }
 
   .mascot_blob :global(.mascot_icon) {
@@ -53,11 +65,10 @@ import BuildingIcon from './BuildingIcon.astro';
     text-shadow: 0 2px 12px rgb(0 0 0 / 0.2);
   }
 
-  @keyframes blob_morph {
-    0%, 100% { border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; }
-    25%      { border-radius: 50% 50% 40% 60% / 60% 40% 55% 45%; }
-    50%      { border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%; }
-    75%      { border-radius: 55% 45% 45% 55% / 40% 60% 45% 55%; }
+  @keyframes blob_turn {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    33%      { transform: rotate(12deg) scale(1.03, 0.97); }
+    66%      { transform: rotate(-8deg) scale(0.97, 1.03); }
   }
 
   @keyframes blob_float {
